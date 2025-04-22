@@ -1,0 +1,616 @@
+--- Calib3d_EstimateAffine3D.accuracy
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_EstimateAffine3D.accuracy
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_EstimateAffine3D
+[ RUN      ] Calib3d_EstimateAffine3D.accuracy
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/ts/src/ts.cpp:618: Failure
+Failed
+
+	failure reason: Unexpected output
+	test case #-1
+	seed: 0000000000000000
+-----------------------------------
+
+[  FAILED  ] Calib3d_EstimateAffine3D.accuracy (1 ms)
+[----------] 1 test from Calib3d_EstimateAffine3D (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_EstimateAffine3D.accuracy
+
+ 1 FAILED TEST
+--- CV_RecoverPoseTest.regression_15341
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = CV_RecoverPoseTest.regression_15341
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from CV_RecoverPoseTest
+[ RUN      ] CV_RecoverPoseTest.regression_15341
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/five-point.cpp:564: error: (-215:Assertion failed) _E.cols == 3 && _E.rows == 3 in function 'recoverPose'
+" thrown in the test body.
+[  FAILED  ] CV_RecoverPoseTest.regression_15341 (2 ms)
+[----------] 1 test from CV_RecoverPoseTest (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (2 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] CV_RecoverPoseTest.regression_15341
+
+ 1 FAILED TEST
+--- Calib3d_Homography.EKcase
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_Homography.EKcase
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_Homography
+[ RUN      ] Calib3d_Homography.EKcase
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_homography.cpp:594: Failure
+Value of: !h.empty()
+  Actual: false
+Expected: true
+[  FAILED  ] Calib3d_Homography.EKcase (2 ms)
+[----------] 1 test from Calib3d_Homography (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (2 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_Homography.EKcase
+
+ 1 FAILED TEST
+--- Calib3d_Homography.fromImages
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_Homography.fromImages
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_Homography
+[ RUN      ] Calib3d_Homography.fromImages
+nfeatures1 = 442, nfeatures2=449, matches=442, ninliers(RANSAC)=0, time(RANSAC)=0.13msec, ninliers(RHO)=291, time(RHO)=0.14msec
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_homography.cpp:678: Failure
+Value of: !H0.empty()
+  Actual: false
+Expected: true
+[  FAILED  ] Calib3d_Homography.fromImages (12 ms)
+[----------] 1 test from Calib3d_Homography (12 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (12 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_Homography.fromImages
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.accuracy
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.accuracy
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.accuracy
+mode: no distortion, method: SOLVEPNP_ITERATIVE -> 0% (maxErrT: 9.27406, maxErrR: 9.3345, meanErrT: 2.63471, meanErrR: 8.03662, medErrT: 1.37376, medErrR: 8.77053)
+approximate translation threshold for 0.7: 1.19243, approximate rotation threshold for 0.7: 9.3345
+mode: no distortion, method: SOLVEPNP_EPNP -> 0% (maxErrT: 8.48191, maxErrR: 9.3345, meanErrT: 1.86363, meanErrR: 7.21174, medErrT: 1.17191, medErrR: 8.73706)
+approximate translation threshold for 0.7: 1.18141, approximate rotation threshold for 0.7: 8.84626
+mode: no distortion, method: SOLVEPNP_P3P -> 0% (maxErrT: 9.11309, maxErrR: 6.67012e+12, meanErrT: 2.00189, meanErrR: 6.67012e+11, medErrT: 1.18692, medErrR: 1.46011)
+approximate translation threshold for 0.7: 1.19243, approximate rotation threshold for 0.7: 9.3345
+mode: no distortion, method: SOLVEPNP_DLS (remaped to SOLVEPNP_EPNP) -> 0% (maxErrT: 4.56281, maxErrR: 4.61635, meanErrT: 1.40737, meanErrR: 1.687, medErrT: 1.14208, medErrR: 0.999524)
+approximate translation threshold for 0.7: 1.10276, approximate rotation threshold for 0.7: 4.4545
+mode: no distortion, method: SOLVEPNP_UPNP (remaped to SOLVEPNP_EPNP) -> 0% (maxErrT: 9.83165, maxErrR: 9.21467, meanErrT: 3.66296, meanErrR: 1.86336, medErrT: 1.24439, medErrR: 0.999524)
+approximate translation threshold for 0.7: 9.20255, approximate rotation threshold for 0.7: 0.800297
+mode: no distortion, method: SOLVEPNP_AP3P -> 0% (maxErrT: 3.22831, maxErrR: 1.11979e+13, meanErrT: 1.71203, meanErrR: 2.23959e+12, medErrT: 1.23888, medErrR: 1.14955)
+approximate translation threshold for 0.7: 3.22831, approximate rotation threshold for 0.7: 1.00898
+mode: no distortion, method: SOLVEPNP_IPPE -> 100% (maxErrT: 3.22831, maxErrR: 1.00898, meanErrT: 3.22831, meanErrR: 1.00898, medErrT: 3.22831, medErrR: 1.00898)
+approximate translation threshold for 0.7: 3.22831, approximate rotation threshold for 0.7: 1.00898
+mode: no distortion, method: SOLVEPNP_IPPE_SQUARE -> 100% (maxErrT: 3.22831, maxErrR: 1.00898, meanErrT: 3.22831, meanErrR: 1.00898, medErrT: 3.22831, medErrR: 1.00898)
+approximate translation threshold for 0.7: 3.22831, approximate rotation threshold for 0.7: 1.00898
+mode: no distortion, method: SOLVEPNP_SQPNP -> 0% (maxErrT: 1.11979e+13, maxErrR: 1.11979e+13, meanErrT: 2.23959e+12, meanErrR: 2.23959e+12, medErrT: 1.16647, medErrR: 3.76475)
+approximate translation threshold for 0.7: 1.11979e+13, approximate rotation threshold for 0.7: 0.186143
+
+mode: distorsion, method: SOLVEPNP_ITERATIVE -> 0% (maxErrT: 8.73816, maxErrR: 6.21193, meanErrT: 3.34989, meanErrR: 2.04398, medErrT: 1.11767, medErrR: 1.08418)
+approximate translation threshold for 0.7: 6.2438, approximate rotation threshold for 0.7: 1.55588
+mode: distorsion, method: SOLVEPNP_EPNP -> 0% (maxErrT: 9.47876, maxErrR: 9.30533, meanErrT: 3.49521, meanErrR: 3.38377, medErrT: 1.09534, medErrR: 1.05462)
+approximate translation threshold for 0.7: 9.22752, approximate rotation threshold for 0.7: 1.24426
+mode: distorsion, method: SOLVEPNP_P3P -> 0% (maxErrT: 6.28552, maxErrR: 6.08248, meanErrT: 2.20884, meanErrR: 1.51268, medErrT: 1.52873, medErrR: 1.03336)
+approximate translation threshold for 0.7: 2.91555, approximate rotation threshold for 0.7: 1.1404
+mode: distorsion, method: SOLVEPNP_DLS (remaped to SOLVEPNP_EPNP) -> 0% (maxErrT: 8.89561, maxErrR: 8.79957, meanErrT: 1.98452, meanErrR: 2.56667, medErrT: 1.08046, medErrR: 1.09493)
+approximate translation threshold for 0.7: 0.558107, approximate rotation threshold for 0.7: 8.79957
+mode: distorsion, method: SOLVEPNP_UPNP (remaped to SOLVEPNP_EPNP) -> 0% (maxErrT: 9.22752, maxErrR: 9.21407, meanErrT: 2.55034, meanErrR: 1.81305, medErrT: 1.02509, medErrR: 1.01079)
+approximate translation threshold for 0.7: 8.7958, approximate rotation threshold for 0.7: 1.18482
+mode: distorsion, method: SOLVEPNP_AP3P -> 0% (maxErrT: 7.68765, maxErrR: 3.67378, meanErrT: 1.94703, meanErrR: 1.22455, medErrT: 1.04742, medErrR: 0.916225)
+approximate translation threshold for 0.7: 1.00816, approximate rotation threshold for 0.7: 3.67378
+mode: distorsion, method: SOLVEPNP_IPPE -> 100% (maxErrT: 1.00816, maxErrR: 3.67378, meanErrT: 1.00816, meanErrR: 3.67378, medErrT: 1.00816, medErrR: 3.67378)
+approximate translation threshold for 0.7: 1.00816, approximate rotation threshold for 0.7: 3.67378
+mode: distorsion, method: SOLVEPNP_IPPE_SQUARE -> 100% (maxErrT: 1.00816, maxErrR: 3.67378, meanErrT: 1.00816, meanErrR: 3.67378, medErrT: 1.00816, medErrR: 3.67378)
+approximate translation threshold for 0.7: 1.00816, approximate rotation threshold for 0.7: 3.67378
+mode: distorsion, method: SOLVEPNP_SQPNP -> 0% (maxErrT: 5.63194e+12, maxErrR: 7.65094, meanErrT: 5.63194e+11, meanErrR: 2.18044, medErrT: 1.20099, medErrR: 0.918819)
+approximate translation threshold for 0.7: 7.5931, approximate rotation threshold for 0.7: 0.867159
+
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/ts/src/ts.cpp:618: Failure
+Failed
+
+	failure reason: Bad accuracy
+	test case #-1
+	seed: 0000000000000000
+-----------------------------------
+	LOG:
+Invalid accuracy for SOLVEPNP_ITERATIVE, failed 10 tests from 10, no distortion, maxErrT: 9.274055, maxErrR: 9.334504, meanErrT: 2.634707, meanErrR: 8.036620, medErrT: 1.373760, medErrR: 8.770535
+Invalid accuracy for SOLVEPNP_EPNP, failed 10 tests from 10, no distortion, maxErrT: 8.481908, maxErrR: 9.334504, meanErrT: 1.863626, meanErrR: 7.211742, medErrT: 1.171912, medErrR: 8.737060
+Invalid accuracy for SOLVEPNP_P3P, failed 10 tests from 10, no distortion, maxErrT: 9.113092, maxErrR: 6670121959423.494141, meanErrT: 2.001891, meanErrR: 667012195945.712402, medErrT: 1.186921, medErrR: 1.460111
+Invalid accuracy for SOLVEPNP_DLS (remaped to SOLVEPNP_EPNP), failed 10 tests from 10, no distortion, maxErrT: 4.562808, maxErrR: 4.616351, meanErrT: 1.407372, meanErrR: 1.686999, medErrT: 1.142084, medErrR: 0.999524
+Invalid accuracy for SOLVEPNP_UPNP (remaped to SOLVEPNP_EPNP), failed 10 tests from 10, no distortion, maxErrT: 9.831652, maxErrR: 9.214666, meanErrT: 3.662961, meanErrR: 1.863357, medErrT: 1.244392, medErrR: 0.999524
+Invalid accuracy for SOLVEPNP_AP3P, failed 10 tests from 10, no distortion, maxErrT: 3.228307, maxErrR: 11197944430591.863281, meanErrT: 1.712033, meanErrR: 2239588886119.208008, medErrT: 1.238878, medErrR: 1.149545
+Invalid accuracy for SOLVEPNP_SQPNP, failed 10 tests from 10, no distortion, maxErrT: 11197944430591.789062, maxErrR: 11197944430591.792969, meanErrT: 2239588886119.696289, meanErrR: 2239588886120.528320, medErrT: 1.166470, medErrR: 3.764751
+Invalid accuracy for SOLVEPNP_ITERATIVE, failed 10 tests from 10, distorsion, maxErrT: 8.738160, maxErrR: 6.211929, meanErrT: 3.349892, meanErrR: 2.043982, medErrT: 1.117666, medErrR: 1.084179
+Invalid accuracy for SOLVEPNP_EPNP, failed 10 tests from 10, distorsion, maxErrT: 9.478764, maxErrR: 9.305326, meanErrT: 3.495215, meanErrR: 3.383775, medErrT: 1.095338, medErrR: 1.054618
+Invalid accuracy for SOLVEPNP_P3P, failed 10 tests from 10, distorsion, maxErrT: 6.285517, maxErrR: 6.082475, meanErrT: 2.208838, meanErrR: 1.512683, medErrT: 1.528733, medErrR: 1.033365
+Invalid accuracy for SOLVEPNP_DLS (remaped to SOLVEPNP_EPNP), failed 10 tests from 10, distorsion, maxErrT: 8.895606, maxErrR: 8.799575, meanErrT: 1.984520, meanErrR: 2.566667, medErrT: 1.080457, medErrR: 1.094933
+Invalid accuracy for SOLVEPNP_UPNP (remaped to SOLVEPNP_EPNP), failed 10 tests from 10, distorsion, maxErrT: 9.227516, maxErrR: 9.214072, meanErrT: 2.550343, meanErrR: 1.813054, medErrT: 1.025089, medErrR: 1.010795
+Invalid accuracy for SOLVEPNP_AP3P, failed 10 tests from 10, distorsion, maxErrT: 7.687650, maxErrR: 3.673783, meanErrT: 1.947031, meanErrR: 1.224546, medErrT: 1.047417, medErrR: 0.916225
+Invalid accuracy for SOLVEPNP_SQPNP, failed 10 tests from 10, distorsion, maxErrT: 5631939444735.833984, maxErrR: 7.650936, meanErrT: 563193944476.091431, meanErrR: 2.180441, medErrT: 1.200991, medErrR: 0.918819
+
+-----------------------------------
+
+[  FAILED  ] Calib3d_SolvePnPRansac.accuracy (54 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (54 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (54 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.accuracy
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.input_type
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.input_type
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.input_type
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:790: Failure
+Value of: solvePnPRansac(points3d, points2d, intrinsics, cv::Mat(), R1, t1)
+  Actual: false
+Expected: true
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:794: Failure
+Value of: solvePnPRansac(points3dMat, points2dMat, intrinsics, cv::Mat(), R2, t2)
+  Actual: false
+Expected: true
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:798: Failure
+Value of: solvePnPRansac(points3dMat, points2dMat, intrinsics, cv::Mat(), R3, t3)
+  Actual: false
+Expected: true
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:802: Failure
+Value of: solvePnPRansac(points3dMat, points2dMat, intrinsics, cv::Mat(), R4, t4)
+  Actual: false
+Expected: true
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:804: Failure
+Expected: (cvtest::norm(R1, R2, NORM_INF)) <= (1e-6), actual: 3.99726e+252 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:805: Failure
+Expected: (cvtest::norm(t1, t2, NORM_INF)) <= (1e-6), actual: 1.44131e+214 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:806: Failure
+Expected: (cvtest::norm(R1, R3, NORM_INF)) <= (1e-6), actual: 3.99726e+252 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:807: Failure
+Expected: (cvtest::norm(t1, t3, NORM_INF)) <= (1e-6), actual: 1.44131e+214 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:808: Failure
+Expected: (cvtest::norm(R1, R4, NORM_INF)) <= (1e-6), actual: 3.99726e+252 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:809: Failure
+Expected: (cvtest::norm(t1, t4, NORM_INF)) <= (1e-6), actual: 1.44131e+214 vs 1e-06
+[  FAILED  ] Calib3d_SolvePnPRansac.input_type (0 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.input_type
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.bad_input_points_19253
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.bad_input_points_19253
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.bad_input_points_19253
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:874: Failure
+Expected equality of these values:
+  inliers.size()
+    Which is: 0
+  size_t(5)
+    Which is: 5
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:875: Failure
+Value of: result
+  Actual: false
+Expected: true
+[  FAILED  ] Calib3d_SolvePnPRansac.bad_input_points_19253 (0 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.bad_input_points_19253
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.inputShape
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.inputShape
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.inputShape
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1991: Failure
+Expected: (cvtest::norm(true_rvec, rvec, NORM_INF)) <= (1e-6), actual: 0.907242 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1992: Failure
+Expected: (cvtest::norm(true_tvec, Tvec, NORM_INF)) <= (1e-6), actual: 13.798 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:2016: Failure
+Expected: (cvtest::norm(true_rvec, rvec, NORM_INF)) <= (1e-6), actual: 5.82145e+180 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:2017: Failure
+Expected: (cvtest::norm(true_tvec, Tvec, NORM_INF)) <= (1e-6), actual: 9.29589e+242 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:2041: Failure
+Expected: (cvtest::norm(true_rvec, rvec, NORM_INF)) <= (1e-6), actual: 0.907242 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:2042: Failure
+Expected: (cvtest::norm(true_tvec, Tvec, NORM_INF)) <= (1e-6), actual: 1.36807e+69 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:2060: Failure
+Expected: (cvtest::norm(true_rvec, rvec, NORM_INF)) <= (1e-6), actual: 0.907242 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:2061: Failure
+Expected: (cvtest::norm(true_tvec, Tvec, NORM_INF)) <= (1e-6), actual: 13.798 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:2079: Failure
+Expected: (cvtest::norm(true_rvec, rvec, NORM_INF)) <= (1e-6), actual: 4.80817e+06 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:2080: Failure
+Expected: (cvtest::norm(true_tvec, Tvec, NORM_INF)) <= (1e-6), actual: 13.798 vs 1e-06
+[  FAILED  ] Calib3d_SolvePnPRansac.inputShape (0 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.inputShape
+
+ 1 FAILED TEST
+--- Calib3d_EstimateTranslation3D.testNPoints
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_EstimateTranslation3D.testNPoints
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_EstimateTranslation3D
+[ RUN      ] Calib3d_EstimateTranslation3D.testNPoints
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_translation3d_estimator.cpp:87: Failure
+Expected: (res) > (0), actual: 0 vs 0
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_translation3d_estimator.cpp:90: Failure
+Expected: (cvtest::norm(trans_est, trans, NORM_INF)) <= (thres), actual: 0.885469 vs 0.0001
+aff est: [0, 0, 0]
+aff ref: [0.5635441765190873, 0.2623802499255348, -0.885468910389013]
+[  FAILED  ] Calib3d_EstimateTranslation3D.testNPoints (0 ms)
+[----------] 1 test from Calib3d_EstimateTranslation3D (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_EstimateTranslation3D.testNPoints
+
+ 1 FAILED TEST
+--- Calib3d/EstimateAffinePartial2D.testNPoints/0
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/EstimateAffinePartial2D.testNPoints/0
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/EstimateAffinePartial2D
+[ RUN      ] Calib3d/EstimateAffinePartial2D.testNPoints/0, where GetParam() = RANSAC
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine_partial2d_estimator.cpp:124: Failure
+Value of: aff_est.empty()
+  Actual: true
+Expected: false
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/ts/src/ts_func.cpp:1390: error: (-2:Unspecified error) in function 'double cvtest::norm(cv::InputArray, cv::InputArray, int, cv::InputArray)'
+>  (expected: 'src1.type() == src2.type()'), where
+>     'src1.type()' is 0 (CV_8UC1)
+> must be equal to
+>     'src2.type()' is 6 (CV_64FC1)
+" thrown in the test body.
+[  FAILED  ] Calib3d/EstimateAffinePartial2D.testNPoints/0, where GetParam() = RANSAC (1 ms)
+[----------] 1 test from Calib3d/EstimateAffinePartial2D (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/EstimateAffinePartial2D.testNPoints/0, where GetParam() = RANSAC
+
+ 1 FAILED TEST
+--- Calib3d/EstimateAffinePartial2D.testConversion/0
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/EstimateAffinePartial2D.testConversion/0
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/EstimateAffinePartial2D
+[ RUN      ] Calib3d/EstimateAffinePartial2D.testConversion/0, where GetParam() = RANSAC
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine_partial2d_estimator.cpp:153: Failure
+Value of: aff_est.empty()
+  Actual: true
+Expected: false
+[  FAILED  ] Calib3d/EstimateAffinePartial2D.testConversion/0, where GetParam() = RANSAC (0 ms)
+[----------] 1 test from Calib3d/EstimateAffinePartial2D (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/EstimateAffinePartial2D.testConversion/0, where GetParam() = RANSAC
+
+ 1 FAILED TEST
+--- Calib3d_EstimateAffine3D.regression_16007
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_EstimateAffine3D.regression_16007
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_EstimateAffine3D
+[ RUN      ] Calib3d_EstimateAffine3D.regression_16007
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine3d_estimator.cpp:201: Failure
+Expected equality of these values:
+  1
+  res
+    Which is: 0
+[  FAILED  ] Calib3d_EstimateAffine3D.regression_16007 (0 ms)
+[----------] 1 test from Calib3d_EstimateAffine3D (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_EstimateAffine3D.regression_16007
+
+ 1 FAILED TEST
+--- Calib3d_FindFundamentalMat.accuracy
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_FindFundamentalMat.accuracy
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_FindFundamentalMat
+[ RUN      ] Calib3d_FindFundamentalMat.accuracy
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/ts/src/ts.cpp:618: Failure
+Failed
+
+	failure reason: cvError invoked
+	test case #3
+	seed: 00000000000c5a5f
+-----------------------------------
+	LOG:
+OpenCV Error:
+	Assertion failed (!mat.empty()) in determinant, file /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/core/src/lapack.cpp, line 725
+OpenCV Error:
+	Assertion failed (!mat.empty()) in determinant, file /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/core/src/lapack.cpp, line 725
+
+-----------------------------------
+
+[  FAILED  ] Calib3d_FindFundamentalMat.accuracy (3 ms)
+[----------] 1 test from Calib3d_FindFundamentalMat (3 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (3 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_FindFundamentalMat.accuracy
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.concurrency
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.concurrency
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.concurrency
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:770: Failure
+Expected: (tnorm) < (1e-6), actual: 8.88782e+252 vs 1e-06
+[  FAILED  ] Calib3d_SolvePnPRansac.concurrency (1 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.concurrency
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.double_support
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.double_support
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.double_support
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:837: Failure
+Expected: (cvtest::norm(R, Mat_<double>(RF), NORM_INF)) <= (1e-3), actual: 262144 vs 0.001
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:838: Failure
+Expected: (cvtest::norm(t, Mat_<double>(tF), NORM_INF)) <= (1e-3), actual: 8.8196e+199 vs 0.001
+[  FAILED  ] Calib3d_SolvePnPRansac.double_support (1 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.double_support
+
+ 1 FAILED TEST
+--- Calib3d/EstimateAffine2D.testNPoints/0
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/EstimateAffine2D.testNPoints/0
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/EstimateAffine2D
+[ RUN      ] Calib3d/EstimateAffine2D.testNPoints/0, where GetParam() = RANSAC
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:114: Failure
+Value of: aff_est.empty()
+  Actual: true
+Expected: false
+estimation failed, unable to estimate transform
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/ts/src/ts_func.cpp:1390: error: (-2:Unspecified error) in function 'double cvtest::norm(cv::InputArray, cv::InputArray, int, cv::InputArray)'
+>  (expected: 'src1.type() == src2.type()'), where
+>     'src1.type()' is 0 (CV_8UC1)
+> must be equal to
+>     'src2.type()' is 6 (CV_64FC1)
+" thrown in the test body.
+[  FAILED  ] Calib3d/EstimateAffine2D.testNPoints/0, where GetParam() = RANSAC (0 ms)
+[----------] 1 test from Calib3d/EstimateAffine2D (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/EstimateAffine2D.testNPoints/0, where GetParam() = RANSAC
+
+ 1 FAILED TEST

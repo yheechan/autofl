@@ -1,0 +1,102 @@
+[
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::epnp(const class cv::Mat & cameraMatrix, const class cv::Mat & opoints, const class cv::Mat & ipoints)",
+        "start_line": 8,
+        "end_line": 38,
+        "snippet": "epnp::epnp(const Mat& cameraMatrix, const Mat& opoints, const Mat& ipoints)\n\n{\n\n  if (cameraMatrix.depth() == CV_32F)\n\n      init_camera_parameters<float>(cameraMatrix);\n\n  else\n\n    init_camera_parameters<double>(cameraMatrix);\n\n\n\n  number_of_correspondences = std::max(opoints.checkVector(3, CV_32F), opoints.checkVector(3, CV_64F));\n\n\n\n  pws.resize(3 * number_of_correspondences);\n\n  us.resize(2 * number_of_correspondences);\n\n\n\n  if (opoints.depth() == ipoints.depth())\n\n  {\n\n    if (opoints.depth() == CV_32F)\n\n      init_points<Point3f,Point2f>(opoints, ipoints);\n\n    else\n\n      init_points<Point3d,Point2d>(opoints, ipoints);\n\n  }\n\n  else if (opoints.depth() == CV_32F)\n\n    init_points<Point3f,Point2d>(opoints, ipoints);\n\n  else\n\n    init_points<Point3d,Point2f>(opoints, ipoints);\n\n\n\n  alphas.resize(4 * number_of_correspondences);\n\n  pcs.resize(3 * number_of_correspondences);\n\n\n\n  max_nr = 0;\n\n  A1 = NULL;\n\n  A2 = NULL;\n\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::~epnp()",
+        "start_line": 40,
+        "end_line": 46,
+        "snippet": "epnp::~epnp()\n\n{\n\n    if (A1)\n\n        delete[] A1;\n\n    if (A2)\n\n        delete[] A2;\n\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": true,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::choose_control_points()",
+        "start_line": 48,
+        "end_line": 82,
+        "snippet": "void epnp::choose_control_points(void)\n\n{\n\n  // Take C0 as the reference points centroid:\n\n  cws[0][0] = cws[0][1] = cws[0][2] = 0;\n\n  for(int i = 0; i < number_of_correspondences; i++)\n\n    for(int j = 0; j < 3; j++)\n\n      cws[0][j] += pws[3 * i + j];\n\n\n\n  for(int j = 0; j < 3; j++)\n\n    cws[0][j] /= number_of_correspondences;\n\n\n\n\n\n  // Take C1, C2, and C3 from PCA on the reference points:\n\n  CvMat * PW0 = cvCreateMat(number_of_correspondences, 3, CV_64F);\n\n\n\n  double pw0tpw0[3 * 3] = {}, dc[3] = {}, uct[3 * 3] = {};\n\n  CvMat PW0tPW0 = cvMat(3, 3, CV_64F, pw0tpw0);\n\n  CvMat DC      = cvMat(3, 1, CV_64F, dc);\n\n  CvMat UCt     = cvMat(3, 3, CV_64F, uct);\n\n\n\n  for(int i = 0; i < number_of_correspondences; i++)\n\n    for(int j = 0; j < 3; j++)\n\n      PW0->data.db[3 * i + j] = pws[3 * i + j] - cws[0][j];\n\n\n\n  cvMulTransposed(PW0, &PW0tPW0, 1);\n\n  cvSVD(&PW0tPW0, &DC, &UCt, 0, CV_SVD_MODIFY_A | CV_SVD_U_T);\n\n\n\n  cvReleaseMat(&PW0);\n\n\n\n  for(int i = 1; i < 4; i++) {\n\n    double k = sqrt(dc[i - 1] / number_of_correspondences);\n\n    for(int j = 0; j < 3; j++)\n\n      cws[i][j] = cws[0][j] + k * uct[3 * (i - 1) + j];\n\n  }\n\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::compute_pose(class cv::Mat & R, class cv::Mat & t)",
+        "start_line": 152,
+        "end_line": 199,
+        "snippet": "void epnp::compute_pose(Mat& R, Mat& t)\n\n{\n\n  choose_control_points();\n\n  compute_barycentric_coordinates();\n\n\n\n  CvMat * M = cvCreateMat(2 * number_of_correspondences, 12, CV_64F);\n\n\n\n  for(int i = 0; i < number_of_correspondences; i++)\n\n    fill_M(M, 2 * i, &alphas[0] + 4 * i, us[2 * i], us[2 * i + 1]);\n\n\n\n  double mtm[12 * 12] = {}, d[12] = {}, ut[12 * 12] = {};\n\n  CvMat MtM = cvMat(12, 12, CV_64F, mtm);\n\n  CvMat D   = cvMat(12,  1, CV_64F, d);\n\n  CvMat Ut  = cvMat(12, 12, CV_64F, ut);\n\n\n\n  cvMulTransposed(M, &MtM, 1);\n\n  cvSVD(&MtM, &D, &Ut, 0, CV_SVD_MODIFY_A | CV_SVD_U_T);\n\n  cvReleaseMat(&M);\n\n\n\n  double l_6x10[6 * 10] = {}, rho[6] = {};\n\n  CvMat L_6x10 = cvMat(6, 10, CV_64F, l_6x10);\n\n  CvMat Rho    = cvMat(6,  1, CV_64F, rho);\n\n\n\n  compute_L_6x10(ut, l_6x10);\n\n  compute_rho(rho);\n\n\n\n  double Betas[4][4] = {}, rep_errors[4] = {};\n\n  double Rs[4][3][3] = {}, ts[4][3] = {};\n\n\n\n  find_betas_approx_1(&L_6x10, &Rho, Betas[1]);\n\n  gauss_newton(&L_6x10, &Rho, Betas[1]);\n\n  rep_errors[1] = compute_R_and_t(ut, Betas[1], Rs[1], ts[1]);\n\n\n\n  find_betas_approx_2(&L_6x10, &Rho, Betas[2]);\n\n  gauss_newton(&L_6x10, &Rho, Betas[2]);\n\n  rep_errors[2] = compute_R_and_t(ut, Betas[2], Rs[2], ts[2]);\n\n\n\n  find_betas_approx_3(&L_6x10, &Rho, Betas[3]);\n\n  gauss_newton(&L_6x10, &Rho, Betas[3]);\n\n  rep_errors[3] = compute_R_and_t(ut, Betas[3], Rs[3], ts[3]);\n\n\n\n  int N = 1;\n\n  if (rep_errors[2] < rep_errors[1]) N = 2;\n\n  if (rep_errors[3] < rep_errors[N]) N = 3;\n\n\n\n  Mat(3, 1, CV_64F, ts[N]).copyTo(t);\n\n  Mat(3, 3, CV_64F, Rs[N]).copyTo(R);\n\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "RANSACPointSetRegistrator",
+        "signature": "RANSACPointSetRegistrator::RANSACPointSetRegistrator(const Ptr<class PointSetRegistrator::Callback> & _cb, int _modelPoints, double _threshold, double _confidence, int _maxIters)",
+        "start_line": 81,
+        "end_line": 83,
+        "snippet": "    RANSACPointSetRegistrator(const Ptr<PointSetRegistrator::Callback>& _cb=Ptr<PointSetRegistrator::Callback>(),\n\n                              int _modelPoints=0, double _threshold=0, double _confidence=0.99, int _maxIters=1000)\n\n      : cb(_cb), modelPoints(_modelPoints), threshold(_threshold), confidence(_confidence), maxIters(_maxIters) {}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "RANSACPointSetRegistrator",
+        "signature": "RANSACPointSetRegistrator::getSubset(const class cv::Mat & m1, const class cv::Mat & m2, class cv::Mat & ms1, class cv::Mat & ms2, class cv::RNG & rng, int maxAttempts)",
+        "start_line": 104,
+        "end_line": 158,
+        "snippet": "    bool getSubset( const Mat& m1, const Mat& m2, Mat& ms1, Mat& ms2, RNG& rng, int maxAttempts=1000 ) const\n\n    {\n\n        cv::AutoBuffer<int> _idx(modelPoints);\n\n        int* idx = _idx.data();\n\n\n\n        const int d1 = m1.channels() > 1 ? m1.channels() : m1.cols;\n\n        const int d2 = m2.channels() > 1 ? m2.channels() : m2.cols;\n\n\n\n        int esz1 = (int)m1.elemSize1() * d1;\n\n        int esz2 = (int)m2.elemSize1() * d2;\n\n        CV_Assert((esz1 % sizeof(int)) == 0 && (esz2 % sizeof(int)) == 0);\n\n        esz1 /= sizeof(int);\n\n        esz2 /= sizeof(int);\n\n\n\n        const int count = m1.checkVector(d1);\n\n        const int count2 = m2.checkVector(d2);\n\n        CV_Assert(count >= modelPoints && count == count2);\n\n\n\n        const int *m1ptr = m1.ptr<int>();\n\n        const int *m2ptr = m2.ptr<int>();\n\n\n\n        ms1.create(modelPoints, 1, CV_MAKETYPE(m1.depth(), d1));\n\n        ms2.create(modelPoints, 1, CV_MAKETYPE(m2.depth(), d2));\n\n\n\n        int *ms1ptr = ms1.ptr<int>();\n\n        int *ms2ptr = ms2.ptr<int>();\n\n\n\n        for( int iters = 0; iters < maxAttempts; ++iters )\n\n        {\n\n            int i;\n\n\n\n            for( i = 0; i < modelPoints; ++i )\n\n            {\n\n                int idx_i;\n\n\n\n                for ( idx_i = rng.uniform(0, count);\n\n                    std::find(idx, idx + i, idx_i) != idx + i;\n\n                    idx_i = rng.uniform(0, count) )\n\n                {}\n\n\n\n                idx[i] = idx_i;\n\n\n\n                for( int k = 0; k < esz1; ++k )\n\n                    ms1ptr[i*esz1 + k] = m1ptr[idx_i*esz1 + k];\n\n\n\n                for( int k = 0; k < esz2; ++k )\n\n                    ms2ptr[i*esz2 + k] = m2ptr[idx_i*esz2 + k];\n\n            }\n\n\n\n            if( cb->checkSubset(ms1, ms2, i) )\n\n                return true;\n\n        }\n\n\n\n        return false;\n\n    }\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "RANSACPointSetRegistrator",
+        "signature": "RANSACPointSetRegistrator::run(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model, cv::OutputArray _mask)",
+        "start_line": 160,
+        "end_line": 254,
+        "snippet": "    bool run(InputArray _m1, InputArray _m2, OutputArray _model, OutputArray _mask) const CV_OVERRIDE\n\n    {\n\n        bool result = false;\n\n        Mat m1 = _m1.getMat(), m2 = _m2.getMat();\n\n        Mat err, mask, model, bestModel, ms1, ms2;\n\n\n\n        int iter, niters = MAX(maxIters, 1);\n\n        int d1 = m1.channels() > 1 ? m1.channels() : m1.cols;\n\n        int d2 = m2.channels() > 1 ? m2.channels() : m2.cols;\n\n        int count = m1.checkVector(d1), count2 = m2.checkVector(d2), maxGoodCount = 0;\n\n\n\n        RNG rng((uint64)-1);\n\n\n\n        CV_Assert( cb );\n\n        CV_Assert( confidence > 0 && confidence < 1 );\n\n\n\n        CV_Assert( count >= 0 && count2 == count );\n\n        if( count < modelPoints )\n\n            return false;\n\n\n\n        Mat bestMask0, bestMask;\n\n\n\n        if( _mask.needed() )\n\n        {\n\n            _mask.create(count, 1, CV_8U, -1, true);\n\n            bestMask0 = bestMask = _mask.getMat();\n\n            CV_Assert( (bestMask.cols == 1 || bestMask.rows == 1) && (int)bestMask.total() == count );\n\n        }\n\n        else\n\n        {\n\n            bestMask.create(count, 1, CV_8U);\n\n            bestMask0 = bestMask;\n\n        }\n\n\n\n        if( count == modelPoints )\n\n        {\n\n            if( cb->runKernel(m1, m2, bestModel) <= 0 )\n\n                return false;\n\n            bestModel.copyTo(_model);\n\n            bestMask.setTo(Scalar::all(1));\n\n            return true;\n\n        }\n\n\n\n        for( iter = 0; iter < niters; iter++ )\n\n        {\n\n            int i, nmodels;\n\n            if( count > modelPoints )\n\n            {\n\n                bool found = getSubset( m1, m2, ms1, ms2, rng, 10000 );\n\n                if( !found )\n\n                {\n\n                    if( iter == 0 )\n\n                        return false;\n\n                    break;\n\n                }\n\n            }\n\n\n\n            nmodels = cb->runKernel( ms1, ms2, model );\n\n            if( nmodels <= 0 )\n\n                continue;\n\n            CV_Assert( model.rows % nmodels == 0 );\n\n            Size modelSize(model.cols, model.rows/nmodels);\n\n\n\n            for( i = 0; i < nmodels; i++ )\n\n            {\n\n                Mat model_i = model.rowRange( i*modelSize.height, (i+1)*modelSize.height );\n\n                int goodCount = findInliers( m1, m2, model_i, err, mask, threshold );\n\n\n\n                if( goodCount > MAX(maxGoodCount, modelPoints-1) )\n\n                {\n\n                    std::swap(mask, bestMask);\n\n                    model_i.copyTo(bestModel);\n\n                    maxGoodCount = goodCount;\n\n                    niters = RANSACUpdateNumIters( confidence, (double)(count - goodCount)/count, modelPoints, niters );\n\n                }\n\n            }\n\n        }\n\n\n\n        if( maxGoodCount > 0 )\n\n        {\n\n            if( bestMask.data != bestMask0.data )\n\n            {\n\n                if( bestMask.size() == bestMask0.size() )\n\n                    bestMask.copyTo(bestMask0);\n\n                else\n\n                    transpose(bestMask, bestMask0);\n\n            }\n\n            bestModel.copyTo(_model);\n\n            result = true;\n\n        }\n\n        else\n\n            _model.release();\n\n\n\n        return result;\n\n    }\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "createRANSACPointSetRegistrator(const Ptr<class PointSetRegistrator::Callback> & _cb, int _modelPoints, double _threshold, double _confidence, int _maxIters)",
+        "start_line": 377,
+        "end_line": 383,
+        "snippet": "Ptr<PointSetRegistrator> createRANSACPointSetRegistrator(const Ptr<PointSetRegistrator::Callback>& _cb,\n\n                                                         int _modelPoints, double _threshold,\n\n                                                         double _confidence, int _maxIters)\n\n{\n\n    return Ptr<PointSetRegistrator>(\n\n        new RANSACPointSetRegistrator(_cb, _modelPoints, _threshold, _confidence, _maxIters));\n\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "RANSACUpdateNumIters(double p, double ep, int modelPoints, int maxIters)",
+        "start_line": 55,
+        "end_line": 75,
+        "snippet": "int RANSACUpdateNumIters( double p, double ep, int modelPoints, int maxIters )\n\n{\n\n    if( modelPoints <= 0 )\n\n        CV_Error( Error::StsOutOfRange, \"the number of model points should be positive\" );\n\n\n\n    p = MAX(p, 0.);\n\n    p = MIN(p, 1.);\n\n    ep = MAX(ep, 0.);\n\n    ep = MIN(ep, 1.);\n\n\n\n    // avoid inf's & nan's\n\n    double num = MAX(1. - p, DBL_MIN);\n\n    double denom = 1. - std::pow(1. - ep, modelPoints);\n\n    if( denom < DBL_MIN )\n\n        return 0;\n\n\n\n    num = std::log(num);\n\n    denom = std::log(denom);\n\n\n\n    return denom >= 0 || -num >= maxIters*(-denom) ? maxIters : cvRound(num/denom);\n\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "RANSACPointSetRegistrator",
+        "signature": "RANSACPointSetRegistrator::findInliers(const class cv::Mat & m1, const class cv::Mat & m2, const class cv::Mat & model, class cv::Mat & err, class cv::Mat & mask, double thresh)",
+        "start_line": 85,
+        "end_line": 102,
+        "snippet": "    int findInliers( const Mat& m1, const Mat& m2, const Mat& model, Mat& err, Mat& mask, double thresh ) const\n\n    {\n\n        cb->computeError( m1, m2, model, err );\n\n        mask.create(err.size(), CV_8U);\n\n\n\n        CV_Assert( err.isContinuous() && err.type() == CV_32F && mask.isContinuous() && mask.type() == CV_8U);\n\n        const float* errptr = err.ptr<float>();\n\n        uchar* maskptr = mask.ptr<uchar>();\n\n        float t = (float)(thresh*thresh);\n\n        int i, n = (int)err.total(), nz = 0;\n\n        for( i = 0; i < n; i++ )\n\n        {\n\n            int f = errptr[i] <= t;\n\n            maskptr[i] = (uchar)f;\n\n            nz += f;\n\n        }\n\n        return nz;\n\n    }\n",
+        "comment": ""
+    }
+]

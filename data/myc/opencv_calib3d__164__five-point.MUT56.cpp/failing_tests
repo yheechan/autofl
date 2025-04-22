@@ -1,0 +1,65 @@
+--- CV_RecoverPoseTest.regression_15341
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = CV_RecoverPoseTest.regression_15341
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from CV_RecoverPoseTest
+[ RUN      ] CV_RecoverPoseTest.regression_15341
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_cameracalibration.cpp:2365: Failure
+Expected equality of these values:
+  0
+  (int)mask[12]
+    Which is: 1
+Detecting outliers in function failed with same cameras, testcase 1
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_cameracalibration.cpp:2406: Failure
+Expected equality of these values:
+  Inliers
+    Which is: 1
+  point_count - invalid_point_count
+    Which is: 12
+Number of inliers differs from expected number of inliers, testcase 1
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_cameracalibration.cpp:2404: Failure
+Expected equality of these values:
+  0
+  (int)mask.at<unsigned char>(12)
+    Which is: 1
+Detecting outliers in function failed with same cameras, testcase 2
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_cameracalibration.cpp:2406: Failure
+Expected equality of these values:
+  Inliers
+    Which is: 1
+  point_count - invalid_point_count
+    Which is: 12
+Number of inliers differs from expected number of inliers, testcase 2
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_cameracalibration.cpp:2404: Failure
+Expected equality of these values:
+  0
+  (int)mask.at<unsigned char>(12)
+    Which is: 1
+Detecting outliers in function failed with same cameras, testcase 3
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_cameracalibration.cpp:2406: Failure
+Expected equality of these values:
+  Inliers
+    Which is: 1
+  point_count - invalid_point_count
+    Which is: 12
+Number of inliers differs from expected number of inliers, testcase 3
+[  FAILED  ] CV_RecoverPoseTest.regression_15341 (24 ms)
+[----------] 1 test from CV_RecoverPoseTest (24 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (24 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] CV_RecoverPoseTest.regression_15341
+
+ 1 FAILED TEST

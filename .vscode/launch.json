@@ -1,0 +1,34 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            // python3 autofl.py -m gpt-3.5-turbo -b opencv_calib3d__1 -p prompts/system_msg_expbug.txt -o results/mycFirst1/gpt-3.5-turbo/XFL-opencv_calib3d__1.json --max_budget 20 --max_num_tests 1 --show_line_number --allow_multi_predictions --test_offset 0
+            "args": [
+                "-m",
+                "gpt-3.5-turbo",
+                "-b",
+                "opencv_calib3d__1",
+                "-p",
+                "prompts/system_msg_expbug.txt",
+                "-o",
+                "results/mycFirst1/gpt-3.5-turbo/XFL-opencv_calib3d__1.json",
+                "--max_budget",
+                "20",
+                "--max_num_tests",
+                "1",
+                "--show_line_number",
+                "--allow_multi_predictions",
+                "--test_offset",
+                "0"
+            ],
+        }
+    ]
+}

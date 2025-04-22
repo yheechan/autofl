@@ -1,0 +1,152 @@
+[
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "RANSACUpdateNumIters(double p, double ep, int modelPoints, int maxIters)",
+        "start_line": 55,
+        "end_line": 75,
+        "snippet": "int RANSACUpdateNumIters( double p, double ep, int modelPoints, int maxIters )\n\n{\n\n    if( modelPoints <= 0 )\n\n        CV_Error( Error::StsOutOfRange, \"the number of model points should be positive\" );\n\n\n\n    p = MAX(p, 0.);\n\n    p = MIN(p, 1.);\n\n    ep = MAX(ep, 0.);\n\n    ep = MIN(ep, 1.);\n\n\n\n    // avoid inf's & nan's\n\n    double num = MAX(1. - p, DBL_MIN);\n\n    double denom = 1. - std::pow(1. - ep, modelPoints);\n\n    if( denom < DBL_MIN )\n\n        return 0;\n\n\n\n    num = std::log(num);\n\n    denom = std::log(denom);\n\n\n\n    return denom >= 0 || -num >= maxIters*(-denom) ? maxIters : cvRound(num/denom);\n\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "RANSACPointSetRegistrator",
+        "signature": "RANSACPointSetRegistrator::RANSACPointSetRegistrator(const Ptr<class PointSetRegistrator::Callback> & _cb, int _modelPoints, double _threshold, double _confidence, int _maxIters)",
+        "start_line": 81,
+        "end_line": 83,
+        "snippet": "    RANSACPointSetRegistrator(const Ptr<PointSetRegistrator::Callback>& _cb=Ptr<PointSetRegistrator::Callback>(),\n\n                              int _modelPoints=0, double _threshold=0, double _confidence=0.99, int _maxIters=1000)\n\n      : cb(_cb), modelPoints(_modelPoints), threshold(_threshold), confidence(_confidence), maxIters(_maxIters) {}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "RANSACPointSetRegistrator",
+        "signature": "RANSACPointSetRegistrator::findInliers(const class cv::Mat & m1, const class cv::Mat & m2, const class cv::Mat & model, class cv::Mat & err, class cv::Mat & mask, double thresh)",
+        "start_line": 85,
+        "end_line": 102,
+        "snippet": "    int findInliers( const Mat& m1, const Mat& m2, const Mat& model, Mat& err, Mat& mask, double thresh ) const\n\n    {\n\n        cb->computeError( m1, m2, model, err );\n\n        mask.create(err.size(), CV_8U);\n\n\n\n        CV_Assert( err.isContinuous() && err.type() == CV_32F && mask.isContinuous() && mask.type() == CV_8U);\n\n        const float* errptr = err.ptr<float>();\n\n        uchar* maskptr = mask.ptr<uchar>();\n\n        float t = (float)(thresh*thresh);\n\n        int i, n = (int)err.total(), nz = 0;\n\n        for( i = 0; i < n; i++ )\n\n        {\n\n            int f = errptr[i] <= t;\n\n            maskptr[i] = (uchar)f;\n\n            nz += f;\n\n        }\n\n        return nz;\n\n    }\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "RANSACPointSetRegistrator",
+        "signature": "RANSACPointSetRegistrator::getSubset(const class cv::Mat & m1, const class cv::Mat & m2, class cv::Mat & ms1, class cv::Mat & ms2, class cv::RNG & rng, int maxAttempts)",
+        "start_line": 104,
+        "end_line": 158,
+        "snippet": "    bool getSubset( const Mat& m1, const Mat& m2, Mat& ms1, Mat& ms2, RNG& rng, int maxAttempts=1000 ) const\n\n    {\n\n        cv::AutoBuffer<int> _idx(modelPoints);\n\n        int* idx = _idx.data();\n\n\n\n        const int d1 = m1.channels() > 1 ? m1.channels() : m1.cols;\n\n        const int d2 = m2.channels() > 1 ? m2.channels() : m2.cols;\n\n\n\n        int esz1 = (int)m1.elemSize1() * d1;\n\n        int esz2 = (int)m2.elemSize1() * d2;\n\n        CV_Assert((esz1 % sizeof(int)) == 0 && (esz2 % sizeof(int)) == 0);\n\n        esz1 /= sizeof(int);\n\n        esz2 /= sizeof(int);\n\n\n\n        const int count = m1.checkVector(d1);\n\n        const int count2 = m2.checkVector(d2);\n\n        CV_Assert(count >= modelPoints && count == count2);\n\n\n\n        const int *m1ptr = m1.ptr<int>();\n\n        const int *m2ptr = m2.ptr<int>();\n\n\n\n        ms1.create(modelPoints, 1, CV_MAKETYPE(m1.depth(), d1));\n\n        ms2.create(modelPoints, 1, CV_MAKETYPE(m2.depth(), d2));\n\n\n\n        int *ms1ptr = ms1.ptr<int>();\n\n        int *ms2ptr = ms2.ptr<int>();\n\n\n\n        for( int iters = 0; iters < maxAttempts; ++iters )\n\n        {\n\n            int i;\n\n\n\n            for( i = 0; i < modelPoints; ++i )\n\n            {\n\n                int idx_i;\n\n\n\n                for ( idx_i = rng.uniform(0, count);\n\n                    std::find(idx, idx + i, idx_i) != idx + i;\n\n                    idx_i = rng.uniform(0, count) )\n\n                {}\n\n\n\n                idx[i] = idx_i;\n\n\n\n                for( int k = 0; k < esz1; ++k )\n\n                    ms1ptr[i*esz1 + k] = m1ptr[idx_i*esz1 + k];\n\n\n\n                for( int k = 0; k < esz2; ++k )\n\n                    ms2ptr[i*esz2 + k] = m2ptr[idx_i*esz2 + k];\n\n            }\n\n\n\n            if( cb->checkSubset(ms1, ms2, i) )\n\n                return true;\n\n        }\n\n\n\n        return false;\n\n    }\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "RANSACPointSetRegistrator",
+        "signature": "RANSACPointSetRegistrator::run(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model, cv::OutputArray _mask)",
+        "start_line": 160,
+        "end_line": 254,
+        "snippet": "    bool run(InputArray _m1, InputArray _m2, OutputArray _model, OutputArray _mask) const CV_OVERRIDE\n\n    {\n\n        bool result = false;\n\n        Mat m1 = _m1.getMat(), m2 = _m2.getMat();\n\n        Mat err, mask, model, bestModel, ms1, ms2;\n\n\n\n        int iter, niters = MAX(maxIters, 1);\n\n        int d1 = m1.channels() > 1 ? m1.channels() : m1.cols;\n\n        int d2 = m2.channels() > 1 ? m2.channels() : m2.cols;\n\n        int count = m1.checkVector(d1), count2 = m2.checkVector(d2), maxGoodCount = 0;\n\n\n\n        RNG rng((uint64)-1);\n\n\n\n        CV_Assert( cb );\n\n        CV_Assert( confidence > 0 && confidence < 1 );\n\n\n\n        CV_Assert( count >= 0 && count2 == count );\n\n        if( count < modelPoints )\n\n            return false;\n\n\n\n        Mat bestMask0, bestMask;\n\n\n\n        if( _mask.needed() )\n\n        {\n\n            _mask.create(count, 1, CV_8U, -1, true);\n\n            bestMask0 = bestMask = _mask.getMat();\n\n            CV_Assert( (bestMask.cols == 1 || bestMask.rows == 1) && (int)bestMask.total() == count );\n\n        }\n\n        else\n\n        {\n\n            bestMask.create(count, 1, CV_8U);\n\n            bestMask0 = bestMask;\n\n        }\n\n\n\n        if( count == modelPoints )\n\n        {\n\n            if( cb->runKernel(m1, m2, bestModel) <= 0 )\n\n                return false;\n\n            bestModel.copyTo(_model);\n\n            bestMask.setTo(Scalar::all(1));\n\n            return true;\n\n        }\n\n\n\n        for( iter = 0; iter < niters; iter++ )\n\n        {\n\n            int i, nmodels;\n\n            if( count > modelPoints )\n\n            {\n\n                bool found = getSubset( m1, m2, ms1, ms2, rng, 10000 );\n\n                if( !found )\n\n                {\n\n                    if( iter == 0 )\n\n                        return false;\n\n                    break;\n\n                }\n\n            }\n\n\n\n            nmodels = cb->runKernel( ms1, ms2, model );\n\n            if( nmodels <= 0 )\n\n                continue;\n\n            CV_Assert( model.rows % nmodels == 0 );\n\n            Size modelSize(model.cols, model.rows/nmodels);\n\n\n\n            for( i = 0; i < nmodels; i++ )\n\n            {\n\n                Mat model_i = model.rowRange( i*modelSize.height, (i+1)*modelSize.height );\n\n                int goodCount = findInliers( m1, m2, model_i, err, mask, threshold );\n\n\n\n                if( goodCount > MAX(maxGoodCount, modelPoints-1) )\n\n                {\n\n                    std::swap(mask, bestMask);\n\n                    model_i.copyTo(bestModel);\n\n                    maxGoodCount = goodCount;\n\n                    niters = RANSACUpdateNumIters( confidence, (double)(count - goodCount)/count, modelPoints, niters );\n\n                }\n\n            }\n\n        }\n\n\n\n        if( maxGoodCount > 0 )\n\n        {\n\n            if( bestMask.data != bestMask0.data )\n\n            {\n\n                if( bestMask.size() == bestMask0.size() )\n\n                    bestMask.copyTo(bestMask0);\n\n                else\n\n                    transpose(bestMask, bestMask0);\n\n            }\n\n            bestModel.copyTo(_model);\n\n            result = true;\n\n        }\n\n        else\n\n            _model.release();\n\n\n\n        return result;\n\n    }\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "createRANSACPointSetRegistrator(const Ptr<class PointSetRegistrator::Callback> & _cb, int _modelPoints, double _threshold, double _confidence, int _maxIters)",
+        "start_line": 377,
+        "end_line": 383,
+        "snippet": "Ptr<PointSetRegistrator> createRANSACPointSetRegistrator(const Ptr<PointSetRegistrator::Callback>& _cb,\n\n                                                         int _modelPoints, double _threshold,\n\n                                                         double _confidence, int _maxIters)\n\n{\n\n    return Ptr<PointSetRegistrator>(\n\n        new RANSACPointSetRegistrator(_cb, _modelPoints, _threshold, _confidence, _maxIters));\n\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "Affine2DEstimatorCallback",
+        "signature": "Affine2DEstimatorCallback::computeError(cv::InputArray _m1, cv::InputArray _m2, cv::InputArray _model, cv::OutputArray _err)",
+        "start_line": 665,
+        "end_line": 692,
+        "snippet": "    void computeError( InputArray _m1, InputArray _m2, InputArray _model, OutputArray _err ) const CV_OVERRIDE\n\n    {\n\n        Mat m1 = _m1.getMat(), m2 = _m2.getMat(), model = _model.getMat();\n\n        const Point2f* from = m1.ptr<Point2f>();\n\n        const Point2f* to   = m2.ptr<Point2f>();\n\n        const double* F = model.ptr<double>();\n\n\n\n        int count = m1.checkVector(2);\n\n        CV_Assert( count > 0 );\n\n\n\n        _err.create(count, 1, CV_32F);\n\n        Mat err = _err.getMat();\n\n        float* errptr = err.ptr<float>();\n\n        // transform matrix to floats\n\n        float F0 = (float)F[0], F1 = (float)F[1], F2 = (float)F[2];\n\n        float F3 = (float)F[3], F4 = (float)F[4], F5 = (float)F[5];\n\n\n\n        for(int i = 0; i < count; i++ )\n\n        {\n\n            const Point2f& f = from[i];\n\n            const Point2f& t = to[i];\n\n\n\n            float a = F0*f.x + F1*f.y + F2 - t.x;\n\n            float b = F3*f.x + F4*f.y + F5 - t.y;\n\n\n\n            errptr[i] = a*a + b*b;\n\n        }\n\n    }\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "Affine2DEstimatorCallback",
+        "signature": "Affine2DEstimatorCallback::checkSubset(cv::InputArray _ms1, cv::InputArray _ms2, int count)",
+        "start_line": 694,
+        "end_line": 700,
+        "snippet": "    bool checkSubset( InputArray _ms1, InputArray _ms2, int count ) const CV_OVERRIDE\n\n    {\n\n        Mat ms1 = _ms1.getMat();\n\n        Mat ms2 = _ms2.getMat();\n\n        // check collinearity and also check that points are too close\n\n        return !haveCollinearPoints(ms1, count) && !haveCollinearPoints(ms2, count);\n\n    }\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "AffinePartial2DEstimatorCallback",
+        "signature": "AffinePartial2DEstimatorCallback::runKernel(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model)",
+        "start_line": 718,
+        "end_line": 762,
+        "snippet": "    int runKernel( InputArray _m1, InputArray _m2, OutputArray _model ) const CV_OVERRIDE\n\n    {\n\n        Mat m1 = _m1.getMat(), m2 = _m2.getMat();\n\n        const Point2f* from = m1.ptr<Point2f>();\n\n        const Point2f* to   = m2.ptr<Point2f>();\n\n        _model.create(2, 3, CV_64F);\n\n        Mat M_mat = _model.getMat();\n\n        double *M = M_mat.ptr<double>();\n\n\n\n        // we need only 2 points to estimate transform\n\n        double x1 = from[0].x;\n\n        double y1 = from[0].y;\n\n        double x2 = from[1].x;\n\n        double y2 = from[1].y;\n\n\n\n        double X1 = to[0].x;\n\n        double Y1 = to[0].y;\n\n        double X2 = to[1].x;\n\n        double Y2 = to[1].y;\n\n\n\n        /*\n\n        we are solving AS = B\n\n            | x1 -y1 1 0 |\n\n            | y1  x1 0 1 |\n\n        A = | x2 -y2 1 0 |\n\n            | y2  x2 0 1 |\n\n        B = (X1, Y1, X2, Y2).t()\n\n        we solve that analytically\n\n        */\n\n        double d = 1./((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));\n\n\n\n        // solution vector\n\n        double S0 = d * ( (X1-X2)*(x1-x2) + (Y1-Y2)*(y1-y2) );\n\n        double S1 = d * ( (Y1-Y2)*(x1-x2) - (X1-X2)*(y1-y2) );\n\n        double S2 = d * ( (Y1-Y2)*(x1*y2 - x2*y1) - (X1*y2 - X2*y1)*(y1-y2) - (X1*x2 - X2*x1)*(x1-x2) );\n\n        double S3 = d * (-(X1-X2)*(x1*y2 - x2*y1) - (Y1*x2 - Y2*x1)*(x1-x2) - (Y1*y2 - Y2*y1)*(y1-y2) );\n\n\n\n        // set model, rotation part is antisymmetric\n\n        M[0] = M[4] = S0;\n\n        M[1] = -S1;\n\n        M[2] = S2;\n\n        M[3] = S1;\n\n        M[5] = S3;\n\n        return 1;\n\n    }\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "AffinePartial2DRefineCallback",
+        "signature": "AffinePartial2DRefineCallback::AffinePartial2DRefineCallback(cv::InputArray _src, cv::InputArray _dst)",
+        "start_line": 826,
+        "end_line": 830,
+        "snippet": "    AffinePartial2DRefineCallback(InputArray _src, InputArray _dst)\n\n    {\n\n        src = _src.getMat();\n\n        dst = _dst.getMat();\n\n    }\n",
+        "comment": ""
+    },
+    {
+        "is_bug": true,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "AffinePartial2DRefineCallback",
+        "signature": "AffinePartial2DRefineCallback::compute(cv::InputArray _param, cv::OutputArray _err, cv::OutputArray _Jac)",
+        "start_line": 832,
+        "end_line": 874,
+        "snippet": "    bool compute(InputArray _param, OutputArray _err, OutputArray _Jac) const CV_OVERRIDE\n\n    {\n\n        int i, count = src.checkVector(2);\n\n        Mat param = _param.getMat();\n\n        _err.create(count*2, 1, CV_64F);\n\n        Mat err = _err.getMat(), J;\n\n        if( _Jac.needed())\n\n        {\n\n            _Jac.create(count*2, param.rows, CV_64F);\n\n            J = _Jac.getMat();\n\n            CV_Assert( J.isContinuous() && J.cols == 4 );\n\n        }\n\n\n\n        const Point2f* M = src.ptr<Point2f>();\n\n        const Point2f* m = dst.ptr<Point2f>();\n\n        const double* h = param.ptr<double>();\n\n        double* errptr = err.ptr<double>();\n\n        double* Jptr = J.data ? J.ptr<double>() : 0;\n\n\n\n        for( i = 0; i < count; i++ )\n\n        {\n\n            double Mx = M[i].x, My = M[i].y;\n\n            double xi = h[0]*Mx - h[1]*My + h[2];\n\n            double yi = h[1]*Mx + h[0]*My + h[3];\n\n            errptr[i*2] = xi - m[i].x;\n\n            errptr[i*2+1] = yi - m[i].y;\n\n\n\n            /*\n\n            Jacobian should be:\n\n                {x, -y, 1, 0}\n\n                {y,  x, 0, 1}\n\n            */\n\n            if( Jptr )\n\n            {\n\n                Jptr[0] = Mx; Jptr[1] = -My; Jptr[2] = 1.; Jptr[3] = 0.;\n\n                Jptr[4] = My; Jptr[5] =  Mx; Jptr[6] = 0.; Jptr[7] = 1.;\n\n\n\n                Jptr += 4*2;\n\n            }\n\n        }\n\n\n\n        return true;\n\n    }\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "estimateAffinePartial2D(cv::InputArray _from, cv::InputArray _to, cv::OutputArray _inliers, const int method, const double ransacReprojThreshold, const size_t maxIters, const double confidence, const size_t refineIters)",
+        "start_line": 1098,
+        "end_line": 1183,
+        "snippet": "Mat estimateAffinePartial2D(InputArray _from, InputArray _to, OutputArray _inliers,\n\n                            const int method, const double ransacReprojThreshold,\n\n                            const size_t maxIters, const double confidence,\n\n                            const size_t refineIters)\n\n{\n\n    Mat from = _from.getMat(), to = _to.getMat();\n\n    const int count = from.checkVector(2);\n\n    bool result = false;\n\n    Mat H;\n\n\n\n    CV_Assert( count >= 0 && to.checkVector(2) == count );\n\n\n\n    if (from.type() != CV_32FC2 || to.type() != CV_32FC2)\n\n    {\n\n        Mat tmp1, tmp2;\n\n        from.convertTo(tmp1, CV_32FC2);\n\n        from = tmp1;\n\n        to.convertTo(tmp2, CV_32FC2);\n\n        to = tmp2;\n\n    }\n\n    else\n\n    {\n\n        // avoid changing of inputs in compressElems() call\n\n        from = from.clone();\n\n        to = to.clone();\n\n    }\n\n\n\n    // convert to N x 1 vectors\n\n    from = from.reshape(2, count);\n\n    to = to.reshape(2, count);\n\n\n\n    Mat inliers;\n\n    if(_inliers.needed())\n\n    {\n\n        _inliers.create(count, 1, CV_8U, -1, true);\n\n        inliers = _inliers.getMat();\n\n    }\n\n\n\n    // run robust estimation\n\n    Ptr<PointSetRegistrator::Callback> cb = makePtr<AffinePartial2DEstimatorCallback>();\n\n    if( method == RANSAC )\n\n        result = createRANSACPointSetRegistrator(cb, 2, ransacReprojThreshold, confidence, static_cast<int>(maxIters))->run(from, to, H, inliers);\n\n    else if( method == LMEDS )\n\n        result = createLMeDSPointSetRegistrator(cb, 2, confidence, static_cast<int>(maxIters))->run(from, to, H, inliers);\n\n    else\n\n        CV_Error(Error::StsBadArg, \"Unknown or unsupported robust estimation method\");\n\n\n\n    if(result && count > 2 && refineIters)\n\n    {\n\n        // reorder to start with inliers\n\n        compressElems(from.ptr<Point2f>(), inliers.ptr<uchar>(), 1, count);\n\n        int inliers_count = compressElems(to.ptr<Point2f>(), inliers.ptr<uchar>(), 1, count);\n\n        if(inliers_count > 0)\n\n        {\n\n            Mat src = from.rowRange(0, inliers_count);\n\n            Mat dst = to.rowRange(0, inliers_count);\n\n            // H is\n\n            //     a -b tx\n\n            //     b  a ty\n\n            // Hvec model for LevMarq is\n\n            //     (a, b, tx, ty)\n\n            double *Hptr = H.ptr<double>();\n\n            double Hvec_buf[4] = {Hptr[0], Hptr[3], Hptr[2], Hptr[5]};\n\n            Mat Hvec (4, 1, CV_64F, Hvec_buf);\n\n            LMSolver::create(makePtr<AffinePartial2DRefineCallback>(src, dst), static_cast<int>(refineIters))->run(Hvec);\n\n            // update H with refined parameters\n\n            Hptr[0] = Hptr[4] = Hvec_buf[0];\n\n            Hptr[1] = -Hvec_buf[1];\n\n            Hptr[2] = Hvec_buf[2];\n\n            Hptr[3] = Hvec_buf[1];\n\n            Hptr[5] = Hvec_buf[3];\n\n        }\n\n    }\n\n\n\n    if (!result)\n\n    {\n\n        H.release();\n\n        if(_inliers.needed())\n\n        {\n\n            inliers = Mat::zeros(count, 1, CV_8U);\n\n            inliers.copyTo(_inliers);\n\n        }\n\n    }\n\n\n\n    return H;\n\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "LMeDSPointSetRegistrator",
+        "signature": "LMeDSPointSetRegistrator::LMeDSPointSetRegistrator(const Ptr<class PointSetRegistrator::Callback> & _cb, int _modelPoints, double _confidence, int _maxIters)",
+        "start_line": 268,
+        "end_line": 270,
+        "snippet": "    LMeDSPointSetRegistrator(const Ptr<PointSetRegistrator::Callback>& _cb=Ptr<PointSetRegistrator::Callback>(),\n\n                              int _modelPoints=0, double _confidence=0.99, int _maxIters=1000)\n\n    : RANSACPointSetRegistrator(_cb, _modelPoints, 0, _confidence, _maxIters) {}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "LMeDSPointSetRegistrator",
+        "signature": "LMeDSPointSetRegistrator::run(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model, cv::OutputArray _mask)",
+        "start_line": 272,
+        "end_line": 373,
+        "snippet": "    bool run(InputArray _m1, InputArray _m2, OutputArray _model, OutputArray _mask) const CV_OVERRIDE\n\n    {\n\n        const double outlierRatio = 0.45;\n\n        bool result = false;\n\n        Mat m1 = _m1.getMat(), m2 = _m2.getMat();\n\n        Mat ms1, ms2, err, errf, model, bestModel, mask, mask0;\n\n\n\n        int d1 = m1.channels() > 1 ? m1.channels() : m1.cols;\n\n        int d2 = m2.channels() > 1 ? m2.channels() : m2.cols;\n\n        int count = m1.checkVector(d1), count2 = m2.checkVector(d2);\n\n        double minMedian = DBL_MAX;\n\n\n\n        RNG rng((uint64)-1);\n\n\n\n        CV_Assert( cb );\n\n        CV_Assert( confidence > 0 && confidence < 1 );\n\n\n\n        CV_Assert( count >= 0 && count2 == count );\n\n        if( count < modelPoints )\n\n            return false;\n\n\n\n        if( _mask.needed() )\n\n        {\n\n            _mask.create(count, 1, CV_8U, -1, true);\n\n            mask0 = mask = _mask.getMat();\n\n            CV_Assert( (mask.cols == 1 || mask.rows == 1) && (int)mask.total() == count );\n\n        }\n\n\n\n        if( count == modelPoints )\n\n        {\n\n            if( cb->runKernel(m1, m2, bestModel) <= 0 )\n\n                return false;\n\n            bestModel.copyTo(_model);\n\n            mask.setTo(Scalar::all(1));\n\n            return true;\n\n        }\n\n\n\n        int iter, niters = RANSACUpdateNumIters(confidence, outlierRatio, modelPoints, maxIters);\n\n        niters = MAX(niters, 3);\n\n\n\n        for( iter = 0; iter < niters; iter++ )\n\n        {\n\n            int i, nmodels;\n\n            if( count > modelPoints )\n\n            {\n\n                bool found = getSubset( m1, m2, ms1, ms2, rng );\n\n                if( !found )\n\n                {\n\n                    if( iter == 0 )\n\n                        return false;\n\n                    break;\n\n                }\n\n            }\n\n\n\n            nmodels = cb->runKernel( ms1, ms2, model );\n\n            if( nmodels <= 0 )\n\n                continue;\n\n\n\n            CV_Assert( model.rows % nmodels == 0 );\n\n            Size modelSize(model.cols, model.rows/nmodels);\n\n\n\n            for( i = 0; i < nmodels; i++ )\n\n            {\n\n                Mat model_i = model.rowRange( i*modelSize.height, (i+1)*modelSize.height );\n\n                cb->computeError( m1, m2, model_i, err );\n\n                if( err.depth() != CV_32F )\n\n                    err.convertTo(errf, CV_32F);\n\n                else\n\n                    errf = err;\n\n                CV_Assert( errf.isContinuous() && errf.type() == CV_32F && (int)errf.total() == count );\n\n                std::nth_element(errf.ptr<int>(), errf.ptr<int>() + count/2, errf.ptr<int>() + count);\n\n                double median = errf.at<float>(count/2);\n\n\n\n                if( median < minMedian )\n\n                {\n\n                    minMedian = median;\n\n                    model_i.copyTo(bestModel);\n\n                }\n\n            }\n\n        }\n\n\n\n        if( minMedian < DBL_MAX )\n\n        {\n\n            double sigma = 2.5*1.4826*(1 + 5./(count - modelPoints))*std::sqrt(minMedian);\n\n            sigma = MAX( sigma, 0.001 );\n\n\n\n            count = findInliers( m1, m2, bestModel, err, mask, sigma );\n\n            if( _mask.needed() && mask0.data != mask.data )\n\n            {\n\n                if( mask0.size() == mask.size() )\n\n                    mask.copyTo(mask0);\n\n                else\n\n                    transpose(mask, mask0);\n\n            }\n\n            bestModel.copyTo(_model);\n\n            result = count >= modelPoints;\n\n        }\n\n        else\n\n            _model.release();\n\n\n\n        return result;\n\n    }\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "createLMeDSPointSetRegistrator(const Ptr<class PointSetRegistrator::Callback> & _cb, int _modelPoints, double _confidence, int _maxIters)",
+        "start_line": 386,
+        "end_line": 391,
+        "snippet": "Ptr<PointSetRegistrator> createLMeDSPointSetRegistrator(const Ptr<PointSetRegistrator::Callback>& _cb,\n\n                             int _modelPoints, double _confidence, int _maxIters)\n\n{\n\n    return Ptr<PointSetRegistrator>(\n\n        new LMeDSPointSetRegistrator(_cb, _modelPoints, _confidence, _maxIters));\n\n}\n",
+        "comment": ""
+    }
+]

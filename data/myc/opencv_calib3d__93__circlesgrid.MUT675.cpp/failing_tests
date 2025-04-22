@@ -1,0 +1,74 @@
+--- Calib3d_AsymmetricCirclesPatternDetector.accuracy
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_AsymmetricCirclesPatternDetector.accuracy
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_AsymmetricCirclesPatternDetector
+[ RUN      ] Calib3d_AsymmetricCirclesPatternDetector.accuracy
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/ts/src/ts.cpp:618: Failure
+Failed
+
+	failure reason: Bad accuracy
+	test case #2
+	seed: 00000000000c5a5e
+-----------------------------------
+	LOG:
+
+Running batch acircles_list.dat
+Error on acircles1.png is 0.000000
+Error on acircles2.png is 0.000000
+Image acircles3.png: bad accuracy of adjusted corners 141.761737
+
+-----------------------------------
+	CONSOLE: .
+-----------------------------------
+
+[  FAILED  ] Calib3d_AsymmetricCirclesPatternDetector.accuracy (87 ms)
+[----------] 1 test from Calib3d_AsymmetricCirclesPatternDetector (87 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (87 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_AsymmetricCirclesPatternDetector.accuracy
+
+ 1 FAILED TEST
+--- Calib3d_AsymmetricCirclesPatternDetector.regression_18713
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_AsymmetricCirclesPatternDetector.regression_18713
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_AsymmetricCirclesPatternDetector
+[ RUN      ] Calib3d_AsymmetricCirclesPatternDetector.regression_18713
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_chesscorners.cpp:724: Failure
+Value of: res
+  Actual: true
+Expected: false
+[  FAILED  ] Calib3d_AsymmetricCirclesPatternDetector.regression_18713 (9 ms)
+[----------] 1 test from Calib3d_AsymmetricCirclesPatternDetector (9 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (9 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_AsymmetricCirclesPatternDetector.regression_18713
+
+ 1 FAILED TEST

@@ -1,0 +1,182 @@
+--- Calib3d/usac_Essential.accuracy/4
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/usac_Essential.accuracy/4
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/usac_Essential
+[ RUN      ] Calib3d/usac_Essential.accuracy/4, where GetParam() = USAC_MAGSAC
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00419 vs 0.00366065
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00141569 vs 0.00137468
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00465466 vs 0.00295286
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00362591 vs 0.00233137
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00277608 vs 0.00178293
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.0069169 vs 0.00361281
+[  FAILED  ] Calib3d/usac_Essential.accuracy/4, where GetParam() = USAC_MAGSAC (27 ms)
+[----------] 1 test from Calib3d/usac_Essential (27 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (27 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/usac_Essential.accuracy/4, where GetParam() = USAC_MAGSAC
+
+ 1 FAILED TEST
+--- Calib3d/usac_Essential.accuracy/0
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/usac_Essential.accuracy/0
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/usac_Essential
+[ RUN      ] Calib3d/usac_Essential.accuracy/0, where GetParam() = USAC_DEFAULT
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00460712 vs 0.00366065
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00141615 vs 0.00137468
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00465466 vs 0.00295286
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00362632 vs 0.00233137
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00277513 vs 0.00178293
+[  FAILED  ] Calib3d/usac_Essential.accuracy/0, where GetParam() = USAC_DEFAULT (23 ms)
+[----------] 1 test from Calib3d/usac_Essential (23 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (23 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/usac_Essential.accuracy/0, where GetParam() = USAC_DEFAULT
+
+ 1 FAILED TEST
+--- Calib3d/usac_Essential.accuracy/1
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/usac_Essential.accuracy/1
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/usac_Essential
+[ RUN      ] Calib3d/usac_Essential.accuracy/1, where GetParam() = USAC_ACCURATE
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00460712 vs 0.00366065
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00141615 vs 0.00137468
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00465466 vs 0.00295286
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00362632 vs 0.00233137
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00277513 vs 0.00178293
+[  FAILED  ] Calib3d/usac_Essential.accuracy/1, where GetParam() = USAC_ACCURATE (28 ms)
+[----------] 1 test from Calib3d/usac_Essential (28 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (28 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/usac_Essential.accuracy/1, where GetParam() = USAC_ACCURATE
+
+ 1 FAILED TEST
+--- Calib3d/usac_Essential.accuracy/2
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/usac_Essential.accuracy/2
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/usac_Essential
+[ RUN      ] Calib3d/usac_Essential.accuracy/2, where GetParam() = USAC_PROSAC
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00452625 vs 0.00366065
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00231902 vs 0.00137468
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00465942 vs 0.00295286
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00359697 vs 0.00233137
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00279021 vs 0.00178293
+[  FAILED  ] Calib3d/usac_Essential.accuracy/2, where GetParam() = USAC_PROSAC (8 ms)
+[----------] 1 test from Calib3d/usac_Essential (8 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (8 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/usac_Essential.accuracy/2, where GetParam() = USAC_PROSAC
+
+ 1 FAILED TEST
+--- Calib3d/usac_Essential.accuracy/3
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/usac_Essential.accuracy/3
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/usac_Essential
+[ RUN      ] Calib3d/usac_Essential.accuracy/3, where GetParam() = USAC_FAST
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00460712 vs 0.00366065
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00141615 vs 0.00137468
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00465466 vs 0.00295286
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00362632 vs 0.00233137
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:217: Failure
+Expected: (getError(test_case, i, pts1, pts2, model)) < (thr), actual: 0.00277513 vs 0.00178293
+[  FAILED  ] Calib3d/usac_Essential.accuracy/3, where GetParam() = USAC_FAST (22 ms)
+[----------] 1 test from Calib3d/usac_Essential (22 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (22 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/usac_Essential.accuracy/3, where GetParam() = USAC_FAST
+
+ 1 FAILED TEST

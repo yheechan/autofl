@@ -1,0 +1,248 @@
+--- Calib3d_SolvePnPRansac.minPoints
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.minPoints
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.minPoints
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1925: Failure
+Expected: (cvtest::norm(true_rvec, rvec, NORM_INF)) <= (1e-4), actual: 0.000541527 vs 0.0001
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1926: Failure
+Expected: (cvtest::norm(true_tvec, Tvec, NORM_INF)) <= (1e-4), actual: 0.00864932 vs 0.0001
+[  FAILED  ] Calib3d_SolvePnPRansac.minPoints (0 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.minPoints
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.accuracy
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.accuracy
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.accuracy
+mode: no distortion, method: SOLVEPNP_ITERATIVE -> 70% (maxErrT: 0.00668095, maxErrR: 0.000729849, meanErrT: 0.000739506, meanErrR: 8.76642e-05, medErrT: 1.18133e-07, medErrR: 1.10519e-08)
+approximate translation threshold for 0.7: 0.000260481, approximate rotation threshold for 0.7: 3.1414e-05
+mode: no distortion, method: SOLVEPNP_EPNP -> 70% (maxErrT: 0.00895947, maxErrR: 0.00118673, meanErrT: 0.00209463, meanErrR: 0.000242498, medErrT: 1.04484e-06, medErrR: 1.3397e-07)
+approximate translation threshold for 0.7: 0.00331335, approximate rotation threshold for 0.7: 0.000333252
+mode: no distortion, method: SOLVEPNP_P3P -> 100% (maxErrT: 0.00895947, maxErrR: 0.00118673, meanErrT: 0.00181513, meanErrR: 0.000226267, medErrT: 9.95164e-07, medErrR: 1.26671e-07)
+approximate translation threshold for 0.7: 0.00134812, approximate rotation threshold for 0.7: 0.000294707
+mode: no distortion, method: SOLVEPNP_DLS (remaped to SOLVEPNP_EPNP) -> 70% (maxErrT: 0.00895947, maxErrR: 0.00118673, meanErrT: 0.00209463, meanErrR: 0.000242498, medErrT: 1.04484e-06, medErrR: 1.3397e-07)
+approximate translation threshold for 0.7: 0.00331335, approximate rotation threshold for 0.7: 0.000333252
+mode: no distortion, method: SOLVEPNP_UPNP (remaped to SOLVEPNP_EPNP) -> 70% (maxErrT: 0.00895947, maxErrR: 0.00118673, meanErrT: 0.00209463, meanErrR: 0.000242498, medErrT: 1.04484e-06, medErrR: 1.3397e-07)
+approximate translation threshold for 0.7: 0.00331335, approximate rotation threshold for 0.7: 0.000333252
+mode: no distortion, method: SOLVEPNP_AP3P -> 100% (maxErrT: 0.00895947, maxErrR: 0.00118673, meanErrT: 0.00181513, meanErrR: 0.000226267, medErrT: 9.95164e-07, medErrR: 1.26671e-07)
+approximate translation threshold for 0.7: 0.00134812, approximate rotation threshold for 0.7: 0.000294707
+mode: no distortion, method: SOLVEPNP_IPPE -> 100% (maxErrT: 0.00134812, maxErrR: 0.000294707, meanErrT: 0.00134812, meanErrR: 0.000294707, medErrT: 0.00134812, medErrR: 0.000294707)
+approximate translation threshold for 0.7: 0.00134812, approximate rotation threshold for 0.7: 0.000294707
+mode: no distortion, method: SOLVEPNP_IPPE_SQUARE -> 100% (maxErrT: 0.00134812, maxErrR: 0.000294707, meanErrT: 0.00134812, meanErrR: 0.000294707, medErrT: 0.00134812, medErrR: 0.000294707)
+approximate translation threshold for 0.7: 0.00134812, approximate rotation threshold for 0.7: 0.000294707
+mode: no distortion, method: SOLVEPNP_SQPNP -> 60% (maxErrT: 0.0205517, maxErrR: 0.00148799, meanErrT: 0.00216843, meanErrR: 0.000163916, medErrT: 5.12272e-07, medErrR: 8.79854e-08)
+approximate translation threshold for 0.7: 0.000387154, approximate rotation threshold for 0.7: 1.64611e-05
+
+mode: distorsion, method: SOLVEPNP_ITERATIVE -> 90% (maxErrT: 0.00312117, maxErrR: 0.000471629, meanErrT: 0.000746458, meanErrR: 0.000108698, medErrT: 1.85029e-07, medErrR: 1.76487e-08)
+approximate translation threshold for 0.7: 0.00194355, approximate rotation threshold for 0.7: 0.000227634
+mode: distorsion, method: SOLVEPNP_EPNP -> 80% (maxErrT: 0.0552795, maxErrR: 0.00922439, meanErrT: 0.00663714, meanErrR: 0.00119838, medErrT: 3.27072e-06, medErrR: 6.38563e-07)
+approximate translation threshold for 0.7: 0.00272051, approximate rotation threshold for 0.7: 0.000258952
+mode: distorsion, method: SOLVEPNP_P3P -> 90% (maxErrT: 0.0552795, maxErrR: 0.00922439, meanErrT: 0.00663708, meanErrR: 0.00119837, medErrT: 3.23433e-06, medErrR: 6.38563e-07)
+approximate translation threshold for 0.7: 0.00272051, approximate rotation threshold for 0.7: 0.000258952
+mode: distorsion, method: SOLVEPNP_DLS (remaped to SOLVEPNP_EPNP) -> 80% (maxErrT: 0.0552795, maxErrR: 0.00922439, meanErrT: 0.00663714, meanErrR: 0.00119838, medErrT: 3.27072e-06, medErrR: 6.38563e-07)
+approximate translation threshold for 0.7: 0.00272051, approximate rotation threshold for 0.7: 0.000258952
+mode: distorsion, method: SOLVEPNP_UPNP (remaped to SOLVEPNP_EPNP) -> 80% (maxErrT: 0.0552795, maxErrR: 0.00922439, meanErrT: 0.00663714, meanErrR: 0.00119838, medErrT: 3.27072e-06, medErrR: 6.38563e-07)
+approximate translation threshold for 0.7: 0.00272051, approximate rotation threshold for 0.7: 0.000258952
+mode: distorsion, method: SOLVEPNP_AP3P -> 90% (maxErrT: 0.0552795, maxErrR: 0.00922439, meanErrT: 0.00663708, meanErrR: 0.00119837, medErrT: 3.23433e-06, medErrR: 6.38563e-07)
+approximate translation threshold for 0.7: 0.00272051, approximate rotation threshold for 0.7: 0.000258952
+mode: distorsion, method: SOLVEPNP_IPPE -> 100% (maxErrT: 0.00272051, maxErrR: 0.000258952, meanErrT: 0.00272051, meanErrR: 0.000258952, medErrT: 0.00272051, medErrR: 0.000258952)
+approximate translation threshold for 0.7: 0.00272051, approximate rotation threshold for 0.7: 0.000258952
+mode: distorsion, method: SOLVEPNP_IPPE_SQUARE -> 100% (maxErrT: 0.00272051, maxErrR: 0.000258952, meanErrT: 0.00272051, meanErrR: 0.000258952, medErrT: 0.00272051, medErrR: 0.000258952)
+approximate translation threshold for 0.7: 0.00272051, approximate rotation threshold for 0.7: 0.000258952
+mode: distorsion, method: SOLVEPNP_SQPNP -> 90% (maxErrT: 0.00657314, maxErrR: 0.000890775, meanErrT: 0.00123108, meanErrR: 0.000213851, medErrT: 1.20445e-06, medErrR: 3.60894e-07)
+approximate translation threshold for 0.7: 0.0022531, approximate rotation threshold for 0.7: 0.000225163
+
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/ts/src/ts.cpp:618: Failure
+Failed
+
+	failure reason: Bad accuracy
+	test case #-1
+	seed: 0000000000000000
+-----------------------------------
+	LOG:
+Invalid accuracy for SOLVEPNP_SQPNP, failed 4 tests from 10, no distortion, maxErrT: 0.020552, maxErrR: 0.001488, meanErrT: 0.002168, meanErrR: 0.000164, medErrT: 0.000001, medErrR: 0.000000
+
+-----------------------------------
+
+[  FAILED  ] Calib3d_SolvePnPRansac.accuracy (80 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (80 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (80 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.accuracy
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.bad_input_points_19253
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.bad_input_points_19253
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.bad_input_points_19253
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:874: Failure
+Expected equality of these values:
+  inliers.size()
+    Which is: 0
+  size_t(5)
+    Which is: 5
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:875: Failure
+Value of: result
+  Actual: false
+Expected: true
+[  FAILED  ] Calib3d_SolvePnPRansac.bad_input_points_19253 (3 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (3 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (3 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.bad_input_points_19253
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnP.refine
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnP.refine
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnP
+[ RUN      ] Calib3d_SolvePnP.refine
+
+method: Levenberg-Marquardt (C API)
+rvec_ground_truth: [0.3, -0.2, 0.75]
+rvec_est: [0.3000000000000007, -0.1999999999999998, 0.7500000000000003]
+tvec_ground_truth: [0.15, -0.2, 1.5]
+tvec_est: [0.15, -0.2, 1.5]
+
+method: Levenberg-Marquardt (C++ API)
+rvec_ground_truth: [0.3, -0.2, 0.75]
+rvec_est: [0.2999999999997862, -0.2000000000003667, 0.7500000000000263]
+tvec_ground_truth: [0.15, -0.2, 1.5]
+tvec_est: [0.1500000000000243, -0.2000000000000484, 1.500000000000271]
+
+method: Virtual Visual Servoing
+rvec_ground_truth: [0.3, -0.2, 0.75]
+rvec_est: [0.3000000000000004, -0.1999999999999998, 0.7500000000000001]
+tvec_ground_truth: [0.15, -0.2, 1.5]
+tvec_est: [0.15, -0.2000000000000001, 1.5]
+
+method: Levenberg-Marquardt (C API)
+rvec_ground_truth: [-0.75, 0.40000001, 0.34]
+rvec_est: [-0.74999994, 0.39999977, 0.34]
+tvec_ground_truth: [-0.15000001, 0.34999999, 1.58]
+tvec_est: [-0.15000004, 0.35000005, 1.5800003]
+
+method: Levenberg-Marquardt (C++ API)
+rvec_ground_truth: [-0.75, 0.40000001, 0.34]
+rvec_est: [-0.74999994, 0.39999977, 0.34]
+tvec_ground_truth: [-0.15000001, 0.34999999, 1.58]
+tvec_est: [-0.15000004, 0.35000005, 1.5800003]
+
+method: Virtual Visual Servoing
+rvec_ground_truth: [-0.75, 0.40000001, 0.34]
+rvec_est: [-0.74999994, 0.39999977, 0.34]
+tvec_ground_truth: [-0.15000001, 0.34999999, 1.58]
+tvec_est: [-0.15000004, 0.35000005, 1.5800003]
+
+method: Levenberg-Marquardt (C API)
+rvec_ground_truth: [0.3, -0.2, 0.75]
+rvec_est (EPnP): [-0.6182994867984342, -1.167395538222996, 0.7788457753170733]
+rvec_est_refine: [120.6317003385229, 153.3154096915973, -167.0627845992333]
+tvec_ground_truth: [0.15, -0.2, 1.5]
+tvec_est (EPnP): [24.53815503470185, -35.405583454229, 264.827541178823]
+tvec_est_refine: [16.10059619215812, -21.5320246037935, 160.0068757322474]
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1846: Failure
+Expected: (cvtest::norm(rvec_ground_truth, rvec_est, NORM_INF)) <= (1e-2), actual: 0.967396 vs 0.01
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1847: Failure
+Expected: (cvtest::norm(tvec_ground_truth, tvec_est, NORM_INF)) <= (1e-3), actual: 263.328 vs 0.001
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1849: Failure
+Expected: (cvtest::norm(rvec_ground_truth, rvec_est_refine, NORM_INF)) < (cvtest::norm(rvec_ground_truth, rvec_est, NORM_INF)), actual: 167.813 vs 0.967396
+
+method: Levenberg-Marquardt (C++ API)
+rvec_ground_truth: [0.3, -0.2, 0.75]
+rvec_est: [-0.6182994867984342, -1.167395538222996, 0.7788457753170733]
+rvec_est_refine: [68.85362210431019, 81.49461803189151, -0.4244371174568242]
+tvec_ground_truth: [0.15, -0.2, 1.5]
+tvec_est: [24.53815503470185, -35.405583454229, 264.827541178823]
+tvec_est_refine: [25.59741603535062, -35.28939432023242, 261.3439866968965]
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1864: Failure
+Expected: (cvtest::norm(rvec_ground_truth, rvec_est, NORM_INF)) <= (1e-2), actual: 0.967396 vs 0.01
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1865: Failure
+Expected: (cvtest::norm(tvec_ground_truth, tvec_est, NORM_INF)) <= (1e-3), actual: 263.328 vs 0.001
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1867: Failure
+Expected: (cvtest::norm(rvec_ground_truth, rvec_est_refine, NORM_INF)) < (cvtest::norm(rvec_ground_truth, rvec_est, NORM_INF)), actual: 81.6946 vs 0.967396
+
+method: Virtual Visual Servoing
+rvec_ground_truth: [0.3, -0.2, 0.75]
+rvec_est: [-0.6182994867984342, -1.167395538222996, 0.7788457753170733]
+rvec_est_refine: [0.3283447337996745, 0.09176837542683389, -2.320116837570811]
+tvec_ground_truth: [0.15, -0.2, 1.5]
+tvec_est: [24.53815503470185, -35.405583454229, 264.827541178823]
+tvec_est_refine: [300938506.7503231, 159825223.2499463, 2572499762.940198]
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1882: Failure
+Expected: (cvtest::norm(rvec_ground_truth, rvec_est, NORM_INF)) <= (1e-2), actual: 0.967396 vs 0.01
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1883: Failure
+Expected: (cvtest::norm(tvec_ground_truth, tvec_est, NORM_INF)) <= (1e-3), actual: 263.328 vs 0.001
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1885: Failure
+Expected: (cvtest::norm(rvec_ground_truth, rvec_est_refine, NORM_INF)) < (cvtest::norm(rvec_ground_truth, rvec_est, NORM_INF)), actual: 3.07012 vs 0.967396
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1886: Failure
+Expected: (cvtest::norm(tvec_ground_truth, tvec_est_refine, NORM_INF)) < (cvtest::norm(tvec_ground_truth, tvec_est, NORM_INF)), actual: 2.5725e+09 vs 263.328
+[  FAILED  ] Calib3d_SolvePnP.refine (1 ms)
+[----------] 1 test from Calib3d_SolvePnP (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnP.refine
+
+ 1 FAILED TEST

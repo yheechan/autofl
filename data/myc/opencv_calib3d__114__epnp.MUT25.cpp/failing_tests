@@ -1,0 +1,80 @@
+--- Calib3d_SolvePnPRansac.accuracy
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.accuracy
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.accuracy
+mode: no distortion, method: SOLVEPNP_ITERATIVE -> 100% (maxErrT: 0.00107181, maxErrR: 0.000203524, meanErrT: 0.000176679, meanErrR: 3.49444e-05, medErrT: 1.23846e-07, medErrR: 1.11227e-08)
+approximate translation threshold for 0.7: 0.000260481, approximate rotation threshold for 0.7: 3.1414e-05
+mode: no distortion, method: SOLVEPNP_EPNP -> 80% (maxErrT: 0.0127866, maxErrR: 0.00166342, meanErrT: 0.0032432, meanErrR: 0.000271431, medErrT: 9.06939e-07, medErrR: 1.21473e-07)
+approximate translation threshold for 0.7: 0.00698818, approximate rotation threshold for 0.7: 0.000880666
+mode: no distortion, method: SOLVEPNP_P3P -> 80% (maxErrT: 0.0127866, maxErrR: 0.00166342, meanErrT: 0.0032432, meanErrR: 0.000271431, medErrT: 9.06939e-07, medErrR: 1.21473e-07)
+approximate translation threshold for 0.7: 0.00698818, approximate rotation threshold for 0.7: 0.000880666
+mode: no distortion, method: SOLVEPNP_DLS (remaped to SOLVEPNP_EPNP) -> 80% (maxErrT: 0.0127866, maxErrR: 0.00166342, meanErrT: 0.0032432, meanErrR: 0.000271431, medErrT: 9.06939e-07, medErrR: 1.21473e-07)
+approximate translation threshold for 0.7: 0.00698818, approximate rotation threshold for 0.7: 0.000880666
+mode: no distortion, method: SOLVEPNP_UPNP (remaped to SOLVEPNP_EPNP) -> 80% (maxErrT: 0.0127866, maxErrR: 0.00166342, meanErrT: 0.0032432, meanErrR: 0.000271431, medErrT: 9.06939e-07, medErrR: 1.21473e-07)
+approximate translation threshold for 0.7: 0.00698818, approximate rotation threshold for 0.7: 0.000880666
+mode: no distortion, method: SOLVEPNP_AP3P -> 80% (maxErrT: 0.0127866, maxErrR: 0.00166342, meanErrT: 0.0032432, meanErrR: 0.000271431, medErrT: 9.06939e-07, medErrR: 1.21473e-07)
+approximate translation threshold for 0.7: 0.00698818, approximate rotation threshold for 0.7: 0.000880666
+mode: no distortion, method: SOLVEPNP_IPPE -> 100% (maxErrT: 0.00698818, maxErrR: 0.000880666, meanErrT: 0.00698818, meanErrR: 0.000880666, medErrT: 0.00698818, medErrR: 0.000880666)
+approximate translation threshold for 0.7: 0.00698818, approximate rotation threshold for 0.7: 0.000880666
+mode: no distortion, method: SOLVEPNP_IPPE_SQUARE -> 100% (maxErrT: 0.00698818, maxErrR: 0.000880666, meanErrT: 0.00698818, meanErrR: 0.000880666, medErrT: 0.00698818, medErrR: 0.000880666)
+approximate translation threshold for 0.7: 0.00698818, approximate rotation threshold for 0.7: 0.000880666
+mode: no distortion, method: SOLVEPNP_SQPNP -> 100% (maxErrT: 0.00145768, maxErrR: 0.000195574, meanErrT: 0.000257131, meanErrR: 3.45847e-05, medErrT: 5.12789e-07, medErrR: 8.79854e-08)
+approximate translation threshold for 0.7: 0.000387154, approximate rotation threshold for 0.7: 1.64611e-05
+
+mode: distorsion, method: SOLVEPNP_ITERATIVE -> 100% (maxErrT: 0.00312117, maxErrR: 0.000471629, meanErrT: 0.000746458, meanErrR: 0.000108698, medErrT: 1.85638e-07, medErrR: 1.76387e-08)
+approximate translation threshold for 0.7: 0.00194355, approximate rotation threshold for 0.7: 0.000227634
+mode: distorsion, method: SOLVEPNP_EPNP -> 60% (maxErrT: 0.0576395, maxErrR: 0.00771228, meanErrT: 0.00993157, meanErrR: 0.00132488, medErrT: 1.57031e-05, medErrR: 2.03659e-06)
+approximate translation threshold for 0.7: 0.0124269, approximate rotation threshold for 0.7: 0.00161538
+mode: distorsion, method: SOLVEPNP_P3P -> 60% (maxErrT: 0.0576395, maxErrR: 0.00771228, meanErrT: 0.00993157, meanErrR: 0.00132488, medErrT: 1.57031e-05, medErrR: 2.03659e-06)
+approximate translation threshold for 0.7: 0.0124269, approximate rotation threshold for 0.7: 0.00161538
+mode: distorsion, method: SOLVEPNP_DLS (remaped to SOLVEPNP_EPNP) -> 60% (maxErrT: 0.0576395, maxErrR: 0.00771228, meanErrT: 0.00993157, meanErrR: 0.00132488, medErrT: 1.57031e-05, medErrR: 2.03659e-06)
+approximate translation threshold for 0.7: 0.0124269, approximate rotation threshold for 0.7: 0.00161538
+mode: distorsion, method: SOLVEPNP_UPNP (remaped to SOLVEPNP_EPNP) -> 60% (maxErrT: 0.0576395, maxErrR: 0.00771228, meanErrT: 0.00993157, meanErrR: 0.00132488, medErrT: 1.57031e-05, medErrR: 2.03659e-06)
+approximate translation threshold for 0.7: 0.0124269, approximate rotation threshold for 0.7: 0.00161538
+mode: distorsion, method: SOLVEPNP_AP3P -> 60% (maxErrT: 0.0576395, maxErrR: 0.00771228, meanErrT: 0.00993157, meanErrR: 0.00132488, medErrT: 1.57031e-05, medErrR: 2.03659e-06)
+approximate translation threshold for 0.7: 0.0124269, approximate rotation threshold for 0.7: 0.00161538
+mode: distorsion, method: SOLVEPNP_IPPE -> 100% (maxErrT: 0.0124269, maxErrR: 0.00161538, meanErrT: 0.0124269, meanErrR: 0.00161538, medErrT: 0.0124269, medErrR: 0.00161538)
+approximate translation threshold for 0.7: 0.0124269, approximate rotation threshold for 0.7: 0.00161538
+mode: distorsion, method: SOLVEPNP_IPPE_SQUARE -> 100% (maxErrT: 0.0124269, maxErrR: 0.00161538, meanErrT: 0.0124269, meanErrR: 0.00161538, medErrT: 0.0124269, medErrR: 0.00161538)
+approximate translation threshold for 0.7: 0.0124269, approximate rotation threshold for 0.7: 0.00161538
+mode: distorsion, method: SOLVEPNP_SQPNP -> 100% (maxErrT: 0.00657314, maxErrR: 0.000890775, meanErrT: 0.00123109, meanErrR: 0.00021385, medErrT: 1.20445e-06, medErrR: 3.60894e-07)
+approximate translation threshold for 0.7: 0.0022531, approximate rotation threshold for 0.7: 0.000225163
+
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/ts/src/ts.cpp:618: Failure
+Failed
+
+	failure reason: Bad accuracy
+	test case #-1
+	seed: 0000000000000000
+-----------------------------------
+	LOG:
+Invalid accuracy for SOLVEPNP_EPNP, failed 4 tests from 10, distorsion, maxErrT: 0.057640, maxErrR: 0.007712, meanErrT: 0.009932, meanErrR: 0.001325, medErrT: 0.000016, medErrR: 0.000002
+Invalid accuracy for SOLVEPNP_P3P, failed 4 tests from 10, distorsion, maxErrT: 0.057640, maxErrR: 0.007712, meanErrT: 0.009932, meanErrR: 0.001325, medErrT: 0.000016, medErrR: 0.000002
+Invalid accuracy for SOLVEPNP_DLS (remaped to SOLVEPNP_EPNP), failed 4 tests from 10, distorsion, maxErrT: 0.057640, maxErrR: 0.007712, meanErrT: 0.009932, meanErrR: 0.001325, medErrT: 0.000016, medErrR: 0.000002
+Invalid accuracy for SOLVEPNP_UPNP (remaped to SOLVEPNP_EPNP), failed 4 tests from 10, distorsion, maxErrT: 0.057640, maxErrR: 0.007712, meanErrT: 0.009932, meanErrR: 0.001325, medErrT: 0.000016, medErrR: 0.000002
+Invalid accuracy for SOLVEPNP_AP3P, failed 4 tests from 10, distorsion, maxErrT: 0.057640, maxErrR: 0.007712, meanErrT: 0.009932, meanErrR: 0.001325, medErrT: 0.000016, medErrR: 0.000002
+
+-----------------------------------
+
+[  FAILED  ] Calib3d_SolvePnPRansac.accuracy (72 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (72 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (72 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.accuracy
+
+ 1 FAILED TEST

@@ -1,0 +1,79 @@
+--- Calib3d/EstimateAffine2D.testNPoints/1
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/EstimateAffine2D.testNPoints/1
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/EstimateAffine2D
+[ RUN      ] Calib3d/EstimateAffine2D.testNPoints/1, where GetParam() = LMEDS
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:121: Failure
+Value of: inliers_good
+  Actual: false
+Expected: true
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:114: Failure
+Value of: aff_est.empty()
+  Actual: true
+Expected: false
+estimation failed, unable to estimate transform
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/ts/src/ts_func.cpp:1391: error: (-215:Assertion failed) src1.size == src2.size in function 'norm'
+" thrown in the test body.
+[  FAILED  ] Calib3d/EstimateAffine2D.testNPoints/1, where GetParam() = LMEDS (1 ms)
+[----------] 1 test from Calib3d/EstimateAffine2D (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/EstimateAffine2D.testNPoints/1, where GetParam() = LMEDS
+
+ 1 FAILED TEST
+--- Calib3d/EstimateAffinePartial2D.testNPoints/1
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/EstimateAffinePartial2D.testNPoints/1
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/EstimateAffinePartial2D
+[ RUN      ] Calib3d/EstimateAffinePartial2D.testNPoints/1, where GetParam() = LMEDS
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine_partial2d_estimator.cpp:131: Failure
+Value of: inliers_good
+  Actual: false
+Expected: true
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine_partial2d_estimator.cpp:131: Failure
+Value of: inliers_good
+  Actual: false
+Expected: true
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine_partial2d_estimator.cpp:124: Failure
+Value of: aff_est.empty()
+  Actual: true
+Expected: false
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/ts/src/ts_func.cpp:1391: error: (-215:Assertion failed) src1.size == src2.size in function 'norm'
+" thrown in the test body.
+[  FAILED  ] Calib3d/EstimateAffinePartial2D.testNPoints/1, where GetParam() = LMEDS (0 ms)
+[----------] 1 test from Calib3d/EstimateAffinePartial2D (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/EstimateAffinePartial2D.testNPoints/1, where GetParam() = LMEDS
+
+ 1 FAILED TEST

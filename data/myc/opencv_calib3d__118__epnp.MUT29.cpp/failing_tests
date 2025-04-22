@@ -1,0 +1,367 @@
+--- Calib3d_SolvePnPRansac.concurrency
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.concurrency
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.concurrency
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/core/src/array.cpp:121: error: (-201:Incorrect size of input array) Non-positive width or height in function 'cvCreateMatHeader'
+" thrown in the test body.
+[  FAILED  ] Calib3d_SolvePnPRansac.concurrency (1 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.concurrency
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.input_type
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.input_type
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.input_type
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/core/src/array.cpp:121: error: (-201:Incorrect size of input array) Non-positive width or height in function 'cvCreateMatHeader'
+" thrown in the test body.
+[  FAILED  ] Calib3d_SolvePnPRansac.input_type (1 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.input_type
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.bad_input_points_19253
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.bad_input_points_19253
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.bad_input_points_19253
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/core/src/array.cpp:121: error: (-201:Incorrect size of input array) Non-positive width or height in function 'cvCreateMatHeader'
+" thrown in the test body.
+[  FAILED  ] Calib3d_SolvePnPRansac.bad_input_points_19253 (0 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.bad_input_points_19253
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.minPoints
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.minPoints
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.minPoints
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/core/src/array.cpp:121: error: (-201:Incorrect size of input array) Non-positive width or height in function 'cvCreateMatHeader'
+" thrown in the test body.
+[  FAILED  ] Calib3d_SolvePnPRansac.minPoints (1 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.minPoints
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnP.input_type
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnP.input_type
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnP
+[ RUN      ] Calib3d_SolvePnP.input_type
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/core/src/array.cpp:121: error: (-201:Incorrect size of input array) Non-positive width or height in function 'cvCreateMatHeader'
+" thrown in the test body.
+[  FAILED  ] Calib3d_SolvePnP.input_type (1 ms)
+[----------] 1 test from Calib3d_SolvePnP (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnP.input_type
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnP.generic
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnP.generic
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnP
+[ RUN      ] Calib3d_SolvePnP.generic
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/core/src/array.cpp:121: error: (-201:Incorrect size of input array) Non-positive width or height in function 'cvCreateMatHeader'
+" thrown in the test body.
+[  FAILED  ] Calib3d_SolvePnP.generic (0 ms)
+[----------] 1 test from Calib3d_SolvePnP (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnP.generic
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnP.inputShape
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnP.inputShape
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnP
+[ RUN      ] Calib3d_SolvePnP.inputShape
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/core/src/array.cpp:121: error: (-201:Incorrect size of input array) Non-positive width or height in function 'cvCreateMatHeader'
+" thrown in the test body.
+[  FAILED  ] Calib3d_SolvePnP.inputShape (0 ms)
+[----------] 1 test from Calib3d_SolvePnP (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnP.inputShape
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.accuracy
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.accuracy
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.accuracy
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/ts/src/ts.cpp:618: Failure
+Failed
+
+	failure reason: cvError invoked
+	test case #-1
+	seed: 0000000000000000
+-----------------------------------
+	LOG:
+OpenCV Error:
+	Incorrect size of input array (Non-positive width or height) in cvCreateMatHeader, file /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/core/src/array.cpp, line 121
+OpenCV Error:
+	Incorrect size of input array (Non-positive width or height) in cvCreateMatHeader, file /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/core/src/array.cpp, line 121
+
+-----------------------------------
+
+[  FAILED  ] Calib3d_SolvePnPRansac.accuracy (1 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.accuracy
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.double_support
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.double_support
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.double_support
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/core/src/array.cpp:121: error: (-201:Incorrect size of input array) Non-positive width or height in function 'cvCreateMatHeader'
+" thrown in the test body.
+[  FAILED  ] Calib3d_SolvePnPRansac.double_support (1 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.double_support
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.inputShape
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.inputShape
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.inputShape
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/core/src/array.cpp:121: error: (-201:Incorrect size of input array) Non-positive width or height in function 'cvCreateMatHeader'
+" thrown in the test body.
+[  FAILED  ] Calib3d_SolvePnPRansac.inputShape (1 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.inputShape
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnP.refine
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnP.refine
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnP
+[ RUN      ] Calib3d_SolvePnP.refine
+
+method: Levenberg-Marquardt (C API)
+rvec_ground_truth: [0.3, -0.2, 0.75]
+rvec_est: [0.3000000000000007, -0.1999999999999998, 0.7500000000000003]
+tvec_ground_truth: [0.15, -0.2, 1.5]
+tvec_est: [0.15, -0.2, 1.5]
+
+method: Levenberg-Marquardt (C++ API)
+rvec_ground_truth: [0.3, -0.2, 0.75]
+rvec_est: [0.2999999999997862, -0.2000000000003667, 0.7500000000000263]
+tvec_ground_truth: [0.15, -0.2, 1.5]
+tvec_est: [0.1500000000000243, -0.2000000000000484, 1.500000000000271]
+
+method: Virtual Visual Servoing
+rvec_ground_truth: [0.3, -0.2, 0.75]
+rvec_est: [0.3000000000000004, -0.1999999999999998, 0.7500000000000001]
+tvec_ground_truth: [0.15, -0.2, 1.5]
+tvec_est: [0.15, -0.2000000000000001, 1.5]
+
+method: Levenberg-Marquardt (C API)
+rvec_ground_truth: [-0.75, 0.40000001, 0.34]
+rvec_est: [-0.74999994, 0.39999977, 0.34]
+tvec_ground_truth: [-0.15000001, 0.34999999, 1.58]
+tvec_est: [-0.15000004, 0.35000005, 1.5800003]
+
+method: Levenberg-Marquardt (C++ API)
+rvec_ground_truth: [-0.75, 0.40000001, 0.34]
+rvec_est: [-0.74999994, 0.39999977, 0.34]
+tvec_ground_truth: [-0.15000001, 0.34999999, 1.58]
+tvec_est: [-0.15000004, 0.35000005, 1.5800003]
+
+method: Virtual Visual Servoing
+rvec_ground_truth: [-0.75, 0.40000001, 0.34]
+rvec_est: [-0.74999994, 0.39999977, 0.34]
+tvec_ground_truth: [-0.15000001, 0.34999999, 1.58]
+tvec_est: [-0.15000004, 0.35000005, 1.5800003]
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/core/src/array.cpp:121: error: (-201:Incorrect size of input array) Non-positive width or height in function 'cvCreateMatHeader'
+" thrown in the test body.
+[  FAILED  ] Calib3d_SolvePnP.refine (1 ms)
+[----------] 1 test from Calib3d_SolvePnP (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnP.refine
+
+ 1 FAILED TEST

@@ -9,6 +9,7 @@ from lib.repo_interface import get_repo_interface
 
 import ast
 import javalang
+import pycparser
 from lib.name_utils import get_method_name
 
 def file2bug(json_file):
@@ -181,6 +182,11 @@ def get_seen_methods_from_msgs(ri, messages, language):
                 continue
             method_call_nodes = [e for e in ast.walk(parsed_method) if isinstance(e, ast.Call)]
             all_seen_method_names += [ast.unparse(e.func) for e in method_call_nodes]
+        elif language == "cpp" or language == "c":
+            pass
+            # parsed_method = pycparser.CParser().parse(norm_content)
+            # method_call_nodes = [e for e in parsed_method.ext if isinstance(e, pycparser.c_ast.FuncCall)]
+            # all_seen_method_names += [e.name.name for e in method_call_nodes]
         else:
             raise Exception()
 
@@ -219,6 +225,8 @@ def add_auxiliary_scores(json_files, autofl_scores, language, default_aux_score=
             snippet_path = f"data/defects4j/{bug_name}/snippet.json"
         elif language == 'python':
             snippet_path = f"data/bugsinpy/{bug_name}/snippet.json"
+        elif language == 'cpp' or language == 'c':
+            snippet_path = f"data/myc/{bug_name}/snippet.json"
         else:
             raise ValueError(f'Unknown language {language}')
 
@@ -322,7 +330,7 @@ if __name__ == '__main__':
     parser.add_argument('--minimize', '-m', action="store_true")
     parser.add_argument('--aux', '-a', action="store_true")
     args = parser.parse_args()
-    assert args.language in ["java", "python"]
+    assert args.language in ["java", "python", "cpp", "c"]
 
     json_files, autofl_scores = compute_autofl_scores(args.result_dirs, args.project, args.verbose)
 

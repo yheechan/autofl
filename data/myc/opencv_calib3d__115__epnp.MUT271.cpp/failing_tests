@@ -1,0 +1,212 @@
+--- Calib3d_SolvePnPRansac.bad_input_points_19253
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.bad_input_points_19253
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.bad_input_points_19253
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:874: Failure
+Expected equality of these values:
+  inliers.size()
+    Which is: 0
+  size_t(5)
+    Which is: 5
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:875: Failure
+Value of: result
+  Actual: false
+Expected: true
+[  FAILED  ] Calib3d_SolvePnPRansac.bad_input_points_19253 (4 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (4 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (4 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.bad_input_points_19253
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.minPoints
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.minPoints
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.minPoints
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1925: Failure
+Expected: (cvtest::norm(true_rvec, rvec, NORM_INF)) <= (1e-4), actual: 0.907242 vs 0.0001
+[  FAILED  ] Calib3d_SolvePnPRansac.minPoints (0 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.minPoints
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnP.refine
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnP.refine
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnP
+[ RUN      ] Calib3d_SolvePnP.refine
+
+method: Levenberg-Marquardt (C API)
+rvec_ground_truth: [0.3, -0.2, 0.75]
+rvec_est: [0.3000000000000007, -0.1999999999999998, 0.7500000000000003]
+tvec_ground_truth: [0.15, -0.2, 1.5]
+tvec_est: [0.15, -0.2, 1.5]
+
+method: Levenberg-Marquardt (C++ API)
+rvec_ground_truth: [0.3, -0.2, 0.75]
+rvec_est: [0.2999999999997862, -0.2000000000003667, 0.7500000000000263]
+tvec_ground_truth: [0.15, -0.2, 1.5]
+tvec_est: [0.1500000000000243, -0.2000000000000484, 1.500000000000271]
+
+method: Virtual Visual Servoing
+rvec_ground_truth: [0.3, -0.2, 0.75]
+rvec_est: [0.3000000000000004, -0.1999999999999998, 0.7500000000000001]
+tvec_ground_truth: [0.15, -0.2, 1.5]
+tvec_est: [0.15, -0.2000000000000001, 1.5]
+
+method: Levenberg-Marquardt (C API)
+rvec_ground_truth: [-0.75, 0.40000001, 0.34]
+rvec_est: [-0.74999994, 0.39999977, 0.34]
+tvec_ground_truth: [-0.15000001, 0.34999999, 1.58]
+tvec_est: [-0.15000004, 0.35000005, 1.5800003]
+
+method: Levenberg-Marquardt (C++ API)
+rvec_ground_truth: [-0.75, 0.40000001, 0.34]
+rvec_est: [-0.74999994, 0.39999977, 0.34]
+tvec_ground_truth: [-0.15000001, 0.34999999, 1.58]
+tvec_est: [-0.15000004, 0.35000005, 1.5800003]
+
+method: Virtual Visual Servoing
+rvec_ground_truth: [-0.75, 0.40000001, 0.34]
+rvec_est: [-0.74999994, 0.39999977, 0.34]
+tvec_ground_truth: [-0.15000001, 0.34999999, 1.58]
+tvec_est: [-0.15000004, 0.35000005, 1.5800003]
+
+method: Levenberg-Marquardt (C API)
+rvec_ground_truth: [0.3, -0.2, 0.75]
+rvec_est (EPnP): [0, 0, 0]
+rvec_est_refine: [-nan, -nan, -nan]
+tvec_ground_truth: [0.15, -0.2, 1.5]
+tvec_est (EPnP): [-nan, -nan, -nan]
+tvec_est_refine: [-nan, -nan, -nan]
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1846: Failure
+Expected: (cvtest::norm(rvec_ground_truth, rvec_est, NORM_INF)) <= (1e-2), actual: 0.75 vs 0.01
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1850: Failure
+Expected: (cvtest::norm(tvec_ground_truth, tvec_est_refine, NORM_INF)) < (cvtest::norm(tvec_ground_truth, tvec_est, NORM_INF)), actual: 0 vs 0
+
+method: Levenberg-Marquardt (C++ API)
+rvec_ground_truth: [0.3, -0.2, 0.75]
+rvec_est: [0, 0, 0]
+rvec_est_refine: [0, 0, 0]
+tvec_ground_truth: [0.15, -0.2, 1.5]
+tvec_est: [-nan, -nan, -nan]
+tvec_est_refine: [-nan, -nan, -nan]
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1864: Failure
+Expected: (cvtest::norm(rvec_ground_truth, rvec_est, NORM_INF)) <= (1e-2), actual: 0.75 vs 0.01
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1867: Failure
+Expected: (cvtest::norm(rvec_ground_truth, rvec_est_refine, NORM_INF)) < (cvtest::norm(rvec_ground_truth, rvec_est, NORM_INF)), actual: 0.75 vs 0.75
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1868: Failure
+Expected: (cvtest::norm(tvec_ground_truth, tvec_est_refine, NORM_INF)) < (cvtest::norm(tvec_ground_truth, tvec_est, NORM_INF)), actual: 0 vs 0
+
+method: Virtual Visual Servoing
+rvec_ground_truth: [0.3, -0.2, 0.75]
+rvec_est: [0, 0, 0]
+rvec_est_refine: [0, 0, 0]
+tvec_ground_truth: [0.15, -0.2, 1.5]
+tvec_est: [-nan, -nan, -nan]
+tvec_est_refine: [-nan, -nan, -nan]
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1882: Failure
+Expected: (cvtest::norm(rvec_ground_truth, rvec_est, NORM_INF)) <= (1e-2), actual: 0.75 vs 0.01
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1885: Failure
+Expected: (cvtest::norm(rvec_ground_truth, rvec_est_refine, NORM_INF)) < (cvtest::norm(rvec_ground_truth, rvec_est, NORM_INF)), actual: 0.75 vs 0.75
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1886: Failure
+Expected: (cvtest::norm(tvec_ground_truth, tvec_est_refine, NORM_INF)) < (cvtest::norm(tvec_ground_truth, tvec_est, NORM_INF)), actual: 0 vs 0
+[  FAILED  ] Calib3d_SolvePnP.refine (2 ms)
+[----------] 1 test from Calib3d_SolvePnP (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (2 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnP.refine
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.inputShape
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.inputShape
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.inputShape
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1991: Failure
+Expected: (cvtest::norm(true_rvec, rvec, NORM_INF)) <= (1e-6), actual: 1.32441e+46 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:1992: Failure
+Expected: (cvtest::norm(true_tvec, Tvec, NORM_INF)) <= (1e-6), actual: 4.27454e+48 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:2016: Failure
+Expected: (cvtest::norm(true_rvec, rvec, NORM_INF)) <= (1e-6), actual: 1.32441e+46 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:2017: Failure
+Expected: (cvtest::norm(true_tvec, Tvec, NORM_INF)) <= (1e-6), actual: 4.27454e+48 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:2041: Failure
+Expected: (cvtest::norm(true_rvec, rvec, NORM_INF)) <= (1e-6), actual: 1.32441e+46 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:2042: Failure
+Expected: (cvtest::norm(true_tvec, Tvec, NORM_INF)) <= (1e-6), actual: 4.27454e+48 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:2060: Failure
+Expected: (cvtest::norm(true_rvec, rvec, NORM_INF)) <= (1e-6), actual: 1.32441e+46 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:2061: Failure
+Expected: (cvtest::norm(true_tvec, Tvec, NORM_INF)) <= (1e-6), actual: 4.27454e+48 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:2079: Failure
+Expected: (cvtest::norm(true_rvec, rvec, NORM_INF)) <= (1e-6), actual: 1.32441e+46 vs 1e-06
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_solvepnp_ransac.cpp:2080: Failure
+Expected: (cvtest::norm(true_tvec, Tvec, NORM_INF)) <= (1e-6), actual: 4.27454e+48 vs 1e-06
+[  FAILED  ] Calib3d_SolvePnPRansac.inputShape (10 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (10 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (10 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.inputShape
+
+ 1 FAILED TEST

@@ -1,0 +1,72 @@
+[
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/checkchessboard.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "icvGetQuadrangleHypotheses(const int & contours, const int & hierarchy, int & quads, int class_id)",
+        "start_line": 52,
+        "end_line": 80,
+        "snippet": "static void icvGetQuadrangleHypotheses(const std::vector<std::vector< cv::Point > > & contours, const std::vector< cv::Vec4i > & hierarchy, std::vector<std::pair<float, int> >& quads, int class_id)\n\n{\n\n    const float min_aspect_ratio = 0.3f;\n\n    const float max_aspect_ratio = 3.0f;\n\n    const float min_box_size = 10.0f;\n\n\n\n    for (size_t i = 0; i < contours.size(); ++i)\n\n    {\n\n        if (hierarchy.at(i)[3] != -1)\n\n            continue; // skip holes\n\n\n\n        const std::vector< cv::Point > & c = contours[i];\n\n        cv::RotatedRect box = cv::minAreaRect(c);\n\n\n\n        float box_size = MAX(box.size.width, box.size.height);\n\n        if(box_size < min_box_size)\n\n        {\n\n            continue;\n\n        }\n\n\n\n        float aspect_ratio = box.size.width/MAX(box.size.height, 1);\n\n        if(aspect_ratio < min_aspect_ratio || aspect_ratio > max_aspect_ratio)\n\n        {\n\n            continue;\n\n        }\n\n\n\n        quads.emplace_back(box_size, class_id);\n\n    }\n\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/checkchessboard.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "countClasses(const int & pairs, size_t idx1, size_t idx2, int & counts)",
+        "start_line": 82,
+        "end_line": 89,
+        "snippet": "static void countClasses(const std::vector<std::pair<float, int> >& pairs, size_t idx1, size_t idx2, std::vector<int>& counts)\n\n{\n\n    counts.assign(2, 0);\n\n    for(size_t i = idx1; i != idx2; i++)\n\n    {\n\n        counts[pairs[i].second]++;\n\n    }\n\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/checkchessboard.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "less_pred(const std::pair<float, int> & p1, const std::pair<float, int> & p2)",
+        "start_line": 91,
+        "end_line": 94,
+        "snippet": "inline bool less_pred(const std::pair<float, int>& p1, const std::pair<float, int>& p2)\n\n{\n\n    return p1.first < p2.first;\n\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/checkchessboard.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "fillQuads(class cv::Mat & white, class cv::Mat & black, double white_thresh, double black_thresh, int & quads)",
+        "start_line": 96,
+        "end_line": 114,
+        "snippet": "static void fillQuads(Mat & white, Mat & black, double white_thresh, double black_thresh, vector<pair<float, int> > & quads)\n\n{\n\n    Mat thresh;\n\n    {\n\n        vector< vector<Point> > contours;\n\n        vector< Vec4i > hierarchy;\n\n        threshold(white, thresh, white_thresh, 255, THRESH_BINARY);\n\n        findContours(thresh, contours, hierarchy, RETR_CCOMP, CHAIN_APPROX_SIMPLE);\n\n        icvGetQuadrangleHypotheses(contours, hierarchy, quads, 1);\n\n    }\n\n\n\n    {\n\n        vector< vector<Point> > contours;\n\n        vector< Vec4i > hierarchy;\n\n        threshold(black, thresh, black_thresh, 255, THRESH_BINARY_INV);\n\n        findContours(thresh, contours, hierarchy, RETR_CCOMP, CHAIN_APPROX_SIMPLE);\n\n        icvGetQuadrangleHypotheses(contours, hierarchy, quads, 0);\n\n    }\n\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": true,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/checkchessboard.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "checkQuads(int & quads, const cv::Size & size)",
+        "start_line": 116,
+        "end_line": 152,
+        "snippet": "static bool checkQuads(vector<pair<float, int> > & quads, const cv::Size & size)\n\n{\n\n    const size_t min_quads_count = size.width*size.height/2;\n\n    std::sort(quads.begin(), quads.end(), less_pred);\n\n\n\n    // now check if there are many hypotheses with similar sizes\n\n    // do this by floodfill-style algorithm\n\n    const float size_rel_dev = 0.4f;\n\n\n\n    for(size_t i = 0; i < quads.size(); i++)\n\n    {\n\n        size_t j = i + 1;\n\n        for(; j < quads.size(); j++)\n\n        {\n\n            if(quads[j].first/quads[i].first > 1.0f + size_rel_dev)\n\n            {\n\n                break;\n\n            }\n\n        }\n\n\n\n        if(j + 1 > min_quads_count + i)\n\n        {\n\n            // check the number of black and white squares\n\n            std::vector<int> counts;\n\n            countClasses(quads, i, j, counts);\n\n            const int black_count = cvRound(ceil(size.width/2.0)*ceil(size.height/2.0));\n\n            const int white_count = cvRound(floor(size.width/2.0)*floor(size.height/2.0));\n\n            if(counts[0] < black_count*0.75 ||\n\n               counts[1] < white_count*0.75)\n\n            {\n\n                continue;\n\n            }\n\n            return true;\n\n        }\n\n    }\n\n    return false;\n\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/checkchessboard.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "checkChessboard(cv::InputArray _img, cv::Size size)",
+        "start_line": 166,
+        "end_line": 190,
+        "snippet": "bool cv::checkChessboard(InputArray _img, Size size)\n\n{\n\n    Mat img = _img.getMat();\n\n    CV_Assert(img.channels() == 1 && img.depth() == CV_8U);\n\n\n\n    const int erosion_count = 1;\n\n    const float black_level = 20.f;\n\n    const float white_level = 130.f;\n\n    const float black_white_gap = 70.f;\n\n\n\n    Mat white;\n\n    Mat black;\n\n    erode(img, white, Mat(), Point(-1, -1), erosion_count);\n\n    dilate(img, black, Mat(), Point(-1, -1), erosion_count);\n\n\n\n    bool result = false;\n\n    for(float thresh_level = black_level; thresh_level < white_level && !result; thresh_level += 20.0f)\n\n    {\n\n        vector<pair<float, int> > quads;\n\n        fillQuads(white, black, thresh_level + black_white_gap, thresh_level, quads);\n\n        if (checkQuads(quads, size))\n\n            result = true;\n\n    }\n\n    return result;\n\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/checkchessboard.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "checkChessboardBinary(const cv::Mat & img, const cv::Size & size)",
+        "start_line": 198,
+        "end_line": 223,
+        "snippet": "int checkChessboardBinary(const cv::Mat & img, const cv::Size & size)\n\n{\n\n    CV_Assert(img.channels() == 1 && img.depth() == CV_8U);\n\n\n\n    Mat white = img.clone();\n\n    Mat black = img.clone();\n\n\n\n    int result = 0;\n\n    for ( int erosion_count = 0; erosion_count <= 3; erosion_count++ )\n\n    {\n\n        if ( 1 == result )\n\n            break;\n\n\n\n        if ( 0 != erosion_count ) // first iteration keeps original images\n\n        {\n\n            erode(white, white, Mat(), Point(-1, -1), 1);\n\n            dilate(black, black, Mat(), Point(-1, -1), 1);\n\n        }\n\n\n\n        vector<pair<float, int> > quads;\n\n        fillQuads(white, black, 128, 128, quads);\n\n        if (checkQuads(quads, size))\n\n            result = 1;\n\n    }\n\n    return result;\n\n}\n",
+        "comment": ""
+    }
+]

@@ -1,0 +1,761 @@
+--- EstimateAffinePartial2D.issue_14259_dont_change_inputs
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = EstimateAffinePartial2D.issue_14259_dont_change_inputs
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from EstimateAffinePartial2D
+[ RUN      ] EstimateAffinePartial2D.issue_14259_dont_change_inputs
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] EstimateAffinePartial2D.issue_14259_dont_change_inputs (0 ms)
+[----------] 1 test from EstimateAffinePartial2D (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] EstimateAffinePartial2D.issue_14259_dont_change_inputs
+
+ 1 FAILED TEST
+--- Calib3d_Homography.EKcase
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_Homography.EKcase
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_Homography
+[ RUN      ] Calib3d_Homography.EKcase
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] Calib3d_Homography.EKcase (0 ms)
+[----------] 1 test from Calib3d_Homography (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_Homography.EKcase
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.input_type
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.input_type
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.input_type
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] Calib3d_SolvePnPRansac.input_type (0 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.input_type
+
+ 1 FAILED TEST
+--- Calib3d/EstimateAffine2D.testNPoints/1
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/EstimateAffine2D.testNPoints/1
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/EstimateAffine2D
+[ RUN      ] Calib3d/EstimateAffine2D.testNPoints/1, where GetParam() = LMEDS
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] Calib3d/EstimateAffine2D.testNPoints/1, where GetParam() = LMEDS (0 ms)
+[----------] 1 test from Calib3d/EstimateAffine2D (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/EstimateAffine2D.testNPoints/1, where GetParam() = LMEDS
+
+ 1 FAILED TEST
+--- Calib3d/EstimateAffinePartial2D.testConversion/0
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/EstimateAffinePartial2D.testConversion/0
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/EstimateAffinePartial2D
+[ RUN      ] Calib3d/EstimateAffinePartial2D.testConversion/0, where GetParam() = RANSAC
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] Calib3d/EstimateAffinePartial2D.testConversion/0, where GetParam() = RANSAC (0 ms)
+[----------] 1 test from Calib3d/EstimateAffinePartial2D (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/EstimateAffinePartial2D.testConversion/0, where GetParam() = RANSAC
+
+ 1 FAILED TEST
+--- EstimateAffine2D.issue_14259_dont_change_inputs
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = EstimateAffine2D.issue_14259_dont_change_inputs
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from EstimateAffine2D
+[ RUN      ] EstimateAffine2D.issue_14259_dont_change_inputs
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] EstimateAffine2D.issue_14259_dont_change_inputs (0 ms)
+[----------] 1 test from EstimateAffine2D (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] EstimateAffine2D.issue_14259_dont_change_inputs
+
+ 1 FAILED TEST
+--- Calib3d_EstimateAffine3D.accuracy
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_EstimateAffine3D.accuracy
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_EstimateAffine3D
+[ RUN      ] Calib3d_EstimateAffine3D.accuracy
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/ts/src/ts.cpp:618: Failure
+Failed
+
+	failure reason: cvError invoked
+	test case #-1
+	seed: 0000000000000000
+-----------------------------------
+	LOG:
+OpenCV Error:
+	Assertion failed (count >= modelPoints && count == count2) in getSubset, file /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp, line 120
+OpenCV Error:
+	Assertion failed (count >= modelPoints && count == count2) in getSubset, file /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp, line 120
+
+-----------------------------------
+
+[  FAILED  ] Calib3d_EstimateAffine3D.accuracy (0 ms)
+[----------] 1 test from Calib3d_EstimateAffine3D (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_EstimateAffine3D.accuracy
+
+ 1 FAILED TEST
+--- Calib3d_EstimateAffine3D.regression_16007
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_EstimateAffine3D.regression_16007
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_EstimateAffine3D
+[ RUN      ] Calib3d_EstimateAffine3D.regression_16007
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] Calib3d_EstimateAffine3D.regression_16007 (0 ms)
+[----------] 1 test from Calib3d_EstimateAffine3D (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_EstimateAffine3D.regression_16007
+
+ 1 FAILED TEST
+--- CV_RecoverPoseTest.regression_15341
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = CV_RecoverPoseTest.regression_15341
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from CV_RecoverPoseTest
+[ RUN      ] CV_RecoverPoseTest.regression_15341
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] CV_RecoverPoseTest.regression_15341 (0 ms)
+[----------] 1 test from CV_RecoverPoseTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] CV_RecoverPoseTest.regression_15341
+
+ 1 FAILED TEST
+--- Calib3d_AsymmetricCirclesPatternDetector.regression_18713
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_AsymmetricCirclesPatternDetector.regression_18713
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_AsymmetricCirclesPatternDetector
+[ RUN      ] Calib3d_AsymmetricCirclesPatternDetector.regression_18713
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_chesscorners.cpp:723: Failure
+Expected: res = findCirclesGrid(candidates, patternSize, result, CALIB_CB_ASYMMETRIC_GRID, Ptr<FeatureDetector>() ) doesn't throw an exception.
+  Actual: it throws.
+[  FAILED  ] Calib3d_AsymmetricCirclesPatternDetector.regression_18713 (3 ms)
+[----------] 1 test from Calib3d_AsymmetricCirclesPatternDetector (3 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (3 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_AsymmetricCirclesPatternDetector.regression_18713
+
+ 1 FAILED TEST
+--- Calib3d_AsymmetricCirclesPatternDetector.regression_19498
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_AsymmetricCirclesPatternDetector.regression_19498
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_AsymmetricCirclesPatternDetector
+[ RUN      ] Calib3d_AsymmetricCirclesPatternDetector.regression_19498
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_chesscorners.cpp:791: Failure
+Expected: res = findCirclesGrid(candidates, patternSize, result, CALIB_CB_SYMMETRIC_GRID, Ptr<FeatureDetector>() ) doesn't throw an exception.
+  Actual: it throws.
+[  FAILED  ] Calib3d_AsymmetricCirclesPatternDetector.regression_19498 (20 ms)
+[----------] 1 test from Calib3d_AsymmetricCirclesPatternDetector (20 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (20 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_AsymmetricCirclesPatternDetector.regression_19498
+
+ 1 FAILED TEST
+--- Calib3d_FindFundamentalMat.accuracy
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_FindFundamentalMat.accuracy
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_FindFundamentalMat
+[ RUN      ] Calib3d_FindFundamentalMat.accuracy
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/ts/src/ts.cpp:618: Failure
+Failed
+
+	failure reason: cvError invoked
+	test case #1
+	seed: 00000000000c5a5d
+-----------------------------------
+	LOG:
+OpenCV Error:
+	Assertion failed (count >= modelPoints && count == count2) in getSubset, file /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp, line 120
+OpenCV Error:
+	Assertion failed (count >= modelPoints && count == count2) in getSubset, file /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp, line 120
+
+-----------------------------------
+
+[  FAILED  ] Calib3d_FindFundamentalMat.accuracy (0 ms)
+[----------] 1 test from Calib3d_FindFundamentalMat (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_FindFundamentalMat.accuracy
+
+ 1 FAILED TEST
+--- Calib3d_Homography.fromImages
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_Homography.fromImages
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_Homography
+[ RUN      ] Calib3d_Homography.fromImages
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] Calib3d_Homography.fromImages (10 ms)
+[----------] 1 test from Calib3d_Homography (10 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (10 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_Homography.fromImages
+
+ 1 FAILED TEST
+--- Calib3d_Homography.not_normalized
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_Homography.not_normalized
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_Homography
+[ RUN      ] Calib3d_Homography.not_normalized
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] Calib3d_Homography.not_normalized (0 ms)
+[----------] 1 test from Calib3d_Homography (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_Homography.not_normalized
+
+ 1 FAILED TEST
+--- Calib3d_Homography.Refine
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_Homography.Refine
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_Homography
+[ RUN      ] Calib3d_Homography.Refine
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] Calib3d_Homography.Refine (1 ms)
+[----------] 1 test from Calib3d_Homography (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_Homography.Refine
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.accuracy
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.accuracy
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.accuracy
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/ts/src/ts.cpp:618: Failure
+Failed
+
+	failure reason: cvError invoked
+	test case #-1
+	seed: 0000000000000000
+-----------------------------------
+	LOG:
+OpenCV Error:
+	Assertion failed (count >= modelPoints && count == count2) in getSubset, file /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp, line 120
+OpenCV Error:
+	Assertion failed (count >= modelPoints && count == count2) in getSubset, file /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp, line 120
+
+-----------------------------------
+
+[  FAILED  ] Calib3d_SolvePnPRansac.accuracy (1 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.accuracy
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.concurrency
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.concurrency
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.concurrency
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] Calib3d_SolvePnPRansac.concurrency (0 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.concurrency
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.double_support
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.double_support
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.double_support
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] Calib3d_SolvePnPRansac.double_support (0 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.double_support
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.bad_input_points_19253
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.bad_input_points_19253
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.bad_input_points_19253
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] Calib3d_SolvePnPRansac.bad_input_points_19253 (0 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.bad_input_points_19253
+
+ 1 FAILED TEST
+--- Calib3d_SolvePnPRansac.inputShape
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_SolvePnPRansac.inputShape
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_SolvePnPRansac
+[ RUN      ] Calib3d_SolvePnPRansac.inputShape
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] Calib3d_SolvePnPRansac.inputShape (1 ms)
+[----------] 1 test from Calib3d_SolvePnPRansac (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_SolvePnPRansac.inputShape
+
+ 1 FAILED TEST
+--- Calib3d_EstimateTranslation3D.testNPoints
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_EstimateTranslation3D.testNPoints
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_EstimateTranslation3D
+[ RUN      ] Calib3d_EstimateTranslation3D.testNPoints
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] Calib3d_EstimateTranslation3D.testNPoints (0 ms)
+[----------] 1 test from Calib3d_EstimateTranslation3D (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_EstimateTranslation3D.testNPoints
+
+ 1 FAILED TEST
+--- Calib3d/EstimateAffine2D.testNPoints/0
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/EstimateAffine2D.testNPoints/0
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/EstimateAffine2D
+[ RUN      ] Calib3d/EstimateAffine2D.testNPoints/0, where GetParam() = RANSAC
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] Calib3d/EstimateAffine2D.testNPoints/0, where GetParam() = RANSAC (0 ms)
+[----------] 1 test from Calib3d/EstimateAffine2D (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/EstimateAffine2D.testNPoints/0, where GetParam() = RANSAC
+
+ 1 FAILED TEST
+--- Calib3d/EstimateAffinePartial2D.testNPoints/0
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/EstimateAffinePartial2D.testNPoints/0
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/EstimateAffinePartial2D
+[ RUN      ] Calib3d/EstimateAffinePartial2D.testNPoints/0, where GetParam() = RANSAC
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] Calib3d/EstimateAffinePartial2D.testNPoints/0, where GetParam() = RANSAC (0 ms)
+[----------] 1 test from Calib3d/EstimateAffinePartial2D (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/EstimateAffinePartial2D.testNPoints/0, where GetParam() = RANSAC
+
+ 1 FAILED TEST
+--- Calib3d/EstimateAffinePartial2D.testNPoints/1
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/EstimateAffinePartial2D.testNPoints/1
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/EstimateAffinePartial2D
+[ RUN      ] Calib3d/EstimateAffinePartial2D.testNPoints/1, where GetParam() = LMEDS
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] Calib3d/EstimateAffinePartial2D.testNPoints/1, where GetParam() = LMEDS (1 ms)
+[----------] 1 test from Calib3d/EstimateAffinePartial2D (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/EstimateAffinePartial2D.testNPoints/1, where GetParam() = LMEDS
+
+ 1 FAILED TEST
+--- Calib3d/EstimateAffinePartial2D.testConversion/1
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/EstimateAffinePartial2D.testConversion/1
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/EstimateAffinePartial2D
+[ RUN      ] Calib3d/EstimateAffinePartial2D.testConversion/1, where GetParam() = LMEDS
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'
+" thrown in the test body.
+[  FAILED  ] Calib3d/EstimateAffinePartial2D.testConversion/1, where GetParam() = LMEDS (0 ms)
+[----------] 1 test from Calib3d/EstimateAffinePartial2D (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/EstimateAffinePartial2D.testConversion/1, where GetParam() = LMEDS
+
+ 1 FAILED TEST

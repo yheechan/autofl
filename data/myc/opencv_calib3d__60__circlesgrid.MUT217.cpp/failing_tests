@@ -1,0 +1,84 @@
+--- Calib3d_AsymmetricCirclesPatternDetector.accuracy
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_AsymmetricCirclesPatternDetector.accuracy
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_AsymmetricCirclesPatternDetector
+[ RUN      ] Calib3d_AsymmetricCirclesPatternDetector.accuracy
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/ts/src/ts.cpp:618: Failure
+Failed
+
+	failure reason: Invalid function output
+	test case #6
+	seed: 00000000000c5a62
+-----------------------------------
+	LOG:
+
+Running batch acircles_list.dat
+Error on acircles1.png is 0.000000
+Error on acircles2.png is 0.000000
+Error on acircles3.png is 0.000000
+Error on acircles4.png is 0.000000
+Error on acircles5.png is 0.000000
+Error on acircles6.png is 0.000000
+chessboard is detected incorrectly in acircles7.png
+
+-----------------------------------
+	CONSOLE: .....
+-----------------------------------
+
+[  FAILED  ] Calib3d_AsymmetricCirclesPatternDetector.accuracy (121 ms)
+[----------] 1 test from Calib3d_AsymmetricCirclesPatternDetector (121 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (121 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_AsymmetricCirclesPatternDetector.accuracy
+
+ 1 FAILED TEST
+--- Calib3d_RotatedCirclesPatternDetector.issue_24964
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_RotatedCirclesPatternDetector.issue_24964
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_RotatedCirclesPatternDetector
+[ RUN      ] Calib3d_RotatedCirclesPatternDetector.issue_24964
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_chesscorners.cpp:827: Failure
+Value of: found
+  Actual: false
+Expected: true
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_chesscorners.cpp:828: Failure
+Expected equality of these values:
+  centers.size()
+    Which is: 36
+  (size_t)parrernSize.area()
+    Which is: 42
+[  FAILED  ] Calib3d_RotatedCirclesPatternDetector.issue_24964 (50 ms)
+[----------] 1 test from Calib3d_RotatedCirclesPatternDetector (50 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (50 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_RotatedCirclesPatternDetector.issue_24964
+
+ 1 FAILED TEST

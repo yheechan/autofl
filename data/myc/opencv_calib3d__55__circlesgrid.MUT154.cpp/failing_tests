@@ -1,0 +1,72 @@
+--- Calib3d_AsymmetricCirclesPatternDetectorWithClustering.accuracy
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_AsymmetricCirclesPatternDetectorWithClustering.accuracy
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_AsymmetricCirclesPatternDetectorWithClustering
+[ RUN      ] Calib3d_AsymmetricCirclesPatternDetectorWithClustering.accuracy
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/ts/src/ts.cpp:618: Failure
+Failed
+
+	failure reason: cvError invoked
+	test case #0
+	seed: 00000000000c5a5c
+-----------------------------------
+	LOG:
+
+Running batch acircles_list.dat
+OpenCV Error:
+	Bad argument (The input arrays should be 2D or 3D point sets) in findHomography, file /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/fundam.cpp, line 383
+OpenCV Error:
+	Bad argument (The input arrays should be 2D or 3D point sets) in findHomography, file /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/fundam.cpp, line 383
+
+-----------------------------------
+
+[  FAILED  ] Calib3d_AsymmetricCirclesPatternDetectorWithClustering.accuracy (13 ms)
+[----------] 1 test from Calib3d_AsymmetricCirclesPatternDetectorWithClustering (13 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (13 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_AsymmetricCirclesPatternDetectorWithClustering.accuracy
+
+ 1 FAILED TEST
+--- Calib3d_CirclesPatternDetectorWithClustering.accuracy
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_CirclesPatternDetectorWithClustering.accuracy
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_CirclesPatternDetectorWithClustering
+[ RUN      ] Calib3d_CirclesPatternDetectorWithClustering.accuracy
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/fundam.cpp:383: error: (-5:Bad argument) The input arrays should be 2D or 3D point sets in function 'findHomography'
+" thrown in the test body.
+[  FAILED  ] Calib3d_CirclesPatternDetectorWithClustering.accuracy (12 ms)
+[----------] 1 test from Calib3d_CirclesPatternDetectorWithClustering (12 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (12 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_CirclesPatternDetectorWithClustering.accuracy
+
+ 1 FAILED TEST

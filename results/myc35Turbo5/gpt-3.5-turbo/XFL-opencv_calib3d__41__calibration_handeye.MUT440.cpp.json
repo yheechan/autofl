@@ -1,0 +1,366 @@
+{
+    "time": 1745259259.3483286,
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are a debugging assistant. You will be presented with a failing test, and tools (functions) to access the source code of the system under test (SUT). Your task is to provide a step-by-step explanation of how the bug occurred, based on the failing test and the information you retrieved using tests about the SUT. You will be given 9 chances to interact with functions to gather relevant information. An example answer would look like follows.\n\nTitle: Diagnosis of test `testGenerateURLFragment`\nDetails: The test `testGenerateURLFragment` checks whether HTML entities such as `&quot;` are correctly escaped to their corresponding character by the `StandardToolTipTagFragmentGenerator.generateToolTipFragment` method. However, the test failure indicates that this is not the case. Following the execution path, we find that `StandardToolTipTagFragmentGenerator.generateToolTipFragment` is not escaping any HTML code; instead, it is using its input `toolTipText` as is. Consequently, un-escaped strings are being returned, which leads to the error demonstrated by the test.\n\nAfter providing this diagnosis, you will be prompted to suggest which methods would be the best locations to be fixed. The answers should be in the form of `ClassName.MethodName(ArgType1, ArgType2, ...)` without commentary (one per line), as your answer will be automatically processed before finally being presented to the user."
+        },
+        {
+            "role": "user",
+            "content": "The test `['Calib3d_CalibrateRobotWorldHandEye.regression()']` failed.\nThe test looks like:\n\n```cpp\nTEST(Calib3d_CalibrateRobotWorldHandEye, regression)\n\n{\n\n    std::vector<Mat> R_world2cam, t_worldt2cam;\n\n    std::vector<Mat> R_base2gripper, t_base2gripper;\n\n    loadDataset(R_world2cam, t_worldt2cam, R_base2gripper, t_base2gripper);\n\n\n\n    std::vector<Mat> rvec_R_world2cam;\n\n    rvec_R_world2cam.reserve(R_world2cam.size());\n\n    for (size_t i = 0; i < R_world2cam.size(); i++)\n\n    {\n\n        Mat rvec;\n\n        cv::Rodrigues(R_world2cam[i], rvec);\n\n        rvec_R_world2cam.push_back(rvec);\n\n    }\n```\n\nIt failed with the following error message and call stack:\n\n```\nTEST: Skip tests with tags: 'mem_6gb', 'verylong'\nNote: Google Test filter = Calib3d_CalibrateRobotWorldHandEye.regression\n[==========] Running 1 test from 1 test case.\n[----------] Global test environment set-up.\n[----------] 1 test from Calib3d_CalibrateRobotWorldHandEye\n[ RUN      ] Calib3d_CalibrateRobotWorldHandEye.regression\nunknown file: Failure\nC++ exception with description \"OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/core/src/matrix_wrap.cpp:1219: error: (-215:Assertion failed) !fixedSize() || ((Mat*)obj)->size.operator()() == Size(_cols, _rows) in function 'create'\n\" thrown in the test body.\n[  FAILED  ] Calib3d_CalibrateRobotWorldHandEye.regression (2 ms)\n[----------] 1 test from Calib3d_CalibrateRobotWorldHandEye (2 ms total)\n\n[----------] Global test environment tear-down\n[==========] 1 test from 1 test case ran. (2 ms total)\n[  PASSED  ] 0 tests.\n[  FAILED  ] 1 test, listed below:\n[  FAILED  ] Calib3d_CalibrateRobotWorldHandEye.regression\n\n 1 FAILED TEST\n```\n\nStart by calling the `get_failing_tests_covered_classes` function."
+        },
+        {
+            "role": "assistant",
+            "content": null,
+            "function_call": {
+                "name": "get_failing_tests_covered_classes",
+                "arguments": "{}"
+            }
+        },
+        {
+            "role": "function",
+            "name": "get_failing_tests_covered_classes",
+            "content": "{\".\": [\"FUNCTIONWITHOUTCLASS\"]}"
+        },
+        {
+            "role": "assistant",
+            "content": null,
+            "function_call": {
+                "name": "get_failing_tests_covered_methods_for_class",
+                "arguments": "{\"class_name\":\"FUNCTIONWITHOUTCLASS\"}"
+            },
+            "refusal": null,
+            "annotations": []
+        },
+        {
+            "role": "function",
+            "name": "get_failing_tests_covered_methods_for_class",
+            "content": "[\"kron(const class cv::Mat & A, const class cv::Mat & B)\", \"normalizeRotation(const Mat_<double> & R_)\", \"calibrateRobotWorldHandEyeShah(const int & cRw, const int & ctw, const int & gRb, const int & gtb, cv::Matx33d & wRb, cv::Matx31d & wtb, cv::Matx33d & cRg, cv::Matx31d & ctg)\", \"calibrateRobotWorldHandEyeLi(const int & cRw, const int & ctw, const int & gRb, const int & gtb, cv::Matx33d & wRb, cv::Matx31d & wtb, cv::Matx33d & cRg, cv::Matx31d & ctg)\", \"calibrateRobotWorldHandEye(cv::InputArrayOfArrays R_world2cam, cv::InputArrayOfArrays t_world2cam, cv::InputArrayOfArrays R_base2gripper, cv::InputArrayOfArrays t_base2gripper, cv::OutputArray R_base2world, cv::OutputArray t_base2world, cv::OutputArray R_gripper2cam, cv::OutputArray t_gripper2cam, enum cv::RobotWorldHandEyeCalibrationMethod method)\"]"
+        },
+        {
+            "role": "assistant",
+            "content": null,
+            "function_call": {
+                "name": "get_code_snippet",
+                "arguments": "{\"signature\":\"calibrateRobotWorldHandEye(cv::InputArrayOfArrays R_world2cam, cv::InputArrayOfArrays t_world2cam, cv::InputArrayOfArrays R_base2gripper, cv::InputArrayOfArrays t_base2gripper, cv::OutputArray R_base2world, cv::OutputArray t_base2world, cv::OutputArray R_gripper2cam, cv::OutputArray t_gripper2cam, enum cv::RobotWorldHandEyeCalibrationMethod method)\"}"
+            },
+            "refusal": null,
+            "annotations": []
+        },
+        {
+            "role": "function",
+            "name": "get_code_snippet",
+            "content": "\"void calibrateRobotWorldHandEye(InputArrayOfArrays R_world2cam, InputArrayOfArrays t_world2cam,\\n\\n                                InputArrayOfArrays R_base2gripper, InputArrayOfArrays t_base2gripper,\\n\\n                                OutputArray R_base2world, OutputArray t_base2world,\\n\\n                                OutputArray R_gripper2cam, OutputArray t_gripper2cam,\\n\\n                                RobotWorldHandEyeCalibrationMethod method)\\n\\n{\\n\\n    CV_Assert(R_base2gripper.isMatVector() && t_base2gripper.isMatVector() &&\\n\\n              R_world2cam.isMatVector() && t_world2cam.isMatVector());\\n\\n\\n\\n    std::vector<Mat> R_base2gripper_tmp, t_base2gripper_tmp;\\n\\n    R_base2gripper.getMatVector(R_base2gripper_tmp);\\n\\n    t_base2gripper.getMatVector(t_base2gripper_tmp);\\n\\n\\n\\n    std::vector<Mat> R_world2cam_tmp, t_world2cam_tmp;\\n\\n    R_world2cam.getMatVector(R_world2cam_tmp);\\n\\n    t_world2cam.getMatVector(t_world2cam_tmp);\\n\\n\\n\\n    CV_Assert(R_base2gripper_tmp.size() == t_base2gripper_tmp.size() &&\\n\\n              R_world2cam_tmp.size() == t_world2cam_tmp.size() &&\\n\\n              R_base2gripper_tmp.size() == R_world2cam_tmp.size());\\n\\n    CV_Check(R_base2gripper_tmp.size(), R_base2gripper_tmp.size() >= 3, \\\"At least 3 measurements are needed\\\");\\n\\n\\n\\n    // Convert to double\\n\\n    std::vector<Mat_<double>> R_base2gripper_, t_base2gripper_;\\n\\n    std::vector<Mat_<double>> R_world2cam_, t_world2cam_;\\n\\n\\n\\n    R_base2gripper_.reserve(R_base2gripper_tmp.size());\\n\\n    t_base2gripper_.reserve(R_base2gripper_tmp.size());\\n\\n    R_world2cam_.reserve(R_world2cam_tmp.size());\\n\\n    t_world2cam_.reserve(R_base2gripper_tmp.size());\\n\\n\\n\\n    // Convert to rotation matrix if needed\\n\\n    for (size_t i = 0; i < R_base2gripper_tmp.size(); i++)\\n\\n    {\\n\\n        {\\n\\n            Mat rot = R_base2gripper_tmp[i];\\n\\n            Mat R(3, 3, CV_64FC1);\\n\\n            if (rot.size() == Size(3,3))\\n\\n            {\\n\\n                rot.convertTo(R, CV_64F);\\n\\n                R_base2gripper_.push_back(R);\\n\\n            }\\n\\n            else\\n\\n            {\\n\\n                cv::Mat R_temp;\\n\\n                Rodrigues(rot, R_temp);\\n\\n                R_temp.convertTo(R, CV_64F);\\n\\n                R_base2gripper_.push_back(R);\\n\\n            }\\n\\n            Mat tvec = t_base2gripper_tmp[i];\\n\\n            Mat t;\\n\\n            tvec.convertTo(t, CV_64F);\\n\\n            t_base2gripper_.push_back(t);\\n\\n        }\\n\\n        {\\n\\n            Mat rot  = R_world2cam_tmp[i];\\n\\n            Mat R(3, 3, CV_64FC1);\\n\\n            if (rot.size() == Size(3,3))\\n\\n            {\\n\\n                rot.convertTo(R, CV_64F);\\n\\n                R_world2cam_.push_back(R);\\n\\n            }\\n\\n            else\\n\\n            {\\n\\n                cv::Mat R_temp;\\n\\n                Rodrigues(rot, R_temp);\\n\\n                R_temp.convertTo(R, CV_64F);\\n\\n                R_world2cam_.push_back(R);\\n\\n            }\\n\\n            Mat tvec = t_world2cam_tmp[i];\\n\\n            Mat t;\\n\\n            tvec.convertTo(t, CV_64F);\\n\\n            t_world2cam_.push_back(t);\\n\\n        }\\n\\n    }\\n\\n\\n\\n    CV_Assert(R_world2cam_.size() == t_world2cam_.size() &&\\n\\n              R_base2gripper_.size() == t_base2gripper_.size() &&\\n\\n              R_world2cam_.size() == R_base2gripper_.size());\\n\\n\\n\\n    Matx33d wRb, cRg;\\n\\n    Matx31d wtb, ctg;\\n\\n    switch (method)\\n\\n    {\\n\\n    case CALIB_ROBOT_WORLD_HAND_EYE_SHAH:\\n\\n        calibrateRobotWorldHandEyeShah(R_world2cam_, t_world2cam_, R_base2gripper_, t_base2gripper_, wRb, wtb, cRg, ctg);\\n\\n        break;\\n\\n\\n\\n    case CALIB_ROBOT_WORLD_HAND_EYE_LI:\\n\\n        calibrateRobotWorldHandEyeLi(R_world2cam_, t_world2cam_, R_base2gripper_, t_base2gripper_, wRb, wtb, cRg, ctg);\\n\\n        break;\\n\\n    }\\n\\n\\n\\n    Mat(wRb).copyTo(R_base2world);\\n\\n    Mat(wtb).copyTo(t_base2world);\\n\\n\\n\\n    Mat(cRg).copyTo(R_gripper2cam);\\n\\n    Mat(ctg).copyTo(t_gripper2cam);\\n\\n}\\n\""
+        },
+        {
+            "role": "assistant",
+            "content": "The test `Calib3d_CalibrateRobotWorldHandEye.regression` is calling the method `calibrateRobotWorldHandEye`, which is supposed to calibrate the robot world-hand-eye. The error message indicates an assertion failure at line 1219 in the `matrix_wrap.cpp` file with the message `!fixedSize() || ((Mat*)obj)->size.operator()() == Size(_cols, _rows) in function 'create'`.\n\nBased on the code snippet of the method `calibrateRobotWorldHandEye`, the error seems to be related to the size or type of the input matrices `R_base2gripper`, `t_base2gripper`, `R_world2cam`, `t_world2cam`. The code involves conversion and manipulation of these matrices, and the error could be occurring during these operations.\n\nNext, I will explore the relevant methods to identify where the issue might be originating from. Let's start by looking at the method `kron`.",
+            "function_call": {
+                "name": "get_code_snippet",
+                "arguments": "{\"signature\":\"kron(const class cv::Mat & A, const class cv::Mat & B)\"}"
+            },
+            "refusal": null,
+            "annotations": []
+        },
+        {
+            "role": "function",
+            "name": "get_code_snippet",
+            "content": "\"static Mat kron(const Mat& A, const Mat& B)\\n\\n{\\n\\n    CV_Assert(A.channels() == 1 && B.channels() == 1);\\n\\n\\n\\n    Mat1d Ad, Bd;\\n\\n    A.convertTo(Ad, CV_64F);\\n\\n    B.convertTo(Bd, CV_64F);\\n\\n\\n\\n    Mat1d Kd(Ad.rows * Bd.rows, Ad.cols * Bd.cols, 0.0);\\n\\n    for (int ra = 0; ra < Ad.rows; ra++)\\n\\n    {\\n\\n        for (int ca = 0; ca < Ad.cols; ca++)\\n\\n        {\\n\\n            Kd(Range(ra*Bd.rows, (ra + 1)*Bd.rows), Range(ca*Bd.cols, (ca + 1)*Bd.cols)) = Bd.mul(Ad(ra, ca));\\n\\n        }\\n\\n    }\\n\\n\\n\\n    Mat K;\\n\\n    Kd.convertTo(K, A.type());\\n\\n    return K;\\n\\n}\\n\""
+        },
+        {
+            "role": "assistant",
+            "content": null,
+            "function_call": {
+                "name": "get_code_snippet",
+                "arguments": "{\"signature\":\"normalizeRotation(const Mat_<double> & R_)\"}"
+            },
+            "refusal": null,
+            "annotations": []
+        },
+        {
+            "role": "function",
+            "name": "get_code_snippet",
+            "content": "\"static Mat_<double> normalizeRotation(const Mat_<double>& R_)\\n\\n{\\n\\n    // Make R unit determinant\\n\\n    Mat_<double> R = R_.clone();\\n\\n    double det = determinant(R);\\n\\n    if (std::fabs(det) < FLT_EPSILON)\\n\\n    {\\n\\n        CV_Error(Error::StsNoConv, \\\"Rotation normalization issue: determinant(R) is null\\\");\\n\\n    }\\n\\n    R = std::cbrt(std::copysign(1, det) / std::fabs(det)) * R;\\n\\n\\n\\n    // Make R orthogonal\\n\\n    Mat w, u, vt;\\n\\n    SVDecomp(R, w, u, vt);\\n\\n    R = u*vt;\\n\\n\\n\\n    // Handle reflection case\\n\\n    if (determinant(R) < 0)\\n\\n    {\\n\\n        Matx33d diag(1.0, 0.0, 0.0,\\n\\n                     0.0, 1.0, 0.0,\\n\\n                     0.0, 0.0, -1.0);\\n\\n        R = u*diag*vt;\\n\\n    }\\n\\n\\n\\n    return R;\\n\\n}\\n\""
+        },
+        {
+            "role": "assistant",
+            "content": null,
+            "function_call": {
+                "name": "get_code_snippet",
+                "arguments": "{\"signature\":\"calibrateRobotWorldHandEyeShah(const int & cRw, const int & ctw, const int & gRb, const int & gtb, cv::Matx33d & wRb, cv::Matx31d & wtb, cv::Matx33d & cRg, cv::Matx31d & ctg)\"}"
+            },
+            "refusal": null,
+            "annotations": []
+        },
+        {
+            "role": "function",
+            "name": "get_code_snippet",
+            "content": "\"static void calibrateRobotWorldHandEyeShah(const std::vector<Mat_<double>>& cRw, const std::vector<Mat_<double>>& ctw,\\n\\n                                           const std::vector<Mat_<double>>& gRb, const std::vector<Mat_<double>>& gtb,\\n\\n                                           Matx33d& wRb, Matx31d& wtb, Matx33d& cRg, Matx31d& ctg)\\n\\n{\\n\\n    Mat_<double> T = Mat_<double>::zeros(9, 9);\\n\\n    for (size_t i = 0; i < cRw.size(); i++)\\n\\n    {\\n\\n        T += kron(gRb[i], cRw[i]);\\n\\n    }\\n\\n\\n\\n    Mat_<double> w, u, vt;\\n\\n    SVDecomp(T, w, u, vt);\\n\\n\\n\\n    Mat_<double> RX(3,3), RZ(3,3);\\n\\n    for (int i = 0; i < 3; i++)\\n\\n    {\\n\\n        for (int j = 0; j < 3; j++)\\n\\n        {\\n\\n            RX(j,i) = vt(0, i*3+j);\\n\\n            RZ(j,i) = u(i*3+j, 0);\\n\\n        }\\n\\n    }\\n\\n\\n\\n    wRb = normalizeRotation(RX);\\n\\n    cRg = normalizeRotation(RZ);\\n\\n    Mat_<double> Z = Mat(cRg.t()).reshape(1, 9);\\n\\n\\n\\n    const int n = static_cast<int>(cRw.size());\\n\\n    Mat_<double> A = Mat_<double>::zeros(3*n, 6);\\n\\n    Mat_<double> b = Mat_<double>::zeros(3*n, 1);\\n\\n    Mat_<double> I3 = Mat_<double>::eye(3,3);\\n\\n\\n\\n    for (int i = 0; i < n; i++)\\n\\n    {\\n\\n        Mat cRw_ = -cRw[i];\\n\\n        cRw_.copyTo(A(Range(i*3, (i+1)*3), Range(0,3)));\\n\\n        I3.copyTo(A(Range(i*3, (i+1)*3), Range(3,6)));\\n\\n\\n\\n        Mat ctw_ = ctw[i] - kron(gtb[i].t(), I3) * Z;\\n\\n        ctw_.copyTo(b(Range(i*3, (i+1)*3), Range::all()));\\n\\n    }\\n\\n\\n\\n    Mat_<double> t;\\n\\n    solve(A, b, t, DECOMP_SVD);\\n\\n\\n\\n    for (int i = 0; i < 3; i++)\\n\\n    {\\n\\n        wtb(i) = t(i);\\n\\n        ctg(i) = t(i+3);\\n\\n    }\\n\\n}\\n\""
+        },
+        {
+            "role": "assistant",
+            "content": null,
+            "function_call": {
+                "name": "get_code_snippet",
+                "arguments": "{\"signature\":\"calibrateRobotWorldHandEyeLi(const int & cRw, const int & ctw, const int & gRb, const int & gtb, cv::Matx33d & wRb, cv::Matx31d & wtb, cv::Matx33d & cRg, cv::Matx31d & ctg)\"}"
+            },
+            "refusal": null,
+            "annotations": []
+        },
+        {
+            "role": "function",
+            "name": "get_code_snippet",
+            "content": "\"static void calibrateRobotWorldHandEyeLi(const std::vector<Mat_<double>>& cRw, const std::vector<Mat_<double>>& ctw,\\n\\n                                         const std::vector<Mat_<double>>& gRb, const std::vector<Mat_<double>>& gtb,\\n\\n                                         Matx33d& wRb, Matx31d& wtb, Matx33d& cRg, Matx31d& ctg)\\n\\n{\\n\\n    const int n = static_cast<int>(cRw.size());\\n\\n    Mat_<double> A = Mat_<double>::zeros(12*n, 24);\\n\\n    Mat_<double> b = Mat_<double>::zeros(12*n, 1);\\n\\n    Mat_<double> I3 = Mat_<double>::eye(3,3);\\n\\n\\n\\n    for (int i = 0; i < n; i++)\\n\\n    {\\n\\n        //Eq 19\\n\\n        kron(cRw[i], I3).copyTo(A(Range(i*12, i*12 + 9), Range(0, 9)));\\n\\n        kron(-I3, gRb[i].t()).copyTo(A(Range(i*12, i*12 + 9), Range(9, 18)));\\n\\n\\n\\n        kron(I3, gtb[i].t()).copyTo(A(Range(i*12 + 9, (i+1)*12), Range(9, 18)));\\n\\n        Mat cRw_ = -cRw[i];\\n\\n        cRw_.copyTo(A(Range(i*12 + 9, (i+1)*12), Range(18, 21)));\\n\\n        I3.copyTo(A(Range(i*12 + 9, (i+1)*12), Range(21, 24)));\\n\\n\\n\\n        ctw[i].copyTo(b(Range(i*12 + 9, i*12+12), Range::all()));\\n\\n    }\\n\\n\\n\\n    Mat_<double> x;\\n\\n    solve(A, b, x, DECOMP_SVD);\\n\\n\\n\\n    Mat_<double> RX = x(Range(0,9), Range::all()).reshape(3, 3);\\n\\n    wRb = normalizeRotation(RX);\\n\\n    x(Range(18,21), Range::all()).copyTo(wtb);\\n\\n\\n\\n    Mat_<double> RZ = x(Range(9,18), Range::all()).reshape(3, 3);\\n\\n    cRg = normalizeRotation(RZ);\\n\\n    x(Range(21,24), Range::all()).copyTo(ctg);\\n\\n}\\n\""
+        },
+        {
+            "role": "assistant",
+            "content": "Based on the exploration of the relevant methods, the issue seems to be originating from the `calibrateRobotWorldHandEye` method, particularly in the processing of the input matrices `R_base2gripper`, `t_base2gripper`, `R_world2cam`, `t_world2cam`. The error message regarding an assertion failure at line 1219 in the `matrix_wrap.cpp` file indicates a problem with the size or type of the matrices being used in the method.\n\nSince the method `calibrateRobotWorldHandEye` involves conversion and manipulation of these matrices, it is likely that an inconsistency in the size or type of these matrices is causing the assertion failure. Further debugging within the `calibrateRobotWorldHandEye` method, focusing on how the input matrices are being handled and converted, could help identify and resolve the issue.\n\nThe methods that are potential locations to be fixed are:\n1. `calibrateRobotWorldHandEye(cv::InputArrayOfArrays R_world2cam, cv::InputArrayOfArrays t_world2cam, cv::InputArrayOfArrays R_base2gripper, cv::InputArrayOfArrays t_base2gripper, cv::OutputArray R_base2world, cv::OutputArray t_base2world, cv::OutputArray R_gripper2cam, cv::OutputArray t_gripper2cam, enum cv::RobotWorldHandEyeCalibrationMethod method)`\n2. `calibrateRobotWorldHandEyeShah(const int & cRw, const int & ctw, const int & gRb, const int & gtb, cv::Matx33d & wRb, cv::Matx31d & wtb, cv::Matx33d & cRg, cv::Matx31d & ctg)`\n3. `calibrateRobotWorldHandEyeLi(const int & cRw, const int & ctw, const int & gRb, const int & gtb, cv::Matx33d & wRb, cv::Matx31d & wtb, cv::Matx33d & cRg, cv::Matx31d & ctg)`",
+            "refusal": null,
+            "annotations": []
+        },
+        {
+            "role": "user",
+            "content": "Based on the available information, provide the signatures of the most likely culprit methods for the bug. Your answer will be processed automatically, so make sure to only answer with the accurate signatures of all likely culprits (in `ClassName.MethodName(ArgType1, ArgType2, ...)` format), without commentary (one per line). "
+        },
+        {
+            "role": "assistant",
+            "content": "```\ncalibrateRobotWorldHandEye(cv::InputArrayOfArrays R_world2cam, cv::InputArrayOfArrays t_world2cam, cv::InputArrayOfArrays R_base2gripper, cv::InputArrayOfArrays t_base2gripper, cv::OutputArray R_base2world, cv::OutputArray t_base2world, cv::OutputArray R_gripper2cam, cv::OutputArray t_gripper2cam, enum cv::RobotWorldHandEyeCalibrationMethod method)\n```",
+            "refusal": null,
+            "annotations": []
+        }
+    ],
+    "interaction_records": {
+        "step_histories": [
+            {
+                "prompt_messages": [
+                    "m1",
+                    "m2",
+                    "m3",
+                    "m4"
+                ],
+                "response_message": "m5"
+            },
+            {
+                "prompt_messages": [
+                    "m1",
+                    "m2",
+                    "m3",
+                    "m4",
+                    "m5",
+                    "m6"
+                ],
+                "response_message": "m7"
+            },
+            {
+                "prompt_messages": [
+                    "m1",
+                    "m2",
+                    "m3",
+                    "m4",
+                    "m5",
+                    "m6",
+                    "m7",
+                    "m8"
+                ],
+                "response_message": "m9"
+            },
+            {
+                "prompt_messages": [
+                    "m1",
+                    "m2",
+                    "m3",
+                    "m4",
+                    "m5",
+                    "m6",
+                    "m7",
+                    "m8",
+                    "m9",
+                    "m10"
+                ],
+                "response_message": "m11"
+            },
+            {
+                "prompt_messages": [
+                    "m1",
+                    "m2",
+                    "m3",
+                    "m4",
+                    "m5",
+                    "m6",
+                    "m7",
+                    "m8",
+                    "m9",
+                    "m10",
+                    "m11",
+                    "m12"
+                ],
+                "response_message": "m13"
+            },
+            {
+                "prompt_messages": [
+                    "m1",
+                    "m2",
+                    "m3",
+                    "m4",
+                    "m5",
+                    "m6",
+                    "m7",
+                    "m8",
+                    "m9",
+                    "m10",
+                    "m11",
+                    "m12",
+                    "m13",
+                    "m14"
+                ],
+                "response_message": "m15"
+            },
+            {
+                "prompt_messages": [
+                    "m1",
+                    "m2",
+                    "m3",
+                    "m4",
+                    "m5",
+                    "m6",
+                    "m7",
+                    "m8",
+                    "m9",
+                    "m10",
+                    "m11",
+                    "m12",
+                    "m13",
+                    "m14",
+                    "m15",
+                    "m16"
+                ],
+                "response_message": "m17"
+            }
+        ],
+        "mid_to_message": {
+            "m1": {
+                "role": "system",
+                "content": "You are a debugging assistant. You will be presented with a failing test, and tools (functions) to access the source code of the system under test (SUT). Your task is to provide a step-by-step explanation of how the bug occurred, based on the failing test and the information you retrieved using tests about the SUT. You will be given 9 chances to interact with functions to gather relevant information. An example answer would look like follows.\n\nTitle: Diagnosis of test `testGenerateURLFragment`\nDetails: The test `testGenerateURLFragment` checks whether HTML entities such as `&quot;` are correctly escaped to their corresponding character by the `StandardToolTipTagFragmentGenerator.generateToolTipFragment` method. However, the test failure indicates that this is not the case. Following the execution path, we find that `StandardToolTipTagFragmentGenerator.generateToolTipFragment` is not escaping any HTML code; instead, it is using its input `toolTipText` as is. Consequently, un-escaped strings are being returned, which leads to the error demonstrated by the test.\n\nAfter providing this diagnosis, you will be prompted to suggest which methods would be the best locations to be fixed. The answers should be in the form of `ClassName.MethodName(ArgType1, ArgType2, ...)` without commentary (one per line), as your answer will be automatically processed before finally being presented to the user."
+            },
+            "m2": {
+                "role": "user",
+                "content": "The test `['Calib3d_CalibrateRobotWorldHandEye.regression()']` failed.\nThe test looks like:\n\n```cpp\nTEST(Calib3d_CalibrateRobotWorldHandEye, regression)\n\n{\n\n    std::vector<Mat> R_world2cam, t_worldt2cam;\n\n    std::vector<Mat> R_base2gripper, t_base2gripper;\n\n    loadDataset(R_world2cam, t_worldt2cam, R_base2gripper, t_base2gripper);\n\n\n\n    std::vector<Mat> rvec_R_world2cam;\n\n    rvec_R_world2cam.reserve(R_world2cam.size());\n\n    for (size_t i = 0; i < R_world2cam.size(); i++)\n\n    {\n\n        Mat rvec;\n\n        cv::Rodrigues(R_world2cam[i], rvec);\n\n        rvec_R_world2cam.push_back(rvec);\n\n    }\n```\n\nIt failed with the following error message and call stack:\n\n```\nTEST: Skip tests with tags: 'mem_6gb', 'verylong'\nNote: Google Test filter = Calib3d_CalibrateRobotWorldHandEye.regression\n[==========] Running 1 test from 1 test case.\n[----------] Global test environment set-up.\n[----------] 1 test from Calib3d_CalibrateRobotWorldHandEye\n[ RUN      ] Calib3d_CalibrateRobotWorldHandEye.regression\nunknown file: Failure\nC++ exception with description \"OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/core/src/matrix_wrap.cpp:1219: error: (-215:Assertion failed) !fixedSize() || ((Mat*)obj)->size.operator()() == Size(_cols, _rows) in function 'create'\n\" thrown in the test body.\n[  FAILED  ] Calib3d_CalibrateRobotWorldHandEye.regression (2 ms)\n[----------] 1 test from Calib3d_CalibrateRobotWorldHandEye (2 ms total)\n\n[----------] Global test environment tear-down\n[==========] 1 test from 1 test case ran. (2 ms total)\n[  PASSED  ] 0 tests.\n[  FAILED  ] 1 test, listed below:\n[  FAILED  ] Calib3d_CalibrateRobotWorldHandEye.regression\n\n 1 FAILED TEST\n```\n\nStart by calling the `get_failing_tests_covered_classes` function."
+            },
+            "m3": {
+                "role": "assistant",
+                "content": null,
+                "function_call": {
+                    "name": "get_failing_tests_covered_classes",
+                    "arguments": "{}"
+                }
+            },
+            "m4": {
+                "role": "function",
+                "name": "get_failing_tests_covered_classes",
+                "content": "{\".\": [\"FUNCTIONWITHOUTCLASS\"]}"
+            },
+            "m5": {
+                "role": "assistant",
+                "content": null,
+                "function_call": {
+                    "name": "get_failing_tests_covered_methods_for_class",
+                    "arguments": "{\"class_name\":\"FUNCTIONWITHOUTCLASS\"}"
+                },
+                "refusal": null,
+                "annotations": []
+            },
+            "m6": {
+                "role": "function",
+                "name": "get_failing_tests_covered_methods_for_class",
+                "content": "[\"kron(const class cv::Mat & A, const class cv::Mat & B)\", \"normalizeRotation(const Mat_<double> & R_)\", \"calibrateRobotWorldHandEyeShah(const int & cRw, const int & ctw, const int & gRb, const int & gtb, cv::Matx33d & wRb, cv::Matx31d & wtb, cv::Matx33d & cRg, cv::Matx31d & ctg)\", \"calibrateRobotWorldHandEyeLi(const int & cRw, const int & ctw, const int & gRb, const int & gtb, cv::Matx33d & wRb, cv::Matx31d & wtb, cv::Matx33d & cRg, cv::Matx31d & ctg)\", \"calibrateRobotWorldHandEye(cv::InputArrayOfArrays R_world2cam, cv::InputArrayOfArrays t_world2cam, cv::InputArrayOfArrays R_base2gripper, cv::InputArrayOfArrays t_base2gripper, cv::OutputArray R_base2world, cv::OutputArray t_base2world, cv::OutputArray R_gripper2cam, cv::OutputArray t_gripper2cam, enum cv::RobotWorldHandEyeCalibrationMethod method)\"]"
+            },
+            "m7": {
+                "role": "assistant",
+                "content": null,
+                "function_call": {
+                    "name": "get_code_snippet",
+                    "arguments": "{\"signature\":\"calibrateRobotWorldHandEye(cv::InputArrayOfArrays R_world2cam, cv::InputArrayOfArrays t_world2cam, cv::InputArrayOfArrays R_base2gripper, cv::InputArrayOfArrays t_base2gripper, cv::OutputArray R_base2world, cv::OutputArray t_base2world, cv::OutputArray R_gripper2cam, cv::OutputArray t_gripper2cam, enum cv::RobotWorldHandEyeCalibrationMethod method)\"}"
+                },
+                "refusal": null,
+                "annotations": []
+            },
+            "m8": {
+                "role": "function",
+                "name": "get_code_snippet",
+                "content": "\"void calibrateRobotWorldHandEye(InputArrayOfArrays R_world2cam, InputArrayOfArrays t_world2cam,\\n\\n                                InputArrayOfArrays R_base2gripper, InputArrayOfArrays t_base2gripper,\\n\\n                                OutputArray R_base2world, OutputArray t_base2world,\\n\\n                                OutputArray R_gripper2cam, OutputArray t_gripper2cam,\\n\\n                                RobotWorldHandEyeCalibrationMethod method)\\n\\n{\\n\\n    CV_Assert(R_base2gripper.isMatVector() && t_base2gripper.isMatVector() &&\\n\\n              R_world2cam.isMatVector() && t_world2cam.isMatVector());\\n\\n\\n\\n    std::vector<Mat> R_base2gripper_tmp, t_base2gripper_tmp;\\n\\n    R_base2gripper.getMatVector(R_base2gripper_tmp);\\n\\n    t_base2gripper.getMatVector(t_base2gripper_tmp);\\n\\n\\n\\n    std::vector<Mat> R_world2cam_tmp, t_world2cam_tmp;\\n\\n    R_world2cam.getMatVector(R_world2cam_tmp);\\n\\n    t_world2cam.getMatVector(t_world2cam_tmp);\\n\\n\\n\\n    CV_Assert(R_base2gripper_tmp.size() == t_base2gripper_tmp.size() &&\\n\\n              R_world2cam_tmp.size() == t_world2cam_tmp.size() &&\\n\\n              R_base2gripper_tmp.size() == R_world2cam_tmp.size());\\n\\n    CV_Check(R_base2gripper_tmp.size(), R_base2gripper_tmp.size() >= 3, \\\"At least 3 measurements are needed\\\");\\n\\n\\n\\n    // Convert to double\\n\\n    std::vector<Mat_<double>> R_base2gripper_, t_base2gripper_;\\n\\n    std::vector<Mat_<double>> R_world2cam_, t_world2cam_;\\n\\n\\n\\n    R_base2gripper_.reserve(R_base2gripper_tmp.size());\\n\\n    t_base2gripper_.reserve(R_base2gripper_tmp.size());\\n\\n    R_world2cam_.reserve(R_world2cam_tmp.size());\\n\\n    t_world2cam_.reserve(R_base2gripper_tmp.size());\\n\\n\\n\\n    // Convert to rotation matrix if needed\\n\\n    for (size_t i = 0; i < R_base2gripper_tmp.size(); i++)\\n\\n    {\\n\\n        {\\n\\n            Mat rot = R_base2gripper_tmp[i];\\n\\n            Mat R(3, 3, CV_64FC1);\\n\\n            if (rot.size() == Size(3,3))\\n\\n            {\\n\\n                rot.convertTo(R, CV_64F);\\n\\n                R_base2gripper_.push_back(R);\\n\\n            }\\n\\n            else\\n\\n            {\\n\\n                cv::Mat R_temp;\\n\\n                Rodrigues(rot, R_temp);\\n\\n                R_temp.convertTo(R, CV_64F);\\n\\n                R_base2gripper_.push_back(R);\\n\\n            }\\n\\n            Mat tvec = t_base2gripper_tmp[i];\\n\\n            Mat t;\\n\\n            tvec.convertTo(t, CV_64F);\\n\\n            t_base2gripper_.push_back(t);\\n\\n        }\\n\\n        {\\n\\n            Mat rot  = R_world2cam_tmp[i];\\n\\n            Mat R(3, 3, CV_64FC1);\\n\\n            if (rot.size() == Size(3,3))\\n\\n            {\\n\\n                rot.convertTo(R, CV_64F);\\n\\n                R_world2cam_.push_back(R);\\n\\n            }\\n\\n            else\\n\\n            {\\n\\n                cv::Mat R_temp;\\n\\n                Rodrigues(rot, R_temp);\\n\\n                R_temp.convertTo(R, CV_64F);\\n\\n                R_world2cam_.push_back(R);\\n\\n            }\\n\\n            Mat tvec = t_world2cam_tmp[i];\\n\\n            Mat t;\\n\\n            tvec.convertTo(t, CV_64F);\\n\\n            t_world2cam_.push_back(t);\\n\\n        }\\n\\n    }\\n\\n\\n\\n    CV_Assert(R_world2cam_.size() == t_world2cam_.size() &&\\n\\n              R_base2gripper_.size() == t_base2gripper_.size() &&\\n\\n              R_world2cam_.size() == R_base2gripper_.size());\\n\\n\\n\\n    Matx33d wRb, cRg;\\n\\n    Matx31d wtb, ctg;\\n\\n    switch (method)\\n\\n    {\\n\\n    case CALIB_ROBOT_WORLD_HAND_EYE_SHAH:\\n\\n        calibrateRobotWorldHandEyeShah(R_world2cam_, t_world2cam_, R_base2gripper_, t_base2gripper_, wRb, wtb, cRg, ctg);\\n\\n        break;\\n\\n\\n\\n    case CALIB_ROBOT_WORLD_HAND_EYE_LI:\\n\\n        calibrateRobotWorldHandEyeLi(R_world2cam_, t_world2cam_, R_base2gripper_, t_base2gripper_, wRb, wtb, cRg, ctg);\\n\\n        break;\\n\\n    }\\n\\n\\n\\n    Mat(wRb).copyTo(R_base2world);\\n\\n    Mat(wtb).copyTo(t_base2world);\\n\\n\\n\\n    Mat(cRg).copyTo(R_gripper2cam);\\n\\n    Mat(ctg).copyTo(t_gripper2cam);\\n\\n}\\n\""
+            },
+            "m9": {
+                "role": "assistant",
+                "content": "The test `Calib3d_CalibrateRobotWorldHandEye.regression` is calling the method `calibrateRobotWorldHandEye`, which is supposed to calibrate the robot world-hand-eye. The error message indicates an assertion failure at line 1219 in the `matrix_wrap.cpp` file with the message `!fixedSize() || ((Mat*)obj)->size.operator()() == Size(_cols, _rows) in function 'create'`.\n\nBased on the code snippet of the method `calibrateRobotWorldHandEye`, the error seems to be related to the size or type of the input matrices `R_base2gripper`, `t_base2gripper`, `R_world2cam`, `t_world2cam`. The code involves conversion and manipulation of these matrices, and the error could be occurring during these operations.\n\nNext, I will explore the relevant methods to identify where the issue might be originating from. Let's start by looking at the method `kron`.",
+                "function_call": {
+                    "name": "get_code_snippet",
+                    "arguments": "{\"signature\":\"kron(const class cv::Mat & A, const class cv::Mat & B)\"}"
+                },
+                "refusal": null,
+                "annotations": []
+            },
+            "m10": {
+                "role": "function",
+                "name": "get_code_snippet",
+                "content": "\"static Mat kron(const Mat& A, const Mat& B)\\n\\n{\\n\\n    CV_Assert(A.channels() == 1 && B.channels() == 1);\\n\\n\\n\\n    Mat1d Ad, Bd;\\n\\n    A.convertTo(Ad, CV_64F);\\n\\n    B.convertTo(Bd, CV_64F);\\n\\n\\n\\n    Mat1d Kd(Ad.rows * Bd.rows, Ad.cols * Bd.cols, 0.0);\\n\\n    for (int ra = 0; ra < Ad.rows; ra++)\\n\\n    {\\n\\n        for (int ca = 0; ca < Ad.cols; ca++)\\n\\n        {\\n\\n            Kd(Range(ra*Bd.rows, (ra + 1)*Bd.rows), Range(ca*Bd.cols, (ca + 1)*Bd.cols)) = Bd.mul(Ad(ra, ca));\\n\\n        }\\n\\n    }\\n\\n\\n\\n    Mat K;\\n\\n    Kd.convertTo(K, A.type());\\n\\n    return K;\\n\\n}\\n\""
+            },
+            "m11": {
+                "role": "assistant",
+                "content": null,
+                "function_call": {
+                    "name": "get_code_snippet",
+                    "arguments": "{\"signature\":\"normalizeRotation(const Mat_<double> & R_)\"}"
+                },
+                "refusal": null,
+                "annotations": []
+            },
+            "m12": {
+                "role": "function",
+                "name": "get_code_snippet",
+                "content": "\"static Mat_<double> normalizeRotation(const Mat_<double>& R_)\\n\\n{\\n\\n    // Make R unit determinant\\n\\n    Mat_<double> R = R_.clone();\\n\\n    double det = determinant(R);\\n\\n    if (std::fabs(det) < FLT_EPSILON)\\n\\n    {\\n\\n        CV_Error(Error::StsNoConv, \\\"Rotation normalization issue: determinant(R) is null\\\");\\n\\n    }\\n\\n    R = std::cbrt(std::copysign(1, det) / std::fabs(det)) * R;\\n\\n\\n\\n    // Make R orthogonal\\n\\n    Mat w, u, vt;\\n\\n    SVDecomp(R, w, u, vt);\\n\\n    R = u*vt;\\n\\n\\n\\n    // Handle reflection case\\n\\n    if (determinant(R) < 0)\\n\\n    {\\n\\n        Matx33d diag(1.0, 0.0, 0.0,\\n\\n                     0.0, 1.0, 0.0,\\n\\n                     0.0, 0.0, -1.0);\\n\\n        R = u*diag*vt;\\n\\n    }\\n\\n\\n\\n    return R;\\n\\n}\\n\""
+            },
+            "m13": {
+                "role": "assistant",
+                "content": null,
+                "function_call": {
+                    "name": "get_code_snippet",
+                    "arguments": "{\"signature\":\"calibrateRobotWorldHandEyeShah(const int & cRw, const int & ctw, const int & gRb, const int & gtb, cv::Matx33d & wRb, cv::Matx31d & wtb, cv::Matx33d & cRg, cv::Matx31d & ctg)\"}"
+                },
+                "refusal": null,
+                "annotations": []
+            },
+            "m14": {
+                "role": "function",
+                "name": "get_code_snippet",
+                "content": "\"static void calibrateRobotWorldHandEyeShah(const std::vector<Mat_<double>>& cRw, const std::vector<Mat_<double>>& ctw,\\n\\n                                           const std::vector<Mat_<double>>& gRb, const std::vector<Mat_<double>>& gtb,\\n\\n                                           Matx33d& wRb, Matx31d& wtb, Matx33d& cRg, Matx31d& ctg)\\n\\n{\\n\\n    Mat_<double> T = Mat_<double>::zeros(9, 9);\\n\\n    for (size_t i = 0; i < cRw.size(); i++)\\n\\n    {\\n\\n        T += kron(gRb[i], cRw[i]);\\n\\n    }\\n\\n\\n\\n    Mat_<double> w, u, vt;\\n\\n    SVDecomp(T, w, u, vt);\\n\\n\\n\\n    Mat_<double> RX(3,3), RZ(3,3);\\n\\n    for (int i = 0; i < 3; i++)\\n\\n    {\\n\\n        for (int j = 0; j < 3; j++)\\n\\n        {\\n\\n            RX(j,i) = vt(0, i*3+j);\\n\\n            RZ(j,i) = u(i*3+j, 0);\\n\\n        }\\n\\n    }\\n\\n\\n\\n    wRb = normalizeRotation(RX);\\n\\n    cRg = normalizeRotation(RZ);\\n\\n    Mat_<double> Z = Mat(cRg.t()).reshape(1, 9);\\n\\n\\n\\n    const int n = static_cast<int>(cRw.size());\\n\\n    Mat_<double> A = Mat_<double>::zeros(3*n, 6);\\n\\n    Mat_<double> b = Mat_<double>::zeros(3*n, 1);\\n\\n    Mat_<double> I3 = Mat_<double>::eye(3,3);\\n\\n\\n\\n    for (int i = 0; i < n; i++)\\n\\n    {\\n\\n        Mat cRw_ = -cRw[i];\\n\\n        cRw_.copyTo(A(Range(i*3, (i+1)*3), Range(0,3)));\\n\\n        I3.copyTo(A(Range(i*3, (i+1)*3), Range(3,6)));\\n\\n\\n\\n        Mat ctw_ = ctw[i] - kron(gtb[i].t(), I3) * Z;\\n\\n        ctw_.copyTo(b(Range(i*3, (i+1)*3), Range::all()));\\n\\n    }\\n\\n\\n\\n    Mat_<double> t;\\n\\n    solve(A, b, t, DECOMP_SVD);\\n\\n\\n\\n    for (int i = 0; i < 3; i++)\\n\\n    {\\n\\n        wtb(i) = t(i);\\n\\n        ctg(i) = t(i+3);\\n\\n    }\\n\\n}\\n\""
+            },
+            "m15": {
+                "role": "assistant",
+                "content": null,
+                "function_call": {
+                    "name": "get_code_snippet",
+                    "arguments": "{\"signature\":\"calibrateRobotWorldHandEyeLi(const int & cRw, const int & ctw, const int & gRb, const int & gtb, cv::Matx33d & wRb, cv::Matx31d & wtb, cv::Matx33d & cRg, cv::Matx31d & ctg)\"}"
+                },
+                "refusal": null,
+                "annotations": []
+            },
+            "m16": {
+                "role": "function",
+                "name": "get_code_snippet",
+                "content": "\"static void calibrateRobotWorldHandEyeLi(const std::vector<Mat_<double>>& cRw, const std::vector<Mat_<double>>& ctw,\\n\\n                                         const std::vector<Mat_<double>>& gRb, const std::vector<Mat_<double>>& gtb,\\n\\n                                         Matx33d& wRb, Matx31d& wtb, Matx33d& cRg, Matx31d& ctg)\\n\\n{\\n\\n    const int n = static_cast<int>(cRw.size());\\n\\n    Mat_<double> A = Mat_<double>::zeros(12*n, 24);\\n\\n    Mat_<double> b = Mat_<double>::zeros(12*n, 1);\\n\\n    Mat_<double> I3 = Mat_<double>::eye(3,3);\\n\\n\\n\\n    for (int i = 0; i < n; i++)\\n\\n    {\\n\\n        //Eq 19\\n\\n        kron(cRw[i], I3).copyTo(A(Range(i*12, i*12 + 9), Range(0, 9)));\\n\\n        kron(-I3, gRb[i].t()).copyTo(A(Range(i*12, i*12 + 9), Range(9, 18)));\\n\\n\\n\\n        kron(I3, gtb[i].t()).copyTo(A(Range(i*12 + 9, (i+1)*12), Range(9, 18)));\\n\\n        Mat cRw_ = -cRw[i];\\n\\n        cRw_.copyTo(A(Range(i*12 + 9, (i+1)*12), Range(18, 21)));\\n\\n        I3.copyTo(A(Range(i*12 + 9, (i+1)*12), Range(21, 24)));\\n\\n\\n\\n        ctw[i].copyTo(b(Range(i*12 + 9, i*12+12), Range::all()));\\n\\n    }\\n\\n\\n\\n    Mat_<double> x;\\n\\n    solve(A, b, x, DECOMP_SVD);\\n\\n\\n\\n    Mat_<double> RX = x(Range(0,9), Range::all()).reshape(3, 3);\\n\\n    wRb = normalizeRotation(RX);\\n\\n    x(Range(18,21), Range::all()).copyTo(wtb);\\n\\n\\n\\n    Mat_<double> RZ = x(Range(9,18), Range::all()).reshape(3, 3);\\n\\n    cRg = normalizeRotation(RZ);\\n\\n    x(Range(21,24), Range::all()).copyTo(ctg);\\n\\n}\\n\""
+            },
+            "m17": {
+                "role": "assistant",
+                "content": "Based on the exploration of the relevant methods, the issue seems to be originating from the `calibrateRobotWorldHandEye` method, particularly in the processing of the input matrices `R_base2gripper`, `t_base2gripper`, `R_world2cam`, `t_world2cam`. The error message regarding an assertion failure at line 1219 in the `matrix_wrap.cpp` file indicates a problem with the size or type of the matrices being used in the method.\n\nSince the method `calibrateRobotWorldHandEye` involves conversion and manipulation of these matrices, it is likely that an inconsistency in the size or type of these matrices is causing the assertion failure. Further debugging within the `calibrateRobotWorldHandEye` method, focusing on how the input matrices are being handled and converted, could help identify and resolve the issue.\n\nThe methods that are potential locations to be fixed are:\n1. `calibrateRobotWorldHandEye(cv::InputArrayOfArrays R_world2cam, cv::InputArrayOfArrays t_world2cam, cv::InputArrayOfArrays R_base2gripper, cv::InputArrayOfArrays t_base2gripper, cv::OutputArray R_base2world, cv::OutputArray t_base2world, cv::OutputArray R_gripper2cam, cv::OutputArray t_gripper2cam, enum cv::RobotWorldHandEyeCalibrationMethod method)`\n2. `calibrateRobotWorldHandEyeShah(const int & cRw, const int & ctw, const int & gRb, const int & gtb, cv::Matx33d & wRb, cv::Matx31d & wtb, cv::Matx33d & cRg, cv::Matx31d & ctg)`\n3. `calibrateRobotWorldHandEyeLi(const int & cRw, const int & ctw, const int & gRb, const int & gtb, cv::Matx33d & wRb, cv::Matx31d & wtb, cv::Matx33d & cRg, cv::Matx31d & ctg)`",
+                "refusal": null,
+                "annotations": []
+            }
+        }
+    },
+    "buggy_methods": {
+        "calibrateRobotWorldHandEyeLi(const int & cRw, const int & ctw, const int & gRb, const int & gtb, cv::Matx33d & wRb, cv::Matx31d & wtb, cv::Matx33d & cRg, cv::Matx31d & ctg)": {
+            "is_found": false,
+            "matching_answer": []
+        }
+    }
+}

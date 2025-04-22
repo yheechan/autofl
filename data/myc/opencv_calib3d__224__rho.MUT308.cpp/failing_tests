@@ -1,0 +1,31 @@
+--- Calib3d_Homography.fromImages
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_Homography.fromImages
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_Homography
+[ RUN      ] Calib3d_Homography.fromImages
+nfeatures1 = 442, nfeatures2=449, matches=442, ninliers(RANSAC)=296, time(RANSAC)=0.26msec, ninliers(RHO)=0, time(RHO)=0.13msec
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_homography.cpp:680: Failure
+Value of: !H1.empty()
+  Actual: false
+Expected: true
+[  FAILED  ] Calib3d_Homography.fromImages (14 ms)
+[----------] 1 test from Calib3d_Homography (14 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (14 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_Homography.fromImages
+
+ 1 FAILED TEST

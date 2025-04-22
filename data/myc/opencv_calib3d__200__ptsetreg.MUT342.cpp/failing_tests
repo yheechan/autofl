@@ -1,0 +1,176 @@
+--- Calib3d/EstimateAffine2D.testNPoints/0
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/EstimateAffine2D.testNPoints/0
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/EstimateAffine2D
+[ RUN      ] Calib3d/EstimateAffine2D.testNPoints/0, where GetParam() = RANSAC
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.0030365271260512916, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.0030365271260512916, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00030143385525949196, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00030143385525949196, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00011281327678969166, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00011281327678969166, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00030368449086892735, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00030368449086892735, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00015654178369550742, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00015654178369550742, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00010228322807992463, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00010228322807992463, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00010082622890000836, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00010082622890000836, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00017752162327289156, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00017752162327289156, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00012120799457537856, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00012120799457537856, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.0001059971181593955, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.0001059971181593955, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.0028700620561137868, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.0028700620561137868, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00013036393798609991, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00013036393798609991, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.0001578208375587753, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.0001578208375587753, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00040987087329957816, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00040987087329957816, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00040820653576505161, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00040820653576505161, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00044417038419553023, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00044417038419553023, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00020066065660889754, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00020066065660889754, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00027612771106488854, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00027612771106488854, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00020866665191832112, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00020866665191832112, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00010620654327608836, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00010620654327608836, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.0002359344569078381, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.0002359344569078381, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00010331208014158211, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00010331208014158211, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00018624383022214364, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00018624383022214364, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00051442903078169344, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00051442903078169344, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.0001334832670318864, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.0001334832670318864, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00011528199902555158, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00011528199902555158, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00011409174121546073, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00011409174121546073, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00072033537801186043, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00072033537801186043, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00011966362149040677, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00011966362149040677, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine2d_estimator.cpp:116: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00012867707111385851, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00012867707111385851, and
+1e-4 evaluates to 0.0001.
+[  FAILED  ] Calib3d/EstimateAffine2D.testNPoints/0, where GetParam() = RANSAC (27 ms)
+[----------] 1 test from Calib3d/EstimateAffine2D (27 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (27 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/EstimateAffine2D.testNPoints/0, where GetParam() = RANSAC
+
+ 1 FAILED TEST

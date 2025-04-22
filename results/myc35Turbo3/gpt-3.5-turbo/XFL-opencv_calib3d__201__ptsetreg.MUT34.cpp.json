@@ -1,0 +1,219 @@
+{
+    "time": 1745251994.9154396,
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are a debugging assistant. You will be presented with a failing test, and tools (functions) to access the source code of the system under test (SUT). Your task is to provide a step-by-step explanation of how the bug occurred, based on the failing test and the information you retrieved using tests about the SUT. You will be given 9 chances to interact with functions to gather relevant information. An example answer would look like follows.\n\nTitle: Diagnosis of test `testGenerateURLFragment`\nDetails: The test `testGenerateURLFragment` checks whether HTML entities such as `&quot;` are correctly escaped to their corresponding character by the `StandardToolTipTagFragmentGenerator.generateToolTipFragment` method. However, the test failure indicates that this is not the case. Following the execution path, we find that `StandardToolTipTagFragmentGenerator.generateToolTipFragment` is not escaping any HTML code; instead, it is using its input `toolTipText` as is. Consequently, un-escaped strings are being returned, which leads to the error demonstrated by the test.\n\nAfter providing this diagnosis, you will be prompted to suggest which methods would be the best locations to be fixed. The answers should be in the form of `ClassName.MethodName(ArgType1, ArgType2, ...)` without commentary (one per line), as your answer will be automatically processed before finally being presented to the user."
+        },
+        {
+            "role": "user",
+            "content": "The test `['Calib3d_SolvePnPRansac.input_type()']` failed.\nThe test looks like:\n\n```cpp\nTEST(Calib3d_SolvePnPRansac, input_type)\n\n{\n\n    const int numPoints = 10;\n\n    Matx33d intrinsics(5.4794130238156129e+002, 0., 2.9835545700043139e+002, 0.,\n\n                       5.4817724002728005e+002, 2.3062194051986233e+002, 0., 0., 1.);\n\n\n\n    std::vector<cv::Point3f> points3d;\n\n    std::vector<cv::Point2f> points2d;\n\n    for (int i = 0; i < numPoints; i+=2)\n\n    {\n\n        points3d.push_back(cv::Point3i(5+i, 3, 2));\n\n        points3d.push_back(cv::Point3i(5+i, 3+i, 2+i));\n\n        points2d.push_back(cv::Point2i(0, i));\n\n        points2d.push_back(cv::Point2i(-i, i));\n\n    }\n```\n\nIt failed with the following error message and call stack:\n\n```\nTEST: Skip tests with tags: 'mem_6gb', 'verylong'\nNote: Google Test filter = Calib3d_SolvePnPRansac.input_type\n[==========] Running 1 test from 1 test case.\n[----------] Global test environment set-up.\n[----------] 1 test from Calib3d_SolvePnPRansac\n[ RUN      ] Calib3d_SolvePnPRansac.input_type\nunknown file: Failure\nC++ exception with description \"OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'\n\" thrown in the test body.\n[  FAILED  ] Calib3d_SolvePnPRansac.input_type (0 ms)\n[----------] 1 test from Calib3d_SolvePnPRansac (0 ms total)\n\n[----------] Global test environment tear-down\n[==========] 1 test from 1 test case ran. (0 ms total)\n[  PASSED  ] 0 tests.\n[  FAILED  ] 1 test, listed below:\n[  FAILED  ] Calib3d_SolvePnPRansac.input_type\n\n 1 FAILED TEST\n```\n\nStart by calling the `get_failing_tests_covered_classes` function."
+        },
+        {
+            "role": "assistant",
+            "content": null,
+            "function_call": {
+                "name": "get_failing_tests_covered_classes",
+                "arguments": "{}"
+            }
+        },
+        {
+            "role": "function",
+            "name": "get_failing_tests_covered_classes",
+            "content": "{\".\": [\"FUNCTIONWITHOUTCLASS\", \"CirclesGridFinder\", \"Graph\", \"CirclesGridFinderParameters\", \"Affine3DEstimatorCallback\", \"RANSACPointSetRegistrator\", \"LMeDSPointSetRegistrator\"]}"
+        },
+        {
+            "role": "assistant",
+            "content": "The failing test `Calib3d_SolvePnPRansac.input_type` covers various classes, including `CirclesGridFinder`, `Graph`, `CirclesGridFinderParameters`, `Affine3DEstimatorCallback`, `RANSACPointSetRegistrator`, `LMeDSPointSetRegistrator`.\n\nNext, I will retrieve the methods covered by failing tests for the `RANSACPointSetRegistrator` class.",
+            "function_call": {
+                "name": "get_failing_tests_covered_methods_for_class",
+                "arguments": "{\"class_name\":\"RANSACPointSetRegistrator\"}"
+            },
+            "refusal": null,
+            "annotations": []
+        },
+        {
+            "role": "function",
+            "name": "get_failing_tests_covered_methods_for_class",
+            "content": "[\"::RANSACPointSetRegistrator(const Ptr<class PointSetRegistrator::Callback> & _cb, int _modelPoints, double _threshold, double _confidence, int _maxIters)\", \"::getSubset(const class cv::Mat & m1, const class cv::Mat & m2, class cv::Mat & ms1, class cv::Mat & ms2, class cv::RNG & rng, int maxAttempts)\", \"::run(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model, cv::OutputArray _mask)\"]"
+        },
+        {
+            "role": "assistant",
+            "content": "The failing tests cover the following methods in the `RANSACPointSetRegistrator` class:\n\n1. `RANSACPointSetRegistrator(const Ptr<PointSetRegistrator::Callback> & _cb, int _modelPoints, double _threshold, double _confidence, int _maxIters)`\n2. `getSubset(const cv::Mat & m1, const cv::Mat & m2, cv::Mat & ms1, cv::Mat & ms2, cv::RNG & rng, int maxAttempts)`\n3. `run(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model, cv::OutputArray _mask)`\n\nLet's inspect the code for these methods to understand the issue with the failing test `Calib3d_SolvePnPRansac.input_type`. Let's start with the `getSubset` method.",
+            "function_call": {
+                "name": "get_code_snippet",
+                "arguments": "{\"signature\":\"::getSubset(const class cv::Mat & m1, const class cv::Mat & m2, class cv::Mat & ms1, class cv::Mat & ms2, class cv::RNG & rng, int maxAttempts)\"}"
+            },
+            "refusal": null,
+            "annotations": []
+        },
+        {
+            "role": "function",
+            "name": "get_code_snippet",
+            "content": "\"You probably mean RANSACPointSetRegistrator::getSubset(const class cv::Mat & m1, const class cv::Mat & m2, class cv::Mat & ms1, class cv::Mat & ms2, class cv::RNG & rng, int maxAttempts). It looks like:\\n```C/C++\\n    bool getSubset( const Mat& m1, const Mat& m2, Mat& ms1, Mat& ms2, RNG& rng, int maxAttempts=1000 ) const\\n\\n    {\\n\\n        cv::AutoBuffer<int> _idx(modelPoints);\\n\\n        int* idx = _idx.data();\\n\\n\\n\\n        const int d1 = m1.channels() > 1 ? m1.channels() : m1.cols;\\n\\n        const int d2 = m2.channels() > 1 ? m2.channels() : m2.cols;\\n\\n\\n\\n        int esz1 = (int)m1.elemSize1() * d1;\\n\\n        int esz2 = (int)m2.elemSize1() * d2;\\n\\n        CV_Assert((esz1 % sizeof(int)) == 0 && (esz2 % sizeof(int)) == 0);\\n\\n        esz1 /= sizeof(int);\\n\\n        esz2 /= sizeof(int);\\n\\n\\n\\n        const int count = m1.checkVector(d1);\\n\\n        const int count2 = m2.checkVector(d2);\\n\\n        CV_Assert(count >= modelPoints && count == count2);\\n\\n\\n\\n        const int *m1ptr = m1.ptr<int>();\\n\\n        const int *m2ptr = m2.ptr<int>();\\n\\n\\n\\n        ms1.create(modelPoints, 1, CV_MAKETYPE(m1.depth(), d1));\\n\\n        ms2.create(modelPoints, 1, CV_MAKETYPE(m2.depth(), d2));\\n\\n\\n\\n        int *ms1ptr = ms1.ptr<int>();\\n\\n        int *ms2ptr = ms2.ptr<int>();\\n\\n\\n\\n        for( int iters = 0; iters < maxAttempts; ++iters )\\n\\n        {\\n\\n            int i;\\n\\n\\n\\n            for( i = 0; i < modelPoints; ++i )\\n\\n            {\\n\\n                int idx_i;\\n\\n\\n\\n                for ( idx_i = rng.uniform(0, count);\\n\\n                    std::find(idx, idx + i, idx_i) != idx + i;\\n\\n                    idx_i = rng.uniform(0, count) )\\n\\n                {}\\n\\n\\n\\n                idx[i] = idx_i;\\n\\n\\n\\n                for( int k = 0; k < esz1; ++k )\\n\\n                    ms1ptr[i*esz1 + k] = m1ptr[idx_i*esz1 + k];\\n\\n\\n\\n                for( int k = 0; k < esz2; ++k )\\n\\n                    ms2ptr[i*esz2 + k] = m2ptr[idx_i*esz2 + k];\\n\\n            }\\n\\n\\n\\n            if( cb->checkSubset(ms1, ms2, i) )\\n\\n                return true;\\n\\n        }\\n\\n\\n\\n        return false;\\n\\n    }\\n\\n```\""
+        },
+        {
+            "role": "assistant",
+            "content": "The `getSubset` method in the `RANSACPointSetRegistrator` class is responsible for selecting a subset of elements from input matrices `m1` and `m2` for further processing. The relevant part of the code where the assertion `count >= modelPoints && count == count2` is checked before processing the subsets. This assertion ensures that the number of elements in the input matrices is sufficient for the subset selection.\n\nThe failure in the test `Calib3d_SolvePnPRansac.input_type` may have occurred due to violating this assertion, indicating that the number of points provided may not be correct for the operation being performed. Further investigation is needed to determine the root cause of this issue.\n\nNext, let's inspect the `run` method in the `RANSACPointSetRegistrator` class to gather more insights.",
+            "function_call": {
+                "name": "get_code_snippet",
+                "arguments": "{\"signature\":\"::run(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model, cv::OutputArray _mask)\"}"
+            },
+            "refusal": null,
+            "annotations": []
+        },
+        {
+            "role": "function",
+            "name": "get_code_snippet",
+            "content": "{\"error_message\": \"There are multiple matches to that query. Do you mean any of the following: {'get_code_snippet(RANSACPointSetRegistrator::run(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model, cv::OutputArray _mask))', 'get_code_snippet(Affine3DEstimatorCallback::runKernel(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model))', 'get_code_snippet(LMeDSPointSetRegistrator::run(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model, cv::OutputArray _mask))'}?\"}"
+        },
+        {
+            "role": "assistant",
+            "content": "It seems there are multiple matches for the `run` method query. Let's focus on retrieving the code snippet for the `run` method specifically in the `RANSACPointSetRegistrator` class. Please provide the correct query for that method.",
+            "refusal": null,
+            "annotations": []
+        },
+        {
+            "role": "user",
+            "content": "Based on the available information, provide the signatures of the most likely culprit methods for the bug. Your answer will be processed automatically, so make sure to only answer with the accurate signatures of all likely culprits (in `ClassName.MethodName(ArgType1, ArgType2, ...)` format), without commentary (one per line). "
+        },
+        {
+            "role": "assistant",
+            "content": "```\r\nRANSACPointSetRegistrator.getSubset(const class cv::Mat &, const class cv::Mat &, class cv::Mat &, class cv::Mat &, class cv::RNG &, int)\r\n```",
+            "refusal": null,
+            "annotations": []
+        }
+    ],
+    "interaction_records": {
+        "step_histories": [
+            {
+                "prompt_messages": [
+                    "m1",
+                    "m2",
+                    "m3",
+                    "m4"
+                ],
+                "response_message": "m5"
+            },
+            {
+                "prompt_messages": [
+                    "m1",
+                    "m2",
+                    "m3",
+                    "m4",
+                    "m5",
+                    "m6"
+                ],
+                "response_message": "m7"
+            },
+            {
+                "prompt_messages": [
+                    "m1",
+                    "m2",
+                    "m3",
+                    "m4",
+                    "m5",
+                    "m6",
+                    "m7",
+                    "m8"
+                ],
+                "response_message": "m9"
+            },
+            {
+                "prompt_messages": [
+                    "m1",
+                    "m2",
+                    "m3",
+                    "m4",
+                    "m5",
+                    "m6",
+                    "m7",
+                    "m8",
+                    "m9",
+                    "m10"
+                ],
+                "response_message": "m11"
+            }
+        ],
+        "mid_to_message": {
+            "m1": {
+                "role": "system",
+                "content": "You are a debugging assistant. You will be presented with a failing test, and tools (functions) to access the source code of the system under test (SUT). Your task is to provide a step-by-step explanation of how the bug occurred, based on the failing test and the information you retrieved using tests about the SUT. You will be given 9 chances to interact with functions to gather relevant information. An example answer would look like follows.\n\nTitle: Diagnosis of test `testGenerateURLFragment`\nDetails: The test `testGenerateURLFragment` checks whether HTML entities such as `&quot;` are correctly escaped to their corresponding character by the `StandardToolTipTagFragmentGenerator.generateToolTipFragment` method. However, the test failure indicates that this is not the case. Following the execution path, we find that `StandardToolTipTagFragmentGenerator.generateToolTipFragment` is not escaping any HTML code; instead, it is using its input `toolTipText` as is. Consequently, un-escaped strings are being returned, which leads to the error demonstrated by the test.\n\nAfter providing this diagnosis, you will be prompted to suggest which methods would be the best locations to be fixed. The answers should be in the form of `ClassName.MethodName(ArgType1, ArgType2, ...)` without commentary (one per line), as your answer will be automatically processed before finally being presented to the user."
+            },
+            "m2": {
+                "role": "user",
+                "content": "The test `['Calib3d_SolvePnPRansac.input_type()']` failed.\nThe test looks like:\n\n```cpp\nTEST(Calib3d_SolvePnPRansac, input_type)\n\n{\n\n    const int numPoints = 10;\n\n    Matx33d intrinsics(5.4794130238156129e+002, 0., 2.9835545700043139e+002, 0.,\n\n                       5.4817724002728005e+002, 2.3062194051986233e+002, 0., 0., 1.);\n\n\n\n    std::vector<cv::Point3f> points3d;\n\n    std::vector<cv::Point2f> points2d;\n\n    for (int i = 0; i < numPoints; i+=2)\n\n    {\n\n        points3d.push_back(cv::Point3i(5+i, 3, 2));\n\n        points3d.push_back(cv::Point3i(5+i, 3+i, 2+i));\n\n        points2d.push_back(cv::Point2i(0, i));\n\n        points2d.push_back(cv::Point2i(-i, i));\n\n    }\n```\n\nIt failed with the following error message and call stack:\n\n```\nTEST: Skip tests with tags: 'mem_6gb', 'verylong'\nNote: Google Test filter = Calib3d_SolvePnPRansac.input_type\n[==========] Running 1 test from 1 test case.\n[----------] Global test environment set-up.\n[----------] 1 test from Calib3d_SolvePnPRansac\n[ RUN      ] Calib3d_SolvePnPRansac.input_type\nunknown file: Failure\nC++ exception with description \"OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp:120: error: (-215:Assertion failed) count >= modelPoints && count == count2 in function 'getSubset'\n\" thrown in the test body.\n[  FAILED  ] Calib3d_SolvePnPRansac.input_type (0 ms)\n[----------] 1 test from Calib3d_SolvePnPRansac (0 ms total)\n\n[----------] Global test environment tear-down\n[==========] 1 test from 1 test case ran. (0 ms total)\n[  PASSED  ] 0 tests.\n[  FAILED  ] 1 test, listed below:\n[  FAILED  ] Calib3d_SolvePnPRansac.input_type\n\n 1 FAILED TEST\n```\n\nStart by calling the `get_failing_tests_covered_classes` function."
+            },
+            "m3": {
+                "role": "assistant",
+                "content": null,
+                "function_call": {
+                    "name": "get_failing_tests_covered_classes",
+                    "arguments": "{}"
+                }
+            },
+            "m4": {
+                "role": "function",
+                "name": "get_failing_tests_covered_classes",
+                "content": "{\".\": [\"FUNCTIONWITHOUTCLASS\", \"CirclesGridFinder\", \"Graph\", \"CirclesGridFinderParameters\", \"Affine3DEstimatorCallback\", \"RANSACPointSetRegistrator\", \"LMeDSPointSetRegistrator\"]}"
+            },
+            "m5": {
+                "role": "assistant",
+                "content": "The failing test `Calib3d_SolvePnPRansac.input_type` covers various classes, including `CirclesGridFinder`, `Graph`, `CirclesGridFinderParameters`, `Affine3DEstimatorCallback`, `RANSACPointSetRegistrator`, `LMeDSPointSetRegistrator`.\n\nNext, I will retrieve the methods covered by failing tests for the `RANSACPointSetRegistrator` class.",
+                "function_call": {
+                    "name": "get_failing_tests_covered_methods_for_class",
+                    "arguments": "{\"class_name\":\"RANSACPointSetRegistrator\"}"
+                },
+                "refusal": null,
+                "annotations": []
+            },
+            "m6": {
+                "role": "function",
+                "name": "get_failing_tests_covered_methods_for_class",
+                "content": "[\"::RANSACPointSetRegistrator(const Ptr<class PointSetRegistrator::Callback> & _cb, int _modelPoints, double _threshold, double _confidence, int _maxIters)\", \"::getSubset(const class cv::Mat & m1, const class cv::Mat & m2, class cv::Mat & ms1, class cv::Mat & ms2, class cv::RNG & rng, int maxAttempts)\", \"::run(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model, cv::OutputArray _mask)\"]"
+            },
+            "m7": {
+                "role": "assistant",
+                "content": "The failing tests cover the following methods in the `RANSACPointSetRegistrator` class:\n\n1. `RANSACPointSetRegistrator(const Ptr<PointSetRegistrator::Callback> & _cb, int _modelPoints, double _threshold, double _confidence, int _maxIters)`\n2. `getSubset(const cv::Mat & m1, const cv::Mat & m2, cv::Mat & ms1, cv::Mat & ms2, cv::RNG & rng, int maxAttempts)`\n3. `run(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model, cv::OutputArray _mask)`\n\nLet's inspect the code for these methods to understand the issue with the failing test `Calib3d_SolvePnPRansac.input_type`. Let's start with the `getSubset` method.",
+                "function_call": {
+                    "name": "get_code_snippet",
+                    "arguments": "{\"signature\":\"::getSubset(const class cv::Mat & m1, const class cv::Mat & m2, class cv::Mat & ms1, class cv::Mat & ms2, class cv::RNG & rng, int maxAttempts)\"}"
+                },
+                "refusal": null,
+                "annotations": []
+            },
+            "m8": {
+                "role": "function",
+                "name": "get_code_snippet",
+                "content": "\"You probably mean RANSACPointSetRegistrator::getSubset(const class cv::Mat & m1, const class cv::Mat & m2, class cv::Mat & ms1, class cv::Mat & ms2, class cv::RNG & rng, int maxAttempts). It looks like:\\n```C/C++\\n    bool getSubset( const Mat& m1, const Mat& m2, Mat& ms1, Mat& ms2, RNG& rng, int maxAttempts=1000 ) const\\n\\n    {\\n\\n        cv::AutoBuffer<int> _idx(modelPoints);\\n\\n        int* idx = _idx.data();\\n\\n\\n\\n        const int d1 = m1.channels() > 1 ? m1.channels() : m1.cols;\\n\\n        const int d2 = m2.channels() > 1 ? m2.channels() : m2.cols;\\n\\n\\n\\n        int esz1 = (int)m1.elemSize1() * d1;\\n\\n        int esz2 = (int)m2.elemSize1() * d2;\\n\\n        CV_Assert((esz1 % sizeof(int)) == 0 && (esz2 % sizeof(int)) == 0);\\n\\n        esz1 /= sizeof(int);\\n\\n        esz2 /= sizeof(int);\\n\\n\\n\\n        const int count = m1.checkVector(d1);\\n\\n        const int count2 = m2.checkVector(d2);\\n\\n        CV_Assert(count >= modelPoints && count == count2);\\n\\n\\n\\n        const int *m1ptr = m1.ptr<int>();\\n\\n        const int *m2ptr = m2.ptr<int>();\\n\\n\\n\\n        ms1.create(modelPoints, 1, CV_MAKETYPE(m1.depth(), d1));\\n\\n        ms2.create(modelPoints, 1, CV_MAKETYPE(m2.depth(), d2));\\n\\n\\n\\n        int *ms1ptr = ms1.ptr<int>();\\n\\n        int *ms2ptr = ms2.ptr<int>();\\n\\n\\n\\n        for( int iters = 0; iters < maxAttempts; ++iters )\\n\\n        {\\n\\n            int i;\\n\\n\\n\\n            for( i = 0; i < modelPoints; ++i )\\n\\n            {\\n\\n                int idx_i;\\n\\n\\n\\n                for ( idx_i = rng.uniform(0, count);\\n\\n                    std::find(idx, idx + i, idx_i) != idx + i;\\n\\n                    idx_i = rng.uniform(0, count) )\\n\\n                {}\\n\\n\\n\\n                idx[i] = idx_i;\\n\\n\\n\\n                for( int k = 0; k < esz1; ++k )\\n\\n                    ms1ptr[i*esz1 + k] = m1ptr[idx_i*esz1 + k];\\n\\n\\n\\n                for( int k = 0; k < esz2; ++k )\\n\\n                    ms2ptr[i*esz2 + k] = m2ptr[idx_i*esz2 + k];\\n\\n            }\\n\\n\\n\\n            if( cb->checkSubset(ms1, ms2, i) )\\n\\n                return true;\\n\\n        }\\n\\n\\n\\n        return false;\\n\\n    }\\n\\n```\""
+            },
+            "m9": {
+                "role": "assistant",
+                "content": "The `getSubset` method in the `RANSACPointSetRegistrator` class is responsible for selecting a subset of elements from input matrices `m1` and `m2` for further processing. The relevant part of the code where the assertion `count >= modelPoints && count == count2` is checked before processing the subsets. This assertion ensures that the number of elements in the input matrices is sufficient for the subset selection.\n\nThe failure in the test `Calib3d_SolvePnPRansac.input_type` may have occurred due to violating this assertion, indicating that the number of points provided may not be correct for the operation being performed. Further investigation is needed to determine the root cause of this issue.\n\nNext, let's inspect the `run` method in the `RANSACPointSetRegistrator` class to gather more insights.",
+                "function_call": {
+                    "name": "get_code_snippet",
+                    "arguments": "{\"signature\":\"::run(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model, cv::OutputArray _mask)\"}"
+                },
+                "refusal": null,
+                "annotations": []
+            },
+            "m10": {
+                "role": "function",
+                "name": "get_code_snippet",
+                "content": "{\"error_message\": \"There are multiple matches to that query. Do you mean any of the following: {'get_code_snippet(RANSACPointSetRegistrator::run(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model, cv::OutputArray _mask))', 'get_code_snippet(Affine3DEstimatorCallback::runKernel(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model))', 'get_code_snippet(LMeDSPointSetRegistrator::run(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model, cv::OutputArray _mask))'}?\"}"
+            },
+            "m11": {
+                "role": "assistant",
+                "content": "It seems there are multiple matches for the `run` method query. Let's focus on retrieving the code snippet for the `run` method specifically in the `RANSACPointSetRegistrator` class. Please provide the correct query for that method.",
+                "refusal": null,
+                "annotations": []
+            }
+        }
+    },
+    "buggy_methods": {
+        "RANSACPointSetRegistrator::getSubset(const class cv::Mat & m1, const class cv::Mat & m2, class cv::Mat & ms1, class cv::Mat & ms2, class cv::RNG & rng, int maxAttempts)": {
+            "is_found": false,
+            "matching_answer": []
+        }
+    }
+}

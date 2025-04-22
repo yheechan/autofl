@@ -1,0 +1,76 @@
+--- Calib3d_CalibrateHandEye.regression_17986
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_CalibrateHandEye.regression_17986
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_CalibrateHandEye
+[ RUN      ] Calib3d_CalibrateHandEye.regression_17986
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_calibration_hand_eye.cpp:687: Failure
+Value of: checkRange(R_cam2base_est)
+  Actual: false
+Expected: true
+Google Test trace:
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_calibration_hand_eye.cpp:681: method=Daniilidis
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_calibration_hand_eye.cpp:688: Failure
+Value of: checkRange(t_cam2base_est)
+  Actual: false
+Expected: true
+Google Test trace:
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_calibration_hand_eye.cpp:681: method=Daniilidis
+[  FAILED  ] Calib3d_CalibrateHandEye.regression_17986 (177 ms)
+[----------] 1 test from Calib3d_CalibrateHandEye (177 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (177 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_CalibrateHandEye.regression_17986
+
+ 1 FAILED TEST
+--- Calib3d_CalibrateHandEye.regression_24871
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d_CalibrateHandEye.regression_24871
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_CalibrateHandEye
+[ RUN      ] Calib3d_CalibrateHandEye.regression_24871
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_calibration_hand_eye.cpp:860: Failure
+Value of: cv::norm(R_cam2gripper_est - R_true_cam2gripper) < 1e-9
+  Actual: false
+Expected: true
+Google Test trace:
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_calibration_hand_eye.cpp:854: method=Daniilidis
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_calibration_hand_eye.cpp:861: Failure
+Value of: cv::norm(t_cam2gripper_est - t_true_cam2gripper) < 1e-9
+  Actual: false
+Expected: true
+Google Test trace:
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_calibration_hand_eye.cpp:854: method=Daniilidis
+[  FAILED  ] Calib3d_CalibrateHandEye.regression_24871 (0 ms)
+[----------] 1 test from Calib3d_CalibrateHandEye (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_CalibrateHandEye.regression_24871
+
+ 1 FAILED TEST

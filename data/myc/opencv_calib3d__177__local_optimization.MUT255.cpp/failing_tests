@@ -1,0 +1,387 @@
+--- Calib3d/usac_Essential.accuracy/1
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/usac_Essential.accuracy/1
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/usac_Essential
+[ RUN      ] Calib3d/usac_Essential.accuracy/1, where GetParam() = USAC_ACCURATE
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:320: Failure
+Failed
+Essential matrix estimation failed!
+
+[  FAILED  ] Calib3d/usac_Essential.accuracy/1, where GetParam() = USAC_ACCURATE (11 ms)
+[----------] 1 test from Calib3d/usac_Essential (11 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (11 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/usac_Essential.accuracy/1, where GetParam() = USAC_ACCURATE
+
+ 1 FAILED TEST
+--- Calib3d/usac_Essential.maxiters/1
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/usac_Essential.maxiters/1
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/usac_Essential
+[ RUN      ] Calib3d/usac_Essential.maxiters/1, where GetParam() = USAC_ACCURATE
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:358: Failure
+Failed
+Essential matrix estimation failed!
+
+[  FAILED  ] Calib3d/usac_Essential.maxiters/1, where GetParam() = USAC_ACCURATE (0 ms)
+[----------] 1 test from Calib3d/usac_Essential (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/usac_Essential.maxiters/1, where GetParam() = USAC_ACCURATE
+
+ 1 FAILED TEST
+--- usac_Homography.accuracy
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = usac_Homography.accuracy
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from usac_Homography
+[ RUN      ] usac_Homography.accuracy
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/usac/estimator.cpp:301: error: (-215:Assertion failed) !model.empty() in function 'setModelParameters'
+" thrown in the test body.
+[  FAILED  ] usac_Homography.accuracy (6 ms)
+[----------] 1 test from usac_Homography (6 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (6 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] usac_Homography.accuracy
+
+ 1 FAILED TEST
+--- usac_Affine2D.accuracy
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = usac_Affine2D.accuracy
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from usac_Affine2D
+[ RUN      ] usac_Affine2D.accuracy
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/usac/estimator.cpp:545: error: (-215:Assertion failed) !model.empty() in function 'setModelParameters'
+" thrown in the test body.
+[  FAILED  ] usac_Affine2D.accuracy (4 ms)
+[----------] 1 test from usac_Affine2D (4 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (4 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] usac_Affine2D.accuracy
+
+ 1 FAILED TEST
+--- usac_solvePnPRansac.regression_21105
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = usac_solvePnPRansac.regression_21105
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from usac_solvePnPRansac
+[ RUN      ] usac_solvePnPRansac.regression_21105
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/usac/estimator.cpp:484: error: (-215:Assertion failed) !model.empty() in function 'setModelParameters'
+" thrown in the test body.
+[  FAILED  ] usac_solvePnPRansac.regression_21105 (8 ms)
+[----------] 1 test from usac_solvePnPRansac (8 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (8 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] usac_solvePnPRansac.regression_21105
+
+ 1 FAILED TEST
+--- Calib3d/usac_Essential.accuracy/0
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/usac_Essential.accuracy/0
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/usac_Essential
+[ RUN      ] Calib3d/usac_Essential.accuracy/0, where GetParam() = USAC_DEFAULT
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:320: Failure
+Failed
+Essential matrix estimation failed!
+
+[  FAILED  ] Calib3d/usac_Essential.accuracy/0, where GetParam() = USAC_DEFAULT (10 ms)
+[----------] 1 test from Calib3d/usac_Essential (10 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (10 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/usac_Essential.accuracy/0, where GetParam() = USAC_DEFAULT
+
+ 1 FAILED TEST
+--- Calib3d/usac_Essential.accuracy/2
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/usac_Essential.accuracy/2
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/usac_Essential
+[ RUN      ] Calib3d/usac_Essential.accuracy/2, where GetParam() = USAC_PROSAC
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:320: Failure
+Failed
+Essential matrix estimation failed!
+
+[  FAILED  ] Calib3d/usac_Essential.accuracy/2, where GetParam() = USAC_PROSAC (1 ms)
+[----------] 1 test from Calib3d/usac_Essential (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/usac_Essential.accuracy/2, where GetParam() = USAC_PROSAC
+
+ 1 FAILED TEST
+--- Calib3d/usac_Essential.accuracy/3
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/usac_Essential.accuracy/3
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/usac_Essential
+[ RUN      ] Calib3d/usac_Essential.accuracy/3, where GetParam() = USAC_FAST
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:320: Failure
+Failed
+Essential matrix estimation failed!
+
+[  FAILED  ] Calib3d/usac_Essential.accuracy/3, where GetParam() = USAC_FAST (10 ms)
+[----------] 1 test from Calib3d/usac_Essential (10 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (10 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/usac_Essential.accuracy/3, where GetParam() = USAC_FAST
+
+ 1 FAILED TEST
+--- Calib3d/usac_Essential.accuracy/4
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/usac_Essential.accuracy/4
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/usac_Essential
+[ RUN      ] Calib3d/usac_Essential.accuracy/4, where GetParam() = USAC_MAGSAC
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:320: Failure
+Failed
+Essential matrix estimation failed!
+
+[  FAILED  ] Calib3d/usac_Essential.accuracy/4, where GetParam() = USAC_MAGSAC (10 ms)
+[----------] 1 test from Calib3d/usac_Essential (10 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (10 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/usac_Essential.accuracy/4, where GetParam() = USAC_MAGSAC
+
+ 1 FAILED TEST
+--- Calib3d/usac_Essential.maxiters/0
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/usac_Essential.maxiters/0
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/usac_Essential
+[ RUN      ] Calib3d/usac_Essential.maxiters/0, where GetParam() = USAC_DEFAULT
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:358: Failure
+Failed
+Essential matrix estimation failed!
+
+[  FAILED  ] Calib3d/usac_Essential.maxiters/0, where GetParam() = USAC_DEFAULT (1 ms)
+[----------] 1 test from Calib3d/usac_Essential (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/usac_Essential.maxiters/0, where GetParam() = USAC_DEFAULT
+
+ 1 FAILED TEST
+--- Calib3d/usac_Essential.maxiters/2
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/usac_Essential.maxiters/2
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/usac_Essential
+[ RUN      ] Calib3d/usac_Essential.maxiters/2, where GetParam() = USAC_PROSAC
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:358: Failure
+Failed
+Essential matrix estimation failed!
+
+[  FAILED  ] Calib3d/usac_Essential.maxiters/2, where GetParam() = USAC_PROSAC (0 ms)
+[----------] 1 test from Calib3d/usac_Essential (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/usac_Essential.maxiters/2, where GetParam() = USAC_PROSAC
+
+ 1 FAILED TEST
+--- Calib3d/usac_Essential.maxiters/3
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/usac_Essential.maxiters/3
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/usac_Essential
+[ RUN      ] Calib3d/usac_Essential.maxiters/3, where GetParam() = USAC_FAST
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:358: Failure
+Failed
+Essential matrix estimation failed!
+
+[  FAILED  ] Calib3d/usac_Essential.maxiters/3, where GetParam() = USAC_FAST (1 ms)
+[----------] 1 test from Calib3d/usac_Essential (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/usac_Essential.maxiters/3, where GetParam() = USAC_FAST
+
+ 1 FAILED TEST
+--- Calib3d/usac_Essential.maxiters/4
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/usac_Essential.maxiters/4
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/usac_Essential
+[ RUN      ] Calib3d/usac_Essential.maxiters/4, where GetParam() = USAC_MAGSAC
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp:358: Failure
+Failed
+Essential matrix estimation failed!
+
+[  FAILED  ] Calib3d/usac_Essential.maxiters/4, where GetParam() = USAC_MAGSAC (1 ms)
+[----------] 1 test from Calib3d/usac_Essential (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/usac_Essential.maxiters/4, where GetParam() = USAC_MAGSAC
+
+ 1 FAILED TEST

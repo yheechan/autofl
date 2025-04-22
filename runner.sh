@@ -4,10 +4,10 @@ if [ -z  "$1" ]; then
     exit 0
 fi
 REPETITION=$2
-DATASET=$3 # defects4j or bugsinpy
+DATASET=$3 # defects4j or bugsinpy or myc
 
 DATA_DIR=./data/${DATASET}/
-MODEL="gpt-3.5-turbo-0613"
+MODEL="gpt-3.5-turbo"
 PROMPT_FILE="prompts/system_msg_expbug.txt"
 BUDGET="10"
 NUM_TESTS="1"
@@ -25,7 +25,7 @@ for rep in $(seq 1 "$REPETITION"); do
             continue
         fi
         if [ -f "${DATA_DIR}/${bugname}/snippet.json" ]; then
-            cmd="python autofl.py -m ${MODEL} -b ${bugname} -p ${PROMPT_FILE} -o ${save_file} --max_budget ${BUDGET} --max_num_tests ${NUM_TESTS} --show_line_number --postprocess_test_snippet --allow_multi_predictions --test_offset $((rep - 1))"
+            cmd="python3 autofl.py -m ${MODEL} -b ${bugname} -p ${PROMPT_FILE} -o ${save_file} --max_budget ${BUDGET} --max_num_tests ${NUM_TESTS} --allow_multi_predictions --test_offset $((rep - 1))"
             echo ${cmd}
             timeout 10m ${cmd}
         fi

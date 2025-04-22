@@ -1,0 +1,12 @@
+[
+    {
+        "is_bug": true,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "estimateAffine3D(cv::InputArray _from, cv::InputArray _to, cv::OutputArray _out, cv::OutputArray _inliers, double ransacThreshold, double confidence)",
+        "start_line": 879,
+        "end_line": 901,
+        "snippet": "int estimateAffine3D(InputArray _from, InputArray _to,\n\n                     OutputArray _out, OutputArray _inliers,\n\n                     double ransacThreshold, double confidence)\n\n{\n\n    CV_INSTRUMENT_REGION();\n\n\n\n    Mat from = _from.getMat(), to = _to.getMat();\n\n    int count = from.checkVector(3);\n\n\n\n    CV_Assert( count >= 0 && to.checkVector(3) == count );\n\n\n\n    Mat dFrom, dTo;\n\n    from.convertTo(dFrom, CV_32F);\n\n    to.convertTo(dTo, CV_32F);\n\n    dFrom = dFrom.reshape(3, count);\n\n    dTo = dTo.reshape(3, count);\n\n\n\n    const double epsilon = DBL_EPSILON;\n\n    ransacThreshold = ransacThreshold <= 0 ? 3 : ransacThreshold;\n\n    confidence = (confidence < epsilon) ? 0.99 : (confidence > 1 - epsilon) ? 0.99 : confidence;\n\n\n\n    return createRANSACPointSetRegistrator(makePtr<Affine3DEstimatorCallback>(), 4, ransacThreshold, confidence)->run(dFrom, dTo, _out, _inliers);\n\n}\n",
+        "comment": ""
+    }
+]

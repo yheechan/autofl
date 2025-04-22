@@ -1,0 +1,46 @@
+--- Calib3d/EstimateAffinePartial2D.testNPoints/0
+CTEST_FULL_OUTPUT
+OpenCV version: 4.10.0
+OpenCV VCS version: unknown
+Build type: Release
+Compiler: /usr/bin/c++  (ver 11.4.0)
+Parallel framework: pthreads (nthreads=32)
+CPU features: SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?
+Intel(R) IPP version: ippIP AVX2 (l9) 2021.11.0 (-) Feb  1 2024
+Intel(R) IPP features code: 0x8000
+TEST: Skip tests with tags: 'mem_6gb', 'verylong'
+Note: Google Test filter = Calib3d/EstimateAffinePartial2D.testNPoints/0
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/EstimateAffinePartial2D
+[ RUN      ] Calib3d/EstimateAffinePartial2D.testNPoints/0, where GetParam() = RANSAC
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine_partial2d_estimator.cpp:126: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00013225942883532404, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00013225942883532404, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine_partial2d_estimator.cpp:126: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00025142014060253182, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00025142014060253182, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine_partial2d_estimator.cpp:126: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00012193415647765438, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00012193415647765438, and
+1e-4 evaluates to 0.0001.
+/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_affine_partial2d_estimator.cpp:126: Failure
+The difference between 0. and cvtest::norm(aff_est, aff, NORM_INF) is 0.00016271244207599622, which exceeds 1e-4, where
+0. evaluates to 0,
+cvtest::norm(aff_est, aff, NORM_INF) evaluates to 0.00016271244207599622, and
+1e-4 evaluates to 0.0001.
+[  FAILED  ] Calib3d/EstimateAffinePartial2D.testNPoints/0, where GetParam() = RANSAC (12 ms)
+[----------] 1 test from Calib3d/EstimateAffinePartial2D (12 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (12 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/EstimateAffinePartial2D.testNPoints/0, where GetParam() = RANSAC
+
+ 1 FAILED TEST

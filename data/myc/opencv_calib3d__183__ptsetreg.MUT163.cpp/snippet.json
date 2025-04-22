@@ -1,0 +1,52 @@
+[
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "RANSACPointSetRegistrator",
+        "signature": "RANSACPointSetRegistrator::RANSACPointSetRegistrator(const Ptr<class PointSetRegistrator::Callback> & _cb, int _modelPoints, double _threshold, double _confidence, int _maxIters)",
+        "start_line": 81,
+        "end_line": 83,
+        "snippet": "    RANSACPointSetRegistrator(const Ptr<PointSetRegistrator::Callback>& _cb=Ptr<PointSetRegistrator::Callback>(),\n\n                              int _modelPoints=0, double _threshold=0, double _confidence=0.99, int _maxIters=1000)\n\n      : cb(_cb), modelPoints(_modelPoints), threshold(_threshold), confidence(_confidence), maxIters(_maxIters) {}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "RANSACPointSetRegistrator",
+        "signature": "RANSACPointSetRegistrator::run(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model, cv::OutputArray _mask)",
+        "start_line": 160,
+        "end_line": 254,
+        "snippet": "    bool run(InputArray _m1, InputArray _m2, OutputArray _model, OutputArray _mask) const CV_OVERRIDE\n\n    {\n\n        bool result = false;\n\n        Mat m1 = _m1.getMat(), m2 = _m2.getMat();\n\n        Mat err, mask, model, bestModel, ms1, ms2;\n\n\n\n        int iter, niters = MAX(maxIters, 1);\n\n        int d1 = m1.channels() > 1 ? m1.channels() : m1.cols;\n\n        int d2 = m2.channels() > 1 ? m2.channels() : m2.cols;\n\n        int count = m1.checkVector(d1), count2 = m2.checkVector(d2), maxGoodCount = 0;\n\n\n\n        RNG rng((uint64)-1);\n\n\n\n        CV_Assert( cb );\n\n        CV_Assert( confidence > 0 && confidence < 1 );\n\n\n\n        CV_Assert( count >= 0 && count2 == count );\n\n        if( count < modelPoints )\n\n            return false;\n\n\n\n        Mat bestMask0, bestMask;\n\n\n\n        if( _mask.needed() )\n\n        {\n\n            _mask.create(count, 1, CV_8U, -1, true);\n\n            bestMask0 = bestMask = _mask.getMat();\n\n            CV_Assert( (bestMask.cols == 1 || bestMask.rows == 1) && (int)bestMask.total() == count );\n\n        }\n\n        else\n\n        {\n\n            bestMask.create(count, 1, CV_8U);\n\n            bestMask0 = bestMask;\n\n        }\n\n\n\n        if( count == modelPoints )\n\n        {\n\n            if( cb->runKernel(m1, m2, bestModel) <= 0 )\n\n                return false;\n\n            bestModel.copyTo(_model);\n\n            bestMask.setTo(Scalar::all(1));\n\n            return true;\n\n        }\n\n\n\n        for( iter = 0; iter < niters; iter++ )\n\n        {\n\n            int i, nmodels;\n\n            if( count > modelPoints )\n\n            {\n\n                bool found = getSubset( m1, m2, ms1, ms2, rng, 10000 );\n\n                if( !found )\n\n                {\n\n                    if( iter == 0 )\n\n                        return false;\n\n                    break;\n\n                }\n\n            }\n\n\n\n            nmodels = cb->runKernel( ms1, ms2, model );\n\n            if( nmodels <= 0 )\n\n                continue;\n\n            CV_Assert( model.rows % nmodels == 0 );\n\n            Size modelSize(model.cols, model.rows/nmodels);\n\n\n\n            for( i = 0; i < nmodels; i++ )\n\n            {\n\n                Mat model_i = model.rowRange( i*modelSize.height, (i+1)*modelSize.height );\n\n                int goodCount = findInliers( m1, m2, model_i, err, mask, threshold );\n\n\n\n                if( goodCount > MAX(maxGoodCount, modelPoints-1) )\n\n                {\n\n                    std::swap(mask, bestMask);\n\n                    model_i.copyTo(bestModel);\n\n                    maxGoodCount = goodCount;\n\n                    niters = RANSACUpdateNumIters( confidence, (double)(count - goodCount)/count, modelPoints, niters );\n\n                }\n\n            }\n\n        }\n\n\n\n        if( maxGoodCount > 0 )\n\n        {\n\n            if( bestMask.data != bestMask0.data )\n\n            {\n\n                if( bestMask.size() == bestMask0.size() )\n\n                    bestMask.copyTo(bestMask0);\n\n                else\n\n                    transpose(bestMask, bestMask0);\n\n            }\n\n            bestModel.copyTo(_model);\n\n            result = true;\n\n        }\n\n        else\n\n            _model.release();\n\n\n\n        return result;\n\n    }\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "createRANSACPointSetRegistrator(const Ptr<class PointSetRegistrator::Callback> & _cb, int _modelPoints, double _threshold, double _confidence, int _maxIters)",
+        "start_line": 377,
+        "end_line": 383,
+        "snippet": "Ptr<PointSetRegistrator> createRANSACPointSetRegistrator(const Ptr<PointSetRegistrator::Callback>& _cb,\n\n                                                         int _modelPoints, double _threshold,\n\n                                                         double _confidence, int _maxIters)\n\n{\n\n    return Ptr<PointSetRegistrator>(\n\n        new RANSACPointSetRegistrator(_cb, _modelPoints, _threshold, _confidence, _maxIters));\n\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": true,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "Affine3DEstimatorCallback",
+        "signature": "Affine3DEstimatorCallback::runKernel(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model)",
+        "start_line": 410,
+        "end_line": 446,
+        "snippet": "    int runKernel( InputArray _m1, InputArray _m2, OutputArray _model ) const CV_OVERRIDE\n\n    {\n\n        Mat m1 = _m1.getMat(), m2 = _m2.getMat();\n\n        const Point3f* from = m1.ptr<Point3f>();\n\n        const Point3f* to   = m2.ptr<Point3f>();\n\n\n\n        const int N = 12;\n\n        double buf[N*N + N + N];\n\n        Mat A(N, N, CV_64F, &buf[0]);\n\n        Mat B(N, 1, CV_64F, &buf[0] + N*N);\n\n        Mat X(N, 1, CV_64F, &buf[0] + N*N + N);\n\n        double* Adata = A.ptr<double>();\n\n        double* Bdata = B.ptr<double>();\n\n        A = Scalar::all(0);\n\n\n\n        for( int i = 0; i < (N/3); i++ )\n\n        {\n\n            Bdata[i*3] = to[i].x;\n\n            Bdata[i*3+1] = to[i].y;\n\n            Bdata[i*3+2] = to[i].z;\n\n\n\n            double *aptr = Adata + i*3*N;\n\n            for(int k = 0; k < 3; ++k)\n\n            {\n\n                aptr[0] = from[i].x;\n\n                aptr[1] = from[i].y;\n\n                aptr[2] = from[i].z;\n\n                aptr[3] = 1.0;\n\n                aptr += 16;\n\n            }\n\n        }\n\n\n\n        solve(A, B, X, DECOMP_SVD);\n\n        X.reshape(1, 3).copyTo(_model);\n\n\n\n        return 1;\n\n    }\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "estimateAffine3D(cv::InputArray _from, cv::InputArray _to, cv::OutputArray _out, cv::OutputArray _inliers, double ransacThreshold, double confidence)",
+        "start_line": 879,
+        "end_line": 901,
+        "snippet": "int estimateAffine3D(InputArray _from, InputArray _to,\n\n                     OutputArray _out, OutputArray _inliers,\n\n                     double ransacThreshold, double confidence)\n\n{\n\n    CV_INSTRUMENT_REGION();\n\n\n\n    Mat from = _from.getMat(), to = _to.getMat();\n\n    int count = from.checkVector(3);\n\n\n\n    CV_Assert( count >= 0 && to.checkVector(3) == count );\n\n\n\n    Mat dFrom, dTo;\n\n    from.convertTo(dFrom, CV_32F);\n\n    to.convertTo(dTo, CV_32F);\n\n    dFrom = dFrom.reshape(3, count);\n\n    dTo = dTo.reshape(3, count);\n\n\n\n    const double epsilon = DBL_EPSILON;\n\n    ransacThreshold = ransacThreshold <= 0 ? 3 : ransacThreshold;\n\n    confidence = (confidence < epsilon) ? 0.99 : (confidence > 1 - epsilon) ? 0.99 : confidence;\n\n\n\n    return createRANSACPointSetRegistrator(makePtr<Affine3DEstimatorCallback>(), 4, ransacThreshold, confidence)->run(dFrom, dTo, _out, _inliers);\n\n}\n",
+        "comment": ""
+    }
+]
