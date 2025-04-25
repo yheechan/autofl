@@ -1,0 +1,272 @@
+[
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::epnp(const class cv::Mat & cameraMatrix, const class cv::Mat & opoints, const class cv::Mat & ipoints)",
+        "start_line": 8,
+        "end_line": 38,
+        "snippet": "epnp::epnp(const Mat& cameraMatrix, const Mat& opoints, const Mat& ipoints)\n{\n  if (cameraMatrix.depth() == CV_32F)\n      init_camera_parameters<float>(cameraMatrix);\n  else\n    init_camera_parameters<double>(cameraMatrix);\n\n  number_of_correspondences = std::max(opoints.checkVector(3, CV_32F), opoints.checkVector(3, CV_64F));\n\n  pws.resize(3 * number_of_correspondences);\n  us.resize(2 * number_of_correspondences);\n\n  if (opoints.depth() == ipoints.depth())\n  {\n    if (opoints.depth() == CV_32F)\n      init_points<Point3f,Point2f>(opoints, ipoints);\n    else\n      init_points<Point3d,Point2d>(opoints, ipoints);\n  }\n  else if (opoints.depth() == CV_32F)\n    init_points<Point3f,Point2d>(opoints, ipoints);\n  else\n    init_points<Point3d,Point2f>(opoints, ipoints);\n\n  alphas.resize(4 * number_of_correspondences);\n  pcs.resize(3 * number_of_correspondences);\n\n  max_nr = 0;\n  A1 = NULL;\n  A2 = NULL;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::~epnp()",
+        "start_line": 40,
+        "end_line": 46,
+        "snippet": "epnp::~epnp()\n{\n    if (A1)\n        delete[] A1;\n    if (A2)\n        delete[] A2;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::choose_control_points()",
+        "start_line": 48,
+        "end_line": 82,
+        "snippet": "void epnp::choose_control_points(void)\n{\n  // Take C0 as the reference points centroid:\n  cws[0][0] = cws[0][1] = cws[0][2] = 0;\n  for(int i = 0; i < number_of_correspondences; i++)\n    for(int j = 0; j < 3; j++)\n      cws[0][j] += pws[3 * i + j];\n\n  for(int j = 0; j < 3; j++)\n    cws[0][j] /= number_of_correspondences;\n\n\n  // Take C1, C2, and C3 from PCA on the reference points:\n  CvMat * PW0 = cvCreateMat(number_of_correspondences, 3, CV_64F);\n\n  double pw0tpw0[3 * 3] = {}, dc[3] = {}, uct[3 * 3] = {};\n  CvMat PW0tPW0 = cvMat(3, 3, CV_64F, pw0tpw0);\n  CvMat DC      = cvMat(3, 1, CV_64F, dc);\n  CvMat UCt     = cvMat(3, 3, CV_64F, uct);\n\n  for(int i = 0; i < number_of_correspondences; i++)\n    for(int j = 0; j < 3; j++)\n      PW0->data.db[3 * i + j] = pws[3 * i + j] - cws[0][j];\n\n  cvMulTransposed(PW0, &PW0tPW0, 1);\n  cvSVD(&PW0tPW0, &DC, &UCt, 0, CV_SVD_MODIFY_A | CV_SVD_U_T);\n\n  cvReleaseMat(&PW0);\n\n  for(int i = 1; i < 4; i++) {\n    double k = sqrt(dc[i - 1] / number_of_correspondences);\n    for(int j = 0; j < 3; j++)\n      cws[i][j] = cws[0][j] + k * uct[3 * (i - 1) + j];\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::compute_barycentric_coordinates()",
+        "start_line": 84,
+        "end_line": 109,
+        "snippet": "void epnp::compute_barycentric_coordinates(void)\n{\n  double cc[3 * 3] = {}, cc_inv[3 * 3] = {};\n  CvMat CC     = cvMat(3, 3, CV_64F, cc);\n  CvMat CC_inv = cvMat(3, 3, CV_64F, cc_inv);\n\n  for(int i = 0; i < 3; i++)\n    for(int j = 1; j < 4; j++)\n      cc[3 * i + j - 1] = cws[j][i] - cws[0][i];\n\n  cvInvert(&CC, &CC_inv, CV_SVD);\n  double * ci = cc_inv;\n  for(int i = 0; i < number_of_correspondences; i++) {\n    double * pi = &pws[0] + 3 * i;\n    double * a = &alphas[0] + 4 * i;\n\n    for(int j = 0; j < 3; j++)\n    {\n      a[1 + j] =\n          ci[3 * j    ] * (pi[0] - cws[0][0]) +\n          ci[3 * j + 1] * (pi[1] - cws[0][1]) +\n          ci[3 * j + 2] * (pi[2] - cws[0][2]);\n    }\n    a[0] = 1.0f - a[1] - a[2] - a[3];\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::fill_M(CvMat * M, const int row, const double * as, const double u, const double v)",
+        "start_line": 111,
+        "end_line": 126,
+        "snippet": "void epnp::fill_M(CvMat * M,\n      const int row, const double * as, const double u, const double v)\n{\n  double * M1 = M->data.db + row * 12;\n  double * M2 = M1 + 12;\n\n  for(int i = 0; i < 4; i++) {\n    M1[3 * i    ] = as[i] * fu;\n    M1[3 * i + 1] = 0.0;\n    M1[3 * i + 2] = as[i] * (uc - u);\n\n    M2[3 * i    ] = 0.0;\n    M2[3 * i + 1] = as[i] * fv;\n    M2[3 * i + 2] = as[i] * (vc - v);\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::compute_ccs(const double * betas, const double * ut)",
+        "start_line": 128,
+        "end_line": 139,
+        "snippet": "void epnp::compute_ccs(const double * betas, const double * ut)\n{\n  for(int i = 0; i < 4; i++)\n    ccs[i][0] = ccs[i][1] = ccs[i][2] = 0.0f;\n\n  for(int i = 0; i < 4; i++) {\n    const double * v = ut + 12 * (11 - i);\n    for(int j = 0; j < 4; j++)\n      for(int k = 0; k < 3; k++)\n        ccs[j][k] += betas[i] * v[3 * j + k];\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::compute_pcs()",
+        "start_line": 141,
+        "end_line": 150,
+        "snippet": "void epnp::compute_pcs(void)\n{\n  for(int i = 0; i < number_of_correspondences; i++) {\n    double * a = &alphas[0] + 4 * i;\n    double * pc = &pcs[0] + 3 * i;\n\n    for(int j = 0; j < 3; j++)\n      pc[j] = a[0] * ccs[0][j] + a[1] * ccs[1][j] + a[2] * ccs[2][j] + a[3] * ccs[3][j];\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::compute_pose(class cv::Mat & R, class cv::Mat & t)",
+        "start_line": 152,
+        "end_line": 199,
+        "snippet": "void epnp::compute_pose(Mat& R, Mat& t)\n{\n  choose_control_points();\n  compute_barycentric_coordinates();\n\n  CvMat * M = cvCreateMat(2 * number_of_correspondences, 12, CV_64F);\n\n  for(int i = 0; i < number_of_correspondences; i++)\n    fill_M(M, 2 * i, &alphas[0] + 4 * i, us[2 * i], us[2 * i + 1]);\n\n  double mtm[12 * 12] = {}, d[12] = {}, ut[12 * 12] = {};\n  CvMat MtM = cvMat(12, 12, CV_64F, mtm);\n  CvMat D   = cvMat(12,  1, CV_64F, d);\n  CvMat Ut  = cvMat(12, 12, CV_64F, ut);\n\n  cvMulTransposed(M, &MtM, 1);\n  cvSVD(&MtM, &D, &Ut, 0, CV_SVD_MODIFY_A | CV_SVD_U_T);\n  cvReleaseMat(&M);\n\n  double l_6x10[6 * 10] = {}, rho[6] = {};\n  CvMat L_6x10 = cvMat(6, 10, CV_64F, l_6x10);\n  CvMat Rho    = cvMat(6,  1, CV_64F, rho);\n\n  compute_L_6x10(ut, l_6x10);\n  compute_rho(rho);\n\n  double Betas[4][4] = {}, rep_errors[4] = {};\n  double Rs[4][3][3] = {}, ts[4][3] = {};\n\n  find_betas_approx_1(&L_6x10, &Rho, Betas[1]);\n  gauss_newton(&L_6x10, &Rho, Betas[1]);\n  rep_errors[1] = compute_R_and_t(ut, Betas[1], Rs[1], ts[1]);\n\n  find_betas_approx_2(&L_6x10, &Rho, Betas[2]);\n  gauss_newton(&L_6x10, &Rho, Betas[2]);\n  rep_errors[2] = compute_R_and_t(ut, Betas[2], Rs[2], ts[2]);\n\n  find_betas_approx_3(&L_6x10, &Rho, Betas[3]);\n  gauss_newton(&L_6x10, &Rho, Betas[3]);\n  rep_errors[3] = compute_R_and_t(ut, Betas[3], Rs[3], ts[3]);\n\n  int N = 1;\n  if (rep_errors[2] < rep_errors[1]) N = 2;\n  if (rep_errors[3] < rep_errors[N]) N = 3;\n\n  Mat(3, 1, CV_64F, ts[N]).copyTo(t);\n  Mat(3, 3, CV_64F, Rs[N]).copyTo(R);\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::dist2(const double * p1, const double * p2)",
+        "start_line": 211,
+        "end_line": 217,
+        "snippet": "double epnp::dist2(const double * p1, const double * p2)\n{\n  return\n    (p1[0] - p2[0]) * (p1[0] - p2[0]) +\n    (p1[1] - p2[1]) * (p1[1] - p2[1]) +\n    (p1[2] - p2[2]) * (p1[2] - p2[2]);\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::dot(const double * v1, const double * v2)",
+        "start_line": 219,
+        "end_line": 222,
+        "snippet": "double epnp::dot(const double * v1, const double * v2)\n{\n  return v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2];\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": true,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::estimate_R_and_t(double (*)[3] R, double * t)",
+        "start_line": 224,
+        "end_line": 282,
+        "snippet": "void epnp::estimate_R_and_t(double R[3][3], double t[3])\n{\n  double pc0[3] = {}, pw0[3] = {};\n\n  pc0[0] = pc0[1] = pc0[2] = 0.0;\n  pw0[0] = pw0[1] = pw0[2] = 0.0;\n\n  for(int i = 0; i < number_of_correspondences; i++) {\n    const double * pc = &pcs[3 * i];\n    const double * pw = &pws[3 * i];\n\n    for(int j = 0; j < 3; j++) {\n      pc0[j] += pc[j];\n      pw0[j] += pw[j];\n    }\n  }\n  for(int j = 0; j < 3; j++) {\n    pc0[j] /= number_of_correspondences;\n    pw0[j] /= number_of_correspondences;\n  }\n\n  double abt[3 * 3] = {}, abt_d[3] = {}, abt_u[3 * 3] = {}, abt_v[3 * 3] = {};\n  CvMat ABt   = cvMat(3, 3, CV_64F, abt);\n  CvMat ABt_D = cvMat(3, 1, CV_64F, abt_d);\n  CvMat ABt_U = cvMat(3, 3, CV_64F, abt_u);\n  CvMat ABt_V = cvMat(3, 3, CV_64F, abt_v);\n\n  cvSetZero(&ABt);\n  for(int i = 0; i < number_of_correspondences; i++) {\n    double * pc = &pcs[3 * i];\n    double * pw = &pws[3 * i];\n\n    for(int j = 0; j < 3; j++) {\n      abt[3 * j    ] += (pc[j] - pc0[j]) * (pw[0] - pw0[0]);\n      abt[3 * j + 1] += (pc[j] - pc0[j]) * (pw[1] - pw0[1]);\n      abt[3 * j + 2] += (pc[j] - pc0[j]) * (pw[2] - pw0[2]);\n    }\n  }\n\n  cvSVD(&ABt, &ABt_D, &ABt_U, &ABt_V, CV_SVD_MODIFY_A);\n\n  for(int i = 0; i < 3; i++)\n    for(int j = 0; j < 3; j++)\n      R[i][j] = dot(abt_u + 3 * i, abt_v + 3 * j);\n\n  const double det =\n    R[0][0] * R[1][1] * R[2][2] + R[0][1] * R[1][2] * R[2][0] + R[0][2] * R[1][0] * R[2][1] -\n    R[0][2] * R[1][1] * R[2][0] - R[0][1] * R[1][0] * R[2][2] - R[0][0] * R[1][2] * R[2][1];\n\n  if (det < 0) {\n    R[2][0] = -R[2][0];\n    R[2][1] = -R[2][1];\n    R[2][2] = -R[2][2];\n  }\n\n  t[0] = pc0[0] - dot(R[0], pw0);\n  t[1] = pc0[1] - dot(R[1], pw0);\n  t[2] = pc0[2] - dot(R[2], pw0);\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::solve_for_sign()",
+        "start_line": 284,
+        "end_line": 297,
+        "snippet": "void epnp::solve_for_sign(void)\n{\n  if (pcs[2] < 0.0) {\n    for(int i = 0; i < 4; i++)\n      for(int j = 0; j < 3; j++)\n        ccs[i][j] = -ccs[i][j];\n\n    for(int i = 0; i < number_of_correspondences; i++) {\n      pcs[3 * i    ] = -pcs[3 * i];\n      pcs[3 * i + 1] = -pcs[3 * i + 1];\n      pcs[3 * i + 2] = -pcs[3 * i + 2];\n    }\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::compute_R_and_t(const double * ut, const double * betas, double (*)[3] R, double * t)",
+        "start_line": 299,
+        "end_line": 310,
+        "snippet": "double epnp::compute_R_and_t(const double * ut, const double * betas,\n           double R[3][3], double t[3])\n{\n  compute_ccs(betas, ut);\n  compute_pcs();\n\n  solve_for_sign();\n\n  estimate_R_and_t(R, t);\n\n  return reprojection_error(R, t);\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::reprojection_error(const double (*)[3] R, const double * t)",
+        "start_line": 312,
+        "end_line": 329,
+        "snippet": "double epnp::reprojection_error(const double R[3][3], const double t[3])\n{\n  double sum2 = 0.0;\n\n  for(int i = 0; i < number_of_correspondences; i++) {\n    double * pw = &pws[3 * i];\n    double Xc = dot(R[0], pw) + t[0];\n    double Yc = dot(R[1], pw) + t[1];\n    double inv_Zc = 1.0 / (dot(R[2], pw) + t[2]);\n    double ue = uc + fu * Xc * inv_Zc;\n    double ve = vc + fv * Yc * inv_Zc;\n    double u = us[2 * i], v = us[2 * i + 1];\n\n    sum2 += sqrt( (u - ue) * (u - ue) + (v - ve) * (v - ve) );\n  }\n\n  return sum2 / number_of_correspondences;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::find_betas_approx_1(const CvMat * L_6x10, const CvMat * Rho, double * betas)",
+        "start_line": 334,
+        "end_line": 361,
+        "snippet": "void epnp::find_betas_approx_1(const CvMat * L_6x10, const CvMat * Rho,\n             double * betas)\n{\n  double l_6x4[6 * 4] = {}, b4[4] = {};\n  CvMat L_6x4 = cvMat(6, 4, CV_64F, l_6x4);\n  CvMat B4    = cvMat(4, 1, CV_64F, b4);\n\n  for(int i = 0; i < 6; i++) {\n    cvmSet(&L_6x4, i, 0, cvmGet(L_6x10, i, 0));\n    cvmSet(&L_6x4, i, 1, cvmGet(L_6x10, i, 1));\n    cvmSet(&L_6x4, i, 2, cvmGet(L_6x10, i, 3));\n    cvmSet(&L_6x4, i, 3, cvmGet(L_6x10, i, 6));\n  }\n\n  cvSolve(&L_6x4, Rho, &B4, CV_SVD);\n\n  if (b4[0] < 0) {\n    betas[0] = sqrt(-b4[0]);\n    betas[1] = -b4[1] / betas[0];\n    betas[2] = -b4[2] / betas[0];\n    betas[3] = -b4[3] / betas[0];\n  } else {\n    betas[0] = sqrt(b4[0]);\n    betas[1] = b4[1] / betas[0];\n    betas[2] = b4[2] / betas[0];\n    betas[3] = b4[3] / betas[0];\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::find_betas_approx_2(const CvMat * L_6x10, const CvMat * Rho, double * betas)",
+        "start_line": 366,
+        "end_line": 393,
+        "snippet": "void epnp::find_betas_approx_2(const CvMat * L_6x10, const CvMat * Rho,\n             double * betas)\n{\n  double l_6x3[6 * 3] = {}, b3[3] = {};\n  CvMat L_6x3  = cvMat(6, 3, CV_64F, l_6x3);\n  CvMat B3     = cvMat(3, 1, CV_64F, b3);\n\n  for(int i = 0; i < 6; i++) {\n    cvmSet(&L_6x3, i, 0, cvmGet(L_6x10, i, 0));\n    cvmSet(&L_6x3, i, 1, cvmGet(L_6x10, i, 1));\n    cvmSet(&L_6x3, i, 2, cvmGet(L_6x10, i, 2));\n  }\n\n  cvSolve(&L_6x3, Rho, &B3, CV_SVD);\n\n  if (b3[0] < 0) {\n    betas[0] = sqrt(-b3[0]);\n    betas[1] = (b3[2] < 0) ? sqrt(-b3[2]) : 0.0;\n  } else {\n    betas[0] = sqrt(b3[0]);\n    betas[1] = (b3[2] > 0) ? sqrt(b3[2]) : 0.0;\n  }\n\n  if (b3[1] < 0) betas[0] = -betas[0];\n\n  betas[2] = 0.0;\n  betas[3] = 0.0;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::find_betas_approx_3(const CvMat * L_6x10, const CvMat * Rho, double * betas)",
+        "start_line": 398,
+        "end_line": 425,
+        "snippet": "void epnp::find_betas_approx_3(const CvMat * L_6x10, const CvMat * Rho,\n             double * betas)\n{\n  double l_6x5[6 * 5] = {}, b5[5] = {};\n  CvMat L_6x5 = cvMat(6, 5, CV_64F, l_6x5);\n  CvMat B5    = cvMat(5, 1, CV_64F, b5);\n\n  for(int i = 0; i < 6; i++) {\n    cvmSet(&L_6x5, i, 0, cvmGet(L_6x10, i, 0));\n    cvmSet(&L_6x5, i, 1, cvmGet(L_6x10, i, 1));\n    cvmSet(&L_6x5, i, 2, cvmGet(L_6x10, i, 2));\n    cvmSet(&L_6x5, i, 3, cvmGet(L_6x10, i, 3));\n    cvmSet(&L_6x5, i, 4, cvmGet(L_6x10, i, 4));\n  }\n\n  cvSolve(&L_6x5, Rho, &B5, CV_SVD);\n\n  if (b5[0] < 0) {\n    betas[0] = sqrt(-b5[0]);\n    betas[1] = (b5[2] < 0) ? sqrt(-b5[2]) : 0.0;\n  } else {\n    betas[0] = sqrt(b5[0]);\n    betas[1] = (b5[2] > 0) ? sqrt(b5[2]) : 0.0;\n  }\n  if (b5[1] < 0) betas[0] = -betas[0];\n  betas[2] = b5[3] / betas[0];\n  betas[3] = 0.0;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::compute_L_6x10(const double * ut, double * l_6x10)",
+        "start_line": 427,
+        "end_line": 467,
+        "snippet": "void epnp::compute_L_6x10(const double * ut, double * l_6x10)\n{\n  const double * v[4];\n\n  v[0] = ut + 12 * 11;\n  v[1] = ut + 12 * 10;\n  v[2] = ut + 12 *  9;\n  v[3] = ut + 12 *  8;\n\n  double dv[4][6][3] = {};\n\n  for(int i = 0; i < 4; i++) {\n    int a = 0, b = 1;\n    for(int j = 0; j < 6; j++) {\n      dv[i][j][0] = v[i][3 * a    ] - v[i][3 * b];\n      dv[i][j][1] = v[i][3 * a + 1] - v[i][3 * b + 1];\n      dv[i][j][2] = v[i][3 * a + 2] - v[i][3 * b + 2];\n\n      b++;\n      if (b > 3) {\n        a++;\n        b = a + 1;\n      }\n    }\n  }\n\n  for(int i = 0; i < 6; i++) {\n    double * row = l_6x10 + 10 * i;\n\n    row[0] =        dot(dv[0][i], dv[0][i]);\n    row[1] = 2.0f * dot(dv[0][i], dv[1][i]);\n    row[2] =        dot(dv[1][i], dv[1][i]);\n    row[3] = 2.0f * dot(dv[0][i], dv[2][i]);\n    row[4] = 2.0f * dot(dv[1][i], dv[2][i]);\n    row[5] =        dot(dv[2][i], dv[2][i]);\n    row[6] = 2.0f * dot(dv[0][i], dv[3][i]);\n    row[7] = 2.0f * dot(dv[1][i], dv[3][i]);\n    row[8] = 2.0f * dot(dv[2][i], dv[3][i]);\n    row[9] =        dot(dv[3][i], dv[3][i]);\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::compute_rho(double * rho)",
+        "start_line": 469,
+        "end_line": 477,
+        "snippet": "void epnp::compute_rho(double * rho)\n{\n  rho[0] = dist2(cws[0], cws[1]);\n  rho[1] = dist2(cws[0], cws[2]);\n  rho[2] = dist2(cws[0], cws[3]);\n  rho[3] = dist2(cws[1], cws[2]);\n  rho[4] = dist2(cws[1], cws[3]);\n  rho[5] = dist2(cws[2], cws[3]);\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::compute_A_and_b_gauss_newton(const double * l_6x10, const double * rho, const double * betas, CvMat * A, CvMat * b)",
+        "start_line": 479,
+        "end_line": 505,
+        "snippet": "void epnp::compute_A_and_b_gauss_newton(const double * l_6x10, const double * rho,\n          const double betas[4], CvMat * A, CvMat * b)\n{\n  for(int i = 0; i < 6; i++) {\n    const double * rowL = l_6x10 + i * 10;\n    double * rowA = A->data.db + i * 4;\n\n    rowA[0] = 2 * rowL[0] * betas[0] +     rowL[1] * betas[1] +     rowL[3] * betas[2] +     rowL[6] * betas[3];\n    rowA[1] =     rowL[1] * betas[0] + 2 * rowL[2] * betas[1] +     rowL[4] * betas[2] +     rowL[7] * betas[3];\n    rowA[2] =     rowL[3] * betas[0] +     rowL[4] * betas[1] + 2 * rowL[5] * betas[2] +     rowL[8] * betas[3];\n    rowA[3] =     rowL[6] * betas[0] +     rowL[7] * betas[1] +     rowL[8] * betas[2] + 2 * rowL[9] * betas[3];\n\n    cvmSet(b, i, 0, rho[i] -\n     (\n      rowL[0] * betas[0] * betas[0] +\n      rowL[1] * betas[0] * betas[1] +\n      rowL[2] * betas[1] * betas[1] +\n      rowL[3] * betas[0] * betas[2] +\n      rowL[4] * betas[1] * betas[2] +\n      rowL[5] * betas[2] * betas[2] +\n      rowL[6] * betas[0] * betas[3] +\n      rowL[7] * betas[1] * betas[3] +\n      rowL[8] * betas[2] * betas[3] +\n      rowL[9] * betas[3] * betas[3]\n      ));\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::gauss_newton(const CvMat * L_6x10, const CvMat * Rho, double * betas)",
+        "start_line": 507,
+        "end_line": 524,
+        "snippet": "void epnp::gauss_newton(const CvMat * L_6x10, const CvMat * Rho, double betas[4])\n{\n  const int iterations_number = 5;\n\n  double a[6*4] = {}, b[6] = {}, x[4] = {};\n  CvMat A = cvMat(6, 4, CV_64F, a);\n  CvMat B = cvMat(6, 1, CV_64F, b);\n  CvMat X = cvMat(4, 1, CV_64F, x);\n\n  for(int k = 0; k < iterations_number; k++)\n  {\n    compute_A_and_b_gauss_newton(L_6x10->data.db, Rho->data.db,\n    betas, &A, &B);\n    qr_solve(&A, &B, &X);\n    for(int i = 0; i < 4; i++)\n    betas[i] += x[i];\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/epnp.cpp",
+        "class_name": "epnp",
+        "signature": "epnp::qr_solve(CvMat * A, CvMat * b, CvMat * X)",
+        "start_line": 526,
+        "end_line": 630,
+        "snippet": "void epnp::qr_solve(CvMat * A, CvMat * b, CvMat * X)\n{\n  const int nr = A->rows;\n  const int nc = A->cols;\n  if (nc <= 0 || nr <= 0)\n      return;\n\n  if (max_nr != 0 && max_nr < nr)\n  {\n    delete [] A1;\n    delete [] A2;\n  }\n  if (max_nr < nr)\n  {\n    max_nr = nr;\n    A1 = new double[nr];\n    A2 = new double[nr];\n  }\n\n  double * pA = A->data.db, * ppAkk = pA;\n  for(int k = 0; k < nc; k++)\n  {\n    double * ppAik1 = ppAkk, eta = fabs(*ppAik1);\n    for(int i = k + 1; i < nr; i++)\n    {\n      double elt = fabs(*ppAik1);\n      if (eta < elt) eta = elt;\n      ppAik1 += nc;\n    }\n    if (eta == 0)\n    {\n      A1[k] = A2[k] = 0.0;\n      //cerr << \"God damnit, A is singular, this shouldn't happen.\" << endl;\n      return;\n    }\n    else\n    {\n      double * ppAik2 = ppAkk, sum2 = 0.0, inv_eta = 1. / eta;\n      for(int i = k; i < nr; i++)\n      {\n        *ppAik2 *= inv_eta;\n        sum2 += *ppAik2 * *ppAik2;\n        ppAik2 += nc;\n      }\n      double sigma = sqrt(sum2);\n      if (*ppAkk < 0)\n      sigma = -sigma;\n      *ppAkk += sigma;\n      A1[k] = sigma * *ppAkk;\n      A2[k] = -eta * sigma;\n      for(int j = k + 1; j < nc; j++)\n      {\n        double * ppAik = ppAkk, sum = 0;\n        for(int i = k; i < nr; i++)\n        {\n          sum += *ppAik * ppAik[j - k];\n          ppAik += nc;\n        }\n        double tau = sum / A1[k];\n        ppAik = ppAkk;\n        for(int i = k; i < nr; i++)\n        {\n          ppAik[j - k] -= tau * *ppAik;\n          ppAik += nc;\n        }\n      }\n    }\n    ppAkk += nc + 1;\n  }\n\n  // b <- Qt b\n  double * ppAjj = pA, * pb = b->data.db;\n  for(int j = 0; j < nc; j++)\n  {\n    double * ppAij = ppAjj, tau = 0;\n    for(int i = j; i < nr; i++)\n    {\n      tau += *ppAij * pb[i];\n      ppAij += nc;\n    }\n    tau /= A1[j];\n    ppAij = ppAjj;\n    for(int i = j; i < nr; i++)\n    {\n      pb[i] -= tau * *ppAij;\n      ppAij += nc;\n    }\n    ppAjj += nc + 1;\n  }\n\n  // X = R-1 b\n  double * pX = X->data.db;\n  pX[nc - 1] = pb[nc - 1] / A2[nc - 1];\n  for(int i = nc - 2; i >= 0; i--)\n  {\n    double * ppAij = pA + i * nc + (i + 1), sum = 0;\n\n    for(int j = i + 1; j < nc; j++)\n    {\n      sum += *ppAij * pX[j];\n      ppAij++;\n    }\n    pX[i] = (pb[i] - sum) / A2[i];\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "RANSACPointSetRegistrator",
+        "signature": "RANSACPointSetRegistrator::RANSACPointSetRegistrator(const Ptr<class PointSetRegistrator::Callback> & _cb, int _modelPoints, double _threshold, double _confidence, int _maxIters)",
+        "start_line": 81,
+        "end_line": 83,
+        "snippet": "    RANSACPointSetRegistrator(const Ptr<PointSetRegistrator::Callback>& _cb=Ptr<PointSetRegistrator::Callback>(),\n                              int _modelPoints=0, double _threshold=0, double _confidence=0.99, int _maxIters=1000)\n      : cb(_cb), modelPoints(_modelPoints), threshold(_threshold), confidence(_confidence), maxIters(_maxIters) {}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "RANSACPointSetRegistrator",
+        "signature": "RANSACPointSetRegistrator::findInliers(const class cv::Mat & m1, const class cv::Mat & m2, const class cv::Mat & model, class cv::Mat & err, class cv::Mat & mask, double thresh)",
+        "start_line": 85,
+        "end_line": 102,
+        "snippet": "    int findInliers( const Mat& m1, const Mat& m2, const Mat& model, Mat& err, Mat& mask, double thresh ) const\n    {\n        cb->computeError( m1, m2, model, err );\n        mask.create(err.size(), CV_8U);\n\n        CV_Assert( err.isContinuous() && err.type() == CV_32F && mask.isContinuous() && mask.type() == CV_8U);\n        const float* errptr = err.ptr<float>();\n        uchar* maskptr = mask.ptr<uchar>();\n        float t = (float)(thresh*thresh);\n        int i, n = (int)err.total(), nz = 0;\n        for( i = 0; i < n; i++ )\n        {\n            int f = errptr[i] <= t;\n            maskptr[i] = (uchar)f;\n            nz += f;\n        }\n        return nz;\n    }",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "RANSACPointSetRegistrator",
+        "signature": "RANSACPointSetRegistrator::getSubset(const class cv::Mat & m1, const class cv::Mat & m2, class cv::Mat & ms1, class cv::Mat & ms2, class cv::RNG & rng, int maxAttempts)",
+        "start_line": 104,
+        "end_line": 158,
+        "snippet": "    bool getSubset( const Mat& m1, const Mat& m2, Mat& ms1, Mat& ms2, RNG& rng, int maxAttempts=1000 ) const\n    {\n        cv::AutoBuffer<int> _idx(modelPoints);\n        int* idx = _idx.data();\n\n        const int d1 = m1.channels() > 1 ? m1.channels() : m1.cols;\n        const int d2 = m2.channels() > 1 ? m2.channels() : m2.cols;\n\n        int esz1 = (int)m1.elemSize1() * d1;\n        int esz2 = (int)m2.elemSize1() * d2;\n        CV_Assert((esz1 % sizeof(int)) == 0 && (esz2 % sizeof(int)) == 0);\n        esz1 /= sizeof(int);\n        esz2 /= sizeof(int);\n\n        const int count = m1.checkVector(d1);\n        const int count2 = m2.checkVector(d2);\n        CV_Assert(count >= modelPoints && count == count2);\n\n        const int *m1ptr = m1.ptr<int>();\n        const int *m2ptr = m2.ptr<int>();\n\n        ms1.create(modelPoints, 1, CV_MAKETYPE(m1.depth(), d1));\n        ms2.create(modelPoints, 1, CV_MAKETYPE(m2.depth(), d2));\n\n        int *ms1ptr = ms1.ptr<int>();\n        int *ms2ptr = ms2.ptr<int>();\n\n        for( int iters = 0; iters < maxAttempts; ++iters )\n        {\n            int i;\n\n            for( i = 0; i < modelPoints; ++i )\n            {\n                int idx_i;\n\n                for ( idx_i = rng.uniform(0, count);\n                    std::find(idx, idx + i, idx_i) != idx + i;\n                    idx_i = rng.uniform(0, count) )\n                {}\n\n                idx[i] = idx_i;\n\n                for( int k = 0; k < esz1; ++k )\n                    ms1ptr[i*esz1 + k] = m1ptr[idx_i*esz1 + k];\n\n                for( int k = 0; k < esz2; ++k )\n                    ms2ptr[i*esz2 + k] = m2ptr[idx_i*esz2 + k];\n            }\n\n            if( cb->checkSubset(ms1, ms2, i) )\n                return true;\n        }\n\n        return false;\n    }",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "RANSACPointSetRegistrator",
+        "signature": "RANSACPointSetRegistrator::run(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model, cv::OutputArray _mask)",
+        "start_line": 160,
+        "end_line": 254,
+        "snippet": "    bool run(InputArray _m1, InputArray _m2, OutputArray _model, OutputArray _mask) const CV_OVERRIDE\n    {\n        bool result = false;\n        Mat m1 = _m1.getMat(), m2 = _m2.getMat();\n        Mat err, mask, model, bestModel, ms1, ms2;\n\n        int iter, niters = MAX(maxIters, 1);\n        int d1 = m1.channels() > 1 ? m1.channels() : m1.cols;\n        int d2 = m2.channels() > 1 ? m2.channels() : m2.cols;\n        int count = m1.checkVector(d1), count2 = m2.checkVector(d2), maxGoodCount = 0;\n\n        RNG rng((uint64)-1);\n\n        CV_Assert( cb );\n        CV_Assert( confidence > 0 && confidence < 1 );\n\n        CV_Assert( count >= 0 && count2 == count );\n        if( count < modelPoints )\n            return false;\n\n        Mat bestMask0, bestMask;\n\n        if( _mask.needed() )\n        {\n            _mask.create(count, 1, CV_8U, -1, true);\n            bestMask0 = bestMask = _mask.getMat();\n            CV_Assert( (bestMask.cols == 1 || bestMask.rows == 1) && (int)bestMask.total() == count );\n        }\n        else\n        {\n            bestMask.create(count, 1, CV_8U);\n            bestMask0 = bestMask;\n        }\n\n        if( count == modelPoints )\n        {\n            if( cb->runKernel(m1, m2, bestModel) <= 0 )\n                return false;\n            bestModel.copyTo(_model);\n            bestMask.setTo(Scalar::all(1));\n            return true;\n        }\n\n        for( iter = 0; iter < niters; iter++ )\n        {\n            int i, nmodels;\n            if( count > modelPoints )\n            {\n                bool found = getSubset( m1, m2, ms1, ms2, rng, 10000 );\n                if( !found )\n                {\n                    if( iter == 0 )\n                        return false;\n                    break;\n                }\n            }\n\n            nmodels = cb->runKernel( ms1, ms2, model );\n            if( nmodels <= 0 )\n                continue;\n            CV_Assert( model.rows % nmodels == 0 );\n            Size modelSize(model.cols, model.rows/nmodels);\n\n            for( i = 0; i < nmodels; i++ )\n            {\n                Mat model_i = model.rowRange( i*modelSize.height, (i+1)*modelSize.height );\n                int goodCount = findInliers( m1, m2, model_i, err, mask, threshold );\n\n                if( goodCount > MAX(maxGoodCount, modelPoints-1) )\n                {\n                    std::swap(mask, bestMask);\n                    model_i.copyTo(bestModel);\n                    maxGoodCount = goodCount;\n                    niters = RANSACUpdateNumIters( confidence, (double)(count - goodCount)/count, modelPoints, niters );\n                }\n            }\n        }\n\n        if( maxGoodCount > 0 )\n        {\n            if( bestMask.data != bestMask0.data )\n            {\n                if( bestMask.size() == bestMask0.size() )\n                    bestMask.copyTo(bestMask0);\n                else\n                    transpose(bestMask, bestMask0);\n            }\n            bestModel.copyTo(_model);\n            result = true;\n        }\n        else\n            _model.release();\n\n        return result;\n    }",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "createRANSACPointSetRegistrator(const Ptr<class PointSetRegistrator::Callback> & _cb, int _modelPoints, double _threshold, double _confidence, int _maxIters)",
+        "start_line": 377,
+        "end_line": 383,
+        "snippet": "Ptr<PointSetRegistrator> createRANSACPointSetRegistrator(const Ptr<PointSetRegistrator::Callback>& _cb,\n                                                         int _modelPoints, double _threshold,\n                                                         double _confidence, int _maxIters)\n{\n    return Ptr<PointSetRegistrator>(\n        new RANSACPointSetRegistrator(_cb, _modelPoints, _threshold, _confidence, _maxIters));\n}",
+        "comment": ""
+    }
+]

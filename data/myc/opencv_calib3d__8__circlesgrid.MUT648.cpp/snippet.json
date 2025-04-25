@@ -1,0 +1,362 @@
+[
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "Graph",
+        "signature": "Graph::Graph(size_t n)",
+        "start_line": 463,
+        "end_line": 469,
+        "snippet": "Graph::Graph(size_t n)\n{\n  for (size_t i = 0; i < n; i++)\n  {\n    addVertex(i);\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "Graph",
+        "signature": "Graph::addVertex(size_t id)",
+        "start_line": 476,
+        "end_line": 481,
+        "snippet": "void Graph::addVertex(size_t id)\n{\n  CV_Assert( !doesVertexExist( id ) );\n\n  vertices.emplace(id, Vertex());\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "Graph",
+        "signature": "Graph::addEdge(size_t id1, size_t id2)",
+        "start_line": 483,
+        "end_line": 490,
+        "snippet": "void Graph::addEdge(size_t id1, size_t id2)\n{\n  CV_Assert( doesVertexExist( id1 ) );\n  CV_Assert( doesVertexExist( id2 ) );\n\n  vertices[id1].neighbors.insert(id2);\n  vertices[id2].neighbors.insert(id1);\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "Graph",
+        "signature": "Graph::removeEdge(size_t id1, size_t id2)",
+        "start_line": 492,
+        "end_line": 499,
+        "snippet": "void Graph::removeEdge(size_t id1, size_t id2)\n{\n  CV_Assert( doesVertexExist( id1 ) );\n  CV_Assert( doesVertexExist( id2 ) );\n\n  vertices[id1].neighbors.erase(id2);\n  vertices[id2].neighbors.erase(id1);\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "Graph",
+        "signature": "Graph::areVerticesAdjacent(size_t id1, size_t id2)",
+        "start_line": 501,
+        "end_line": 507,
+        "snippet": "bool Graph::areVerticesAdjacent(size_t id1, size_t id2) const\n{\n  Vertices::const_iterator it = vertices.find(id1);\n  CV_Assert(it != vertices.end());\n  const Neighbors & neighbors = it->second.neighbors;\n  return neighbors.find(id2) != neighbors.end();\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "Graph",
+        "signature": "Graph::getDegree(size_t id)",
+        "start_line": 514,
+        "end_line": 519,
+        "snippet": "size_t Graph::getDegree(size_t id) const\n{\n  Vertices::const_iterator it = vertices.find(id);\n  CV_Assert( it != vertices.end() );\n  return it->second.neighbors.size();\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "Graph",
+        "signature": "Graph::floydWarshall(cv::Mat & distanceMatrix, int infinity)",
+        "start_line": 521,
+        "end_line": 558,
+        "snippet": "void Graph::floydWarshall(cv::Mat &distanceMatrix, int infinity) const\n{\n  const int edgeWeight = 1;\n\n  const int n = (int)getVerticesCount();\n  distanceMatrix.create(n, n, CV_32SC1);\n  distanceMatrix.setTo(infinity);\n  for (Vertices::const_iterator it1 = vertices.begin(); it1 != vertices.end();++it1)\n  {\n    distanceMatrix.at<int> ((int)it1->first, (int)it1->first) = 0;\n    for (Neighbors::const_iterator it2 = it1->second.neighbors.begin(); it2 != it1->second.neighbors.end();++it2)\n    {\n      CV_Assert( it1->first != *it2 );\n      distanceMatrix.at<int> ((int)it1->first, (int)*it2) = edgeWeight;\n    }\n  }\n\n  for (Vertices::const_iterator it1 = vertices.begin(); it1 != vertices.end();++it1)\n  {\n    for (Vertices::const_iterator it2 = vertices.begin(); it2 != vertices.end();++it2)\n    {\n      for (Vertices::const_iterator it3 = vertices.begin(); it3 != vertices.end();++it3)\n      {\n      int i1 = (int)it1->first, i2 = (int)it2->first, i3 = (int)it3->first;\n        int val1 = distanceMatrix.at<int> (i2, i3);\n        int val2;\n        if (distanceMatrix.at<int> (i2, i1) == infinity ||\n      distanceMatrix.at<int> (i1, i3) == infinity)\n          val2 = val1;\n        else\n        {\n          val2 = distanceMatrix.at<int> (i2, i1) + distanceMatrix.at<int> (i1, i3);\n        }\n        distanceMatrix.at<int> (i2, i3) = (val1 == infinity) ? val2 : std::min(val1, val2);\n      }\n    }\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "Graph",
+        "signature": "Graph::getNeighbors(size_t id)",
+        "start_line": 560,
+        "end_line": 565,
+        "snippet": "const Graph::Neighbors& Graph::getNeighbors(size_t id) const\n{\n  Vertices::const_iterator it = vertices.find(id);\n  CV_Assert( it != vertices.end() );\n  return it->second.neighbors;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "Segment",
+        "signature": "Segment::Segment(cv::Point2f _s, cv::Point2f _e)",
+        "start_line": 567,
+        "end_line": 570,
+        "snippet": "CirclesGridFinder::Segment::Segment(cv::Point2f _s, cv::Point2f _e) :\n  s(_s), e(_e)\n{\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinderParameters",
+        "signature": "CirclesGridFinderParameters::CirclesGridFinderParameters()",
+        "start_line": 575,
+        "end_line": 596,
+        "snippet": "CirclesGridFinderParameters::CirclesGridFinderParameters()\n{\n  minDensity = 10;\n  densityNeighborhoodSize = Size2f(16, 16);\n  minDistanceToAddKeypoint = 20;\n  kmeansAttempts = 100;\n  convexHullFactor = 1.1f;\n  keypointScale = 1;\n\n  minGraphConfidence = 9;\n  vertexGain = 1;\n  vertexPenalty = -0.6f;\n  edgeGain = 1;\n  edgePenalty = -0.6f;\n  existingVertexGain = 10000;\n\n  minRNGEdgeSwitchDist = 5.f;\n  gridType = SYMMETRIC_GRID;\n\n  squareSize = 1.0f;\n  maxRectifiedDistance = squareSize/2.0f;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::CirclesGridFinder(cv::Size _patternSize, const int & testKeypoints, const struct cv::CirclesGridFinderParameters & _parameters)",
+        "start_line": 598,
+        "end_line": 608,
+        "snippet": "CirclesGridFinder::CirclesGridFinder(Size _patternSize, const std::vector<Point2f> &testKeypoints,\n                                     const CirclesGridFinderParameters &_parameters) :\n  patternSize(static_cast<size_t> (_patternSize.width), static_cast<size_t> (_patternSize.height))\n{\n  CV_Assert(_patternSize.height >= 0 && _patternSize.width >= 0);\n\n  keypoints = testKeypoints;\n  parameters = _parameters;\n  largeHoles = 0;\n  smallHoles = 0;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::findHoles()",
+        "start_line": 610,
+        "end_line": 648,
+        "snippet": "bool CirclesGridFinder::findHoles()\n{\n  switch (parameters.gridType)\n  {\n    case CirclesGridFinderParameters::SYMMETRIC_GRID:\n    {\n      std::vector<Point2f> vectors, filteredVectors, basis;\n      Graph rng(0);\n      computeRNG(rng, vectors);\n      filterOutliersByDensity(vectors, filteredVectors);\n      std::vector<Graph> basisGraphs;\n      findBasis(filteredVectors, basis, basisGraphs);\n      findMCS(basis, basisGraphs);\n      break;\n    }\n\n    case CirclesGridFinderParameters::ASYMMETRIC_GRID:\n    {\n      std::vector<Point2f> vectors, tmpVectors, filteredVectors, basis;\n      Graph rng(0);\n      computeRNG(rng, tmpVectors);\n      rng2gridGraph(rng, vectors);\n      filterOutliersByDensity(vectors, filteredVectors);\n      std::vector<Graph> basisGraphs;\n      findBasis(filteredVectors, basis, basisGraphs);\n      findMCS(basis, basisGraphs);\n      eraseUsedGraph(basisGraphs);\n      holes2 = holes;\n      holes.clear();\n      findMCS(basis, basisGraphs);\n      break;\n    }\n\n    default:\n      CV_Error(Error::StsBadArg, \"Unknown pattern type\");\n  }\n  return (isDetectionCorrect());\n  //CV_Error( 0, \"Detection is not correct\" );\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::rng2gridGraph(class Graph & rng, int & vectors)",
+        "start_line": 650,
+        "end_line": 674,
+        "snippet": "void CirclesGridFinder::rng2gridGraph(Graph &rng, std::vector<cv::Point2f> &vectors) const\n{\n  for (size_t i = 0; i < rng.getVerticesCount(); i++)\n  {\n    Graph::Neighbors neighbors1 = rng.getNeighbors(i);\n    for (Graph::Neighbors::iterator it1 = neighbors1.begin(); it1 != neighbors1.end(); ++it1)\n    {\n      Graph::Neighbors neighbors2 = rng.getNeighbors(*it1);\n      for (Graph::Neighbors::iterator it2 = neighbors2.begin(); it2 != neighbors2.end(); ++it2)\n      {\n        if (i < *it2)\n        {\n          Point2f vec1 = keypoints[i] - keypoints[*it1];\n          Point2f vec2 = keypoints[*it1] - keypoints[*it2];\n          if (norm(vec1 - vec2) < parameters.minRNGEdgeSwitchDist || norm(vec1 + vec2)\n              < parameters.minRNGEdgeSwitchDist)\n            continue;\n\n          vectors.push_back(keypoints[i] - keypoints[*it2]);\n          vectors.push_back(keypoints[*it2] - keypoints[i]);\n        }\n      }\n    }\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::eraseUsedGraph(int & basisGraphs)",
+        "start_line": 676,
+        "end_line": 696,
+        "snippet": "void CirclesGridFinder::eraseUsedGraph(std::vector<Graph> &basisGraphs) const\n{\n  for (size_t i = 0; i < holes.size(); i++)\n  {\n    for (size_t j = 0; j < holes[i].size(); j++)\n    {\n      for (size_t k = 0; k < basisGraphs.size(); k++)\n      {\n        if (i != holes.size() - 1 && basisGraphs[k].areVerticesAdjacent(holes[i][j], holes[i + 1][j]))\n        {\n          basisGraphs[k].removeEdge(holes[i][j], holes[i + 1][j]);\n        }\n\n        if (j != holes[i].size() - 1 && basisGraphs[k].areVerticesAdjacent(holes[i][j], holes[i][j + 1]))\n        {\n          basisGraphs[k].removeEdge(holes[i][j], holes[i][j + 1]);\n        }\n      }\n    }\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::isDetectionCorrect()",
+        "start_line": 698,
+        "end_line": 789,
+        "snippet": "bool CirclesGridFinder::isDetectionCorrect()\n{\n  switch (parameters.gridType)\n  {\n    case CirclesGridFinderParameters::SYMMETRIC_GRID:\n    {\n      rotatedGrid = holes.size() != patternSize.height && holes.size() == patternSize.width;\n      if (holes.size() != patternSize.height && holes.size() != patternSize.width)\n        return false;\n\n      size_t num_vertices = 0ull;\n      for (size_t i = 0; i < holes.size(); i++)\n      {\n        if (holes[i].size() != patternSize.width && rotatedGrid == false)\n        {\n          return false;\n        }\n        else if (holes[i].size() != patternSize.height && rotatedGrid == true)\n        {\n          rotatedGrid = false;\n          return false;\n        }\n\n        num_vertices += holes[i].size();\n      }\n      return num_vertices == patternSize.area();\n    }\n\n    case CirclesGridFinderParameters::ASYMMETRIC_GRID:\n    {\n      if (holes.size() < holes2.size() || holes[0].size() < holes2[0].size())\n      {\n        largeHoles = &holes2;\n        smallHoles = &holes;\n      }\n      else\n      {\n        largeHoles = &holes;\n        smallHoles = &holes2;\n      }\n\n      size_t largeWidth = patternSize.width;\n      size_t largeHeight = (size_t)ceil(patternSize.height / 2.);\n      size_t smallWidth = patternSize.width;\n      size_t smallHeight = (size_t)floor(patternSize.height / 2.);\n\n      size_t sw = smallWidth, sh = smallHeight, lw = largeWidth, lh = largeHeight;\n      if (largeHoles->size() != largeHeight)\n      {\n        std::swap(lh, lw);\n      }\n      if (smallHoles->size() != smallHeight)\n      {\n        std::swap(sh, sw);\n      }\n\n      if (largeHoles->size() != lh || smallHoles->size() != sh)\n      {\n        return false;\n      }\n\n      std::set<size_t> vertices;\n      for (size_t i = 0; i < largeHoles->size(); i++)\n      {\n        if (largeHoles->at(i).size() != lw)\n        {\n          return false;\n        }\n\n        for (size_t j = 0; j < largeHoles->at(i).size(); j++)\n        {\n          vertices.insert(largeHoles->at(i)[j]);\n        }\n\n        if (i < smallHoles->size())\n        {\n          if (smallHoles->at(i).size() != sw)\n          {\n            return false;\n          }\n\n          for (size_t j = 0; j < smallHoles->at(i).size(); j++)\n          {\n            vertices.insert(smallHoles->at(i)[j]);\n          }\n        }\n      }\n      return (vertices.size() == largeHeight * largeWidth + smallHeight * smallWidth);\n    }\n  }\n  CV_Error(Error::StsBadArg, \"Unknown pattern type\");\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::findMCS(const int & basis, int & basisGraphs)",
+        "start_line": 791,
+        "end_line": 848,
+        "snippet": "void CirclesGridFinder::findMCS(const std::vector<Point2f> &basis, std::vector<Graph> &basisGraphs)\n{\n  holes.clear();\n  Path longestPath;\n  size_t bestGraphIdx = findLongestPath(basisGraphs, longestPath);\n  std::vector<size_t> holesRow = longestPath.vertices;\n\n  while (holesRow.size() > std::max(patternSize.width, patternSize.height))\n  {\n    holesRow.pop_back();\n    holesRow.erase(holesRow.begin());\n  }\n\n  if (bestGraphIdx == 0)\n  {\n    holes.push_back(holesRow);\n    size_t w = holes[0].size();\n    size_t h = holes.size();\n\n    //parameters.minGraphConfidence = holes[0].size() * parameters.vertexGain + (holes[0].size() - 1) * parameters.edgeGain;\n    //parameters.minGraphConfidence = holes[0].size() * parameters.vertexGain + (holes[0].size() / 2) * parameters.edgeGain;\n    //parameters.minGraphConfidence = holes[0].size() * parameters.existingVertexGain + (holes[0].size() / 2) * parameters.edgeGain;\n    parameters.minGraphConfidence = holes[0].size() * parameters.existingVertexGain;\n    for (size_t i = h; i < patternSize.height; i++)\n    {\n      addHolesByGraph(basisGraphs, true, basis[1]);\n    }\n\n    //parameters.minGraphConfidence = holes.size() * parameters.existingVertexGain + (holes.size() / 2) * parameters.edgeGain;\n    parameters.minGraphConfidence = holes.size() * parameters.existingVertexGain;\n\n    for (size_t i = w; i < patternSize.width; i++)\n    {\n      addHolesByGraph(basisGraphs, false, basis[0]);\n    }\n  }\n  else\n  {\n    holes.resize(holesRow.size());\n    for (size_t i = 0; i < holesRow.size(); i++)\n      holes[i].push_back(holesRow[i]);\n\n    size_t w = holes[0].size();\n    size_t h = holes.size();\n\n    parameters.minGraphConfidence = holes.size() * parameters.existingVertexGain;\n    for (size_t i = w; i < patternSize.width; i++)\n    {\n      addHolesByGraph(basisGraphs, false, basis[0]);\n    }\n\n    parameters.minGraphConfidence = holes[0].size() * parameters.existingVertexGain;\n    for (size_t i = h; i < patternSize.height; i++)\n    {\n      addHolesByGraph(basisGraphs, true, basis[1]);\n    }\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::findNearestKeypoint(cv::Point2f pt)",
+        "start_line": 902,
+        "end_line": 916,
+        "snippet": "size_t CirclesGridFinder::findNearestKeypoint(Point2f pt) const\n{\n  size_t bestIdx = 0;\n  double minDist = std::numeric_limits<double>::max();\n  for (size_t i = 0; i < keypoints.size(); i++)\n  {\n    double dist = norm(pt - keypoints[i]);\n    if (dist < minDist)\n    {\n      minDist = dist;\n      bestIdx = i;\n    }\n  }\n  return bestIdx;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::addPoint(cv::Point2f pt, int & points)",
+        "start_line": 918,
+        "end_line": 931,
+        "snippet": "void CirclesGridFinder::addPoint(Point2f pt, std::vector<size_t> &points)\n{\n  size_t ptIdx = findNearestKeypoint(pt);\n  if (norm(keypoints[ptIdx] - pt) > parameters.minDistanceToAddKeypoint)\n  {\n    Point2f kpt = Point2f(pt);\n    keypoints.push_back(kpt);\n    points.push_back(keypoints.size() - 1);\n  }\n  else\n  {\n    points.push_back(ptIdx);\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::findCandidateLine(int & line, size_t seedLineIdx, _Bool addRow, cv::Point2f basisVec, int & seeds)",
+        "start_line": 933,
+        "end_line": 959,
+        "snippet": "void CirclesGridFinder::findCandidateLine(std::vector<size_t> &line, size_t seedLineIdx, bool addRow, Point2f basisVec,\n                                          std::vector<size_t> &seeds)\n{\n  line.clear();\n  seeds.clear();\n\n  if (addRow)\n  {\n    for (size_t i = 0; i < holes[seedLineIdx].size(); i++)\n    {\n      Point2f pt = keypoints[holes[seedLineIdx][i]] + basisVec;\n      addPoint(pt, line);\n      seeds.push_back(holes[seedLineIdx][i]);\n    }\n  }\n  else\n  {\n    for (size_t i = 0; i < holes.size(); i++)\n    {\n      Point2f pt = keypoints[holes[i][seedLineIdx]] + basisVec;\n      addPoint(pt, line);\n      seeds.push_back(holes[i][seedLineIdx]);\n    }\n  }\n\n  CV_Assert( line.size() == seeds.size() );\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::findCandidateHoles(int & above, int & below, _Bool addRow, cv::Point2f basisVec, int & aboveSeeds, int & belowSeeds)",
+        "start_line": 961,
+        "end_line": 976,
+        "snippet": "void CirclesGridFinder::findCandidateHoles(std::vector<size_t> &above, std::vector<size_t> &below, bool addRow, Point2f basisVec,\n                                           std::vector<size_t> &aboveSeeds, std::vector<size_t> &belowSeeds)\n{\n  above.clear();\n  below.clear();\n  aboveSeeds.clear();\n  belowSeeds.clear();\n\n  findCandidateLine(above, 0, addRow, -basisVec, aboveSeeds);\n  size_t lastIdx = addRow ? holes.size() - 1 : holes[0].size() - 1;\n  findCandidateLine(below, lastIdx, addRow, basisVec, belowSeeds);\n\n  CV_Assert( below.size() == above.size() );\n  CV_Assert( belowSeeds.size() == aboveSeeds.size() );\n  CV_Assert( below.size() == belowSeeds.size() );\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::areCentersNew(const int & newCenters, const int & holes)",
+        "start_line": 978,
+        "end_line": 992,
+        "snippet": "bool CirclesGridFinder::areCentersNew(const std::vector<size_t> &newCenters, const std::vector<std::vector<size_t> > &holes)\n{\n  for (size_t i = 0; i < newCenters.size(); i++)\n  {\n    for (size_t j = 0; j < holes.size(); j++)\n    {\n      if (holes[j].end() != std::find(holes[j].begin(), holes[j].end(), newCenters[i]))\n      {\n        return false;\n      }\n    }\n  }\n\n  return true;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::insertWinner(float aboveConfidence, float belowConfidence, float minConfidence, _Bool addRow, const int & above, const int & below, int & holes)",
+        "start_line": 994,
+        "end_line": 1041,
+        "snippet": "void CirclesGridFinder::insertWinner(float aboveConfidence, float belowConfidence, float minConfidence, bool addRow,\n                                     const std::vector<size_t> &above, const std::vector<size_t> &below,\n                                     std::vector<std::vector<size_t> > &holes)\n{\n  if (aboveConfidence < minConfidence && belowConfidence < minConfidence)\n    return;\n\n  if (addRow)\n  {\n    if (aboveConfidence >= belowConfidence)\n    {\n      if (!areCentersNew(above, holes))\n        CV_Error( 0, \"Centers are not new\" );\n\n      holes.insert(holes.begin(), above);\n    }\n    else\n    {\n      if (!areCentersNew(below, holes))\n        CV_Error( 0, \"Centers are not new\" );\n\n      holes.insert(holes.end(), below);\n    }\n  }\n  else\n  {\n    if (aboveConfidence >= belowConfidence)\n    {\n      if (!areCentersNew(above, holes))\n        CV_Error( 0, \"Centers are not new\" );\n\n      for (size_t i = 0; i < holes.size(); i++)\n      {\n        holes[i].insert(holes[i].begin(), above[i]);\n      }\n    }\n    else\n    {\n      if (!areCentersNew(below, holes))\n        CV_Error( 0, \"Centers are not new\" );\n\n      for (size_t i = 0; i < holes.size(); i++)\n      {\n        holes[i].insert(holes[i].end(), below[i]);\n      }\n    }\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::computeGraphConfidence(const int & basisGraphs, _Bool addRow, const int & points, const int & seeds)",
+        "start_line": 1043,
+        "end_line": 1087,
+        "snippet": "float CirclesGridFinder::computeGraphConfidence(const std::vector<Graph> &basisGraphs, bool addRow,\n                                                const std::vector<size_t> &points, const std::vector<size_t> &seeds)\n{\n  CV_Assert( points.size() == seeds.size() );\n  float confidence = 0;\n  const size_t vCount = basisGraphs[0].getVerticesCount();\n  CV_Assert( basisGraphs[0].getVerticesCount() == basisGraphs[1].getVerticesCount() );\n\n  for (size_t i = 0; i < seeds.size(); i++)\n  {\n    if (seeds[i] < vCount && points[i] < vCount)\n    {\n      if (!basisGraphs[addRow].areVerticesAdjacent(seeds[i], points[i]))\n      {\n        confidence += parameters.vertexPenalty;\n      }\n      else\n      {\n        confidence += parameters.vertexGain;\n      }\n    }\n\n    if (points[i] < vCount)\n    {\n      confidence += parameters.existingVertexGain;\n    }\n  }\n\n  for (size_t i = 1; i < points.size(); i++)\n  {\n    if (points[i - 1] < vCount && points[i] < vCount)\n    {\n      if (!basisGraphs[!addRow].areVerticesAdjacent(points[i - 1], points[i]))\n      {\n        confidence += parameters.edgePenalty;\n      }\n      else\n      {\n        confidence += parameters.edgeGain;\n      }\n    }\n  }\n  return confidence;\n\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::addHolesByGraph(const int & basisGraphs, _Bool addRow, cv::Point2f basisVec)",
+        "start_line": 1089,
+        "end_line": 1097,
+        "snippet": "void CirclesGridFinder::addHolesByGraph(const std::vector<Graph> &basisGraphs, bool addRow, Point2f basisVec)\n{\n  std::vector<size_t> above, below, aboveSeeds, belowSeeds;\n  findCandidateHoles(above, below, addRow, basisVec, aboveSeeds, belowSeeds);\n  float aboveConfidence = computeGraphConfidence(basisGraphs, addRow, above, aboveSeeds);\n  float belowConfidence = computeGraphConfidence(basisGraphs, addRow, below, belowSeeds);\n\n  insertWinner(aboveConfidence, belowConfidence, parameters.minGraphConfidence, addRow, above, below, holes);\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::filterOutliersByDensity(const int & samples, int & filteredSamples)",
+        "start_line": 1099,
+        "end_line": 1122,
+        "snippet": "void CirclesGridFinder::filterOutliersByDensity(const std::vector<Point2f> &samples, std::vector<Point2f> &filteredSamples)\n{\n  if (samples.empty())\n    CV_Error( 0, \"samples is empty\" );\n\n  filteredSamples.clear();\n\n  for (size_t i = 0; i < samples.size(); i++)\n  {\n    Rect_<float> rect(samples[i] - Point2f(parameters.densityNeighborhoodSize) * 0.5,\n                      parameters.densityNeighborhoodSize);\n    int neighborsCount = 0;\n    for (size_t j = 0; j < samples.size(); j++)\n    {\n      if (rect.contains(samples[j]))\n        neighborsCount++;\n    }\n    if (neighborsCount >= parameters.minDensity)\n      filteredSamples.push_back(samples[i]);\n  }\n\n  if (filteredSamples.empty())\n    CV_Error( 0, \"filteredSamples is empty\" );\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::findBasis(const int & samples, int & basis, int & basisGraphs)",
+        "start_line": 1124,
+        "end_line": 1200,
+        "snippet": "void CirclesGridFinder::findBasis(const std::vector<Point2f> &samples, std::vector<Point2f> &basis, std::vector<Graph> &basisGraphs)\n{\n  basis.clear();\n  Mat bestLabels;\n  TermCriteria termCriteria;\n  Mat centers;\n  const int clustersCount = 4;\n  kmeans(Mat(samples).reshape(1, 0), clustersCount, bestLabels, termCriteria, parameters.kmeansAttempts,\n         KMEANS_RANDOM_CENTERS, centers);\n  CV_Assert( centers.type() == CV_32FC1 );\n\n  std::vector<int> basisIndices;\n  //TODO: only remove duplicate\n  for (int i = 0; i < clustersCount; i++)\n  {\n    int maxIdx = (fabs(centers.at<float> (i, 0)) < fabs(centers.at<float> (i, 1)));\n    if (centers.at<float> (i, maxIdx) > 0)\n    {\n      Point2f vec(centers.at<float> (i, 0), centers.at<float> (i, 1));\n      basis.push_back(vec);\n      basisIndices.push_back(i);\n    }\n  }\n  if (basis.size() != 2)\n    CV_Error(0, \"Basis size is not 2\");\n\n  if (basis[1].x > basis[0].x)\n  {\n    std::swap(basis[0], basis[1]);\n    std::swap(basisIndices[0], basisIndices[1]);\n  }\n\n  const float minBasisDif = 2;\n  if (norm(basis[0] - basis[1]) < minBasisDif)\n    CV_Error(0, \"degenerate basis\" );\n\n  std::vector<std::vector<Point2f> > clusters(2), hulls(2);\n  for (int k = 0; k < (int)samples.size(); k++)\n  {\n    int label = bestLabels.at<int> (k, 0);\n    int idx = -1;\n    if (label == basisIndices[0])\n      idx = 0;\n    if (label == basisIndices[1])\n      idx = 1;\n    if (idx >= 0)\n    {\n      clusters[idx].push_back(basis[idx] + parameters.convexHullFactor * (samples[k] - basis[idx]));\n    }\n  }\n  for (size_t i = 0; i < basis.size(); i++)\n  {\n    convexHull(clusters[i], hulls[i]);\n  }\n\n  basisGraphs.resize(basis.size(), Graph(keypoints.size()));\n  for (size_t i = 0; i < keypoints.size(); i++)\n  {\n    for (size_t j = 0; j < keypoints.size(); j++)\n    {\n      if (i == j)\n        continue;\n\n      Point2f vec = keypoints[i] - keypoints[j];\n\n      for (size_t k = 0; k < hulls.size(); k++)\n      {\n        if (pointPolygonTest(hulls[k], vec, false) >= 0)\n        {\n          basisGraphs[k].addEdge(i, j);\n        }\n      }\n    }\n  }\n  if (basisGraphs.size() != 2)\n    CV_Error(0, \"Number of basis graphs is not 2\");\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::computeRNG(class Graph & rng, int & vectors, class cv::Mat * drawImage)",
+        "start_line": 1202,
+        "end_line": 1246,
+        "snippet": "void CirclesGridFinder::computeRNG(Graph &rng, std::vector<cv::Point2f> &vectors, Mat *drawImage) const\n{\n  rng = Graph(keypoints.size());\n  vectors.clear();\n\n  //TODO: use more fast algorithm instead of naive N^3\n  for (size_t i = 0; i < keypoints.size(); i++)\n  {\n    for (size_t j = 0; j < keypoints.size(); j++)\n    {\n      if (i == j)\n        continue;\n\n      Point2f vec = keypoints[i] - keypoints[j];\n      double dist = norm(vec);\n\n      bool isNeighbors = true;\n      for (size_t k = 0; k < keypoints.size(); k++)\n      {\n        if (k == i || k == j)\n          continue;\n\n        double dist1 = norm(keypoints[i] - keypoints[k]);\n        double dist2 = norm(keypoints[j] - keypoints[k]);\n        if (dist1 < dist && dist2 < dist)\n        {\n          isNeighbors = false;\n          break;\n        }\n      }\n\n      if (isNeighbors)\n      {\n        rng.addEdge(i, j);\n        vectors.push_back(keypoints[i] - keypoints[j]);\n        if (drawImage != 0)\n        {\n          line(*drawImage, keypoints[i], keypoints[j], Scalar(255, 0, 0), 2);\n          circle(*drawImage, keypoints[i], 3, Scalar(0, 0, 255), -1);\n          circle(*drawImage, keypoints[j], 3, Scalar(0, 0, 255), -1);\n        }\n      }\n    }\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "computePredecessorMatrix(const class cv::Mat & dm, int verticesCount, class cv::Mat & predecessorMatrix)",
+        "start_line": 1248,
+        "end_line": 1268,
+        "snippet": "void computePredecessorMatrix(const Mat &dm, int verticesCount, Mat &predecessorMatrix)\n{\n  CV_Assert( dm.type() == CV_32SC1 );\n  predecessorMatrix.create(verticesCount, verticesCount, CV_32SC1);\n  predecessorMatrix = -1;\n  for (int i = 0; i < predecessorMatrix.rows; i++)\n  {\n    for (int j = 0; j < predecessorMatrix.cols; j++)\n    {\n      int dist = dm.at<int> (i, j);\n      for (int k = 0; k < verticesCount; k++)\n      {\n        if (dm.at<int> (i, k) == dist - 1 && dm.at<int> (k, j) == 1)\n        {\n          predecessorMatrix.at<int> (i, j) = k;\n          break;\n        }\n      }\n    }\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "computeShortestPath(class cv::Mat & predecessorMatrix, size_t v1, size_t v2, int & path)",
+        "start_line": 1270,
+        "end_line": 1280,
+        "snippet": "static void computeShortestPath(Mat &predecessorMatrix, size_t v1, size_t v2, std::vector<size_t> &path)\n{\n  if (predecessorMatrix.at<int> ((int)v1, (int)v2) < 0)\n  {\n    path.push_back(v1);\n    return;\n  }\n\n  computeShortestPath(predecessorMatrix, v1, predecessorMatrix.at<int> ((int)v1, (int)v2), path);\n  path.push_back(v2);\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::findLongestPath(int & basisGraphs, struct Path & bestPath)",
+        "start_line": 1282,
+        "end_line": 1349,
+        "snippet": "size_t CirclesGridFinder::findLongestPath(std::vector<Graph> &basisGraphs, Path &bestPath)\n{\n  std::vector<Path> longestPaths(1);\n  std::vector<int> confidences;\n\n  size_t bestGraphIdx = 0;\n  const int infinity = -1;\n  for (size_t graphIdx = 0; graphIdx < basisGraphs.size(); graphIdx++)\n  {\n    const Graph &g = basisGraphs[graphIdx];\n    Mat distanceMatrix;\n    g.floydWarshall(distanceMatrix, infinity);\n    Mat predecessorMatrix;\n    computePredecessorMatrix(distanceMatrix, (int)g.getVerticesCount(), predecessorMatrix);\n\n    double maxVal;\n    Point maxLoc;\n    minMaxLoc(distanceMatrix, 0, &maxVal, 0, &maxLoc);\n\n    if (maxVal > longestPaths[0].length)\n    {\n      longestPaths.clear();\n      confidences.clear();\n      bestGraphIdx = graphIdx;\n    }\n    if (longestPaths.empty() || (maxVal == longestPaths[0].length && graphIdx == bestGraphIdx))\n    {\n      Path path = Path(maxLoc.x, maxLoc.y, cvRound(maxVal));\n      CV_Assert(maxLoc.x >= 0 && maxLoc.y >= 0)\n        ;\n      size_t id1 = static_cast<size_t> (maxLoc.x);\n      size_t id2 = static_cast<size_t> (maxLoc.y);\n      computeShortestPath(predecessorMatrix, id1, id2, path.vertices);\n      longestPaths.push_back(path);\n\n      int conf = 0;\n      for (int v2 = 0; v2 < (int)path.vertices.size(); v2++)\n      {\n        conf += (int)basisGraphs[1 - (int)graphIdx].getDegree(v2);\n      }\n      confidences.push_back(conf);\n    }\n  }\n  //if( bestGraphIdx != 0 )\n  //CV_Error( 0, \"\" );\n\n  int maxConf = -1;\n  int bestPathIdx = -1;\n  for (int i = 0; i < (int)confidences.size(); i++)\n  {\n    if (confidences[i] > maxConf)\n    {\n      maxConf = confidences[i];\n      bestPathIdx = i;\n    }\n  }\n\n  //int bestPathIdx = rand() % longestPaths.size();\n  bestPath = longestPaths.at(bestPathIdx);\n  bool needReverse = (bestGraphIdx == 0 && keypoints[bestPath.lastVertex].x < keypoints[bestPath.firstVertex].x)\n      || (bestGraphIdx == 1 && keypoints[bestPath.lastVertex].y < keypoints[bestPath.firstVertex].y);\n  if (needReverse)\n  {\n    std::swap(bestPath.lastVertex, bestPath.firstVertex);\n    std::reverse(bestPath.vertices.begin(), bestPath.vertices.end());\n  }\n  return bestGraphIdx;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "areIndicesCorrect(cv::Point pos, int * points)",
+        "start_line": 1468,
+        "end_line": 1473,
+        "snippet": "static bool areIndicesCorrect(Point pos, std::vector<std::vector<size_t> > *points)\n{\n  if (pos.y < 0 || pos.x < 0)\n    return false;\n  return (static_cast<size_t> (pos.y) < points->size() && static_cast<size_t> (pos.x) < points->at(pos.y).size());\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": true,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::getAsymmetricHoles(int & outHoles)",
+        "start_line": 1475,
+        "end_line": 1506,
+        "snippet": "void CirclesGridFinder::getAsymmetricHoles(std::vector<cv::Point2f> &outHoles) const\n{\n  outHoles.clear();\n\n  std::vector<Point> largeCornerIndices, smallCornerIndices;\n  std::vector<Point> firstSteps, secondSteps;\n  size_t cornerIdx = getFirstCorner(largeCornerIndices, smallCornerIndices, firstSteps, secondSteps);\n  CV_Assert(largeHoles != 0 && smallHoles != 0)\n    ;\n\n  Point srcLargePos = largeCornerIndices[cornerIdx];\n  Point srcSmallPos = smallCornerIndices[cornerIdx];\n\n  while (areIndicesCorrect(srcLargePos, largeHoles) || areIndicesCorrect(srcSmallPos, smallHoles))\n  {\n    Point largePos = srcLargePos;\n    while (areIndicesCorrect(largePos, largeHoles))\n    {\n      outHoles.push_back(keypoints[largeHoles->at(largePos.y)[largePos.x]]);\n      largePos += firstSteps[cornerIdx];\n    }\n    srcLargePos += secondSteps[cornerIdx];\n\n    Point smallPos = srcSmallPos;\n    while (areIndicesCorrect(smallPos, smallHoles))\n    {\n      outHoles.push_back(keypoints[smallHoles->at(smallPos.y)[smallPos.x]]);\n      smallPos += firstSteps[cornerIdx];\n    }\n    srcSmallPos += secondSteps[cornerIdx];\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::areSegmentsIntersecting(struct CirclesGridFinder::Segment seg1, struct CirclesGridFinder::Segment seg2)",
+        "start_line": 1515,
+        "end_line": 1535,
+        "snippet": "bool CirclesGridFinder::areSegmentsIntersecting(Segment seg1, Segment seg2)\n{\n  bool doesStraddle1 = (getDirection(seg2.s, seg2.e, seg1.s) * getDirection(seg2.s, seg2.e, seg1.e)) < 0;\n  bool doesStraddle2 = (getDirection(seg1.s, seg1.e, seg2.s) * getDirection(seg1.s, seg1.e, seg2.e)) < 0;\n  return doesStraddle1 && doesStraddle2;\n\n  /*\n   Point2f t1 = e1-s1;\n   Point2f n1(t1.y, -t1.x);\n   double c1 = -n1.ddot(s1);\n\n   Point2f t2 = e2-s2;\n   Point2f n2(t2.y, -t2.x);\n   double c2 = -n2.ddot(s2);\n\n   bool seg1 = ((n1.ddot(s2) + c1) * (n1.ddot(e2) + c1)) <= 0;\n   bool seg1 = ((n2.ddot(s1) + c2) * (n2.ddot(e1) + c2)) <= 0;\n\n   return seg1 && seg2;\n   */\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::getCornerSegments(const int & points, int & segments, int & cornerIndices, int & firstSteps, int & secondSteps)",
+        "start_line": 1537,
+        "end_line": 1598,
+        "snippet": "void CirclesGridFinder::getCornerSegments(const std::vector<std::vector<size_t> > &points, std::vector<std::vector<Segment> > &segments,\n                                          std::vector<Point> &cornerIndices, std::vector<Point> &firstSteps,\n                                          std::vector<Point> &secondSteps) const\n{\n  segments.clear();\n  cornerIndices.clear();\n  firstSteps.clear();\n  secondSteps.clear();\n  int h = (int)points.size();\n  int w = (int)points[0].size();\n  CV_Assert(h >= 2 && w >= 2)\n    ;\n\n  //all 8 segments with one end in a corner\n  std::vector<Segment> corner;\n  corner.emplace_back(keypoints[points[1][0]], keypoints[points[0][0]]);\n  corner.emplace_back(keypoints[points[0][0]], keypoints[points[0][1]]);\n  segments.push_back(corner);\n  cornerIndices.emplace_back(0, 0);\n  firstSteps.emplace_back(1, 0);\n  secondSteps.emplace_back(0, 1);\n  corner.clear();\n\n  corner.emplace_back(keypoints[points[0][w - 2]], keypoints[points[0][w - 1]]);\n  corner.emplace_back(keypoints[points[0][w - 1]], keypoints[points[1][w - 1]]);\n  segments.push_back(corner);\n  cornerIndices.emplace_back(w - 1, 0);\n  firstSteps.emplace_back(0, 1);\n  secondSteps.emplace_back(-1, 0);\n  corner.clear();\n\n  corner.emplace_back(keypoints[points[h - 2][w - 1]], keypoints[points[h - 1][w - 1]]);\n  corner.emplace_back(keypoints[points[h - 1][w - 1]], keypoints[points[h - 1][w - 2]]);\n  segments.push_back(corner);\n  cornerIndices.emplace_back(w - 1, h - 1);\n  firstSteps.emplace_back(-1, 0);\n  secondSteps.emplace_back(0, -1);\n  corner.clear();\n\n  corner.emplace_back(keypoints[points[h - 1][1]], keypoints[points[h - 1][0]]);\n  corner.emplace_back(keypoints[points[h - 1][0]], keypoints[points[h - 2][0]]);\n  cornerIndices.emplace_back(0, h - 1);\n  firstSteps.emplace_back(0, -1);\n  secondSteps.emplace_back(1, 0);\n  segments.push_back(corner);\n  corner.clear();\n\n  //y axis is inverted in computer vision so we check < 0\n  bool isClockwise =\n      getDirection(keypoints[points[0][0]], keypoints[points[0][w - 1]], keypoints[points[h - 1][w - 1]]) < 0;\n  if (!isClockwise)\n  {\n#ifdef DEBUG_CIRCLES\n    std::cout << \"Corners are counterclockwise\" << std::endl;\n#endif\n    std::reverse(segments.begin(), segments.end());\n    std::reverse(cornerIndices.begin(), cornerIndices.end());\n    std::reverse(firstSteps.begin(), firstSteps.end());\n    std::reverse(secondSteps.begin(), secondSteps.end());\n    std::swap(firstSteps, secondSteps);\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::doesIntersectionExist(const int & corner, const int & segments)",
+        "start_line": 1600,
+        "end_line": 1615,
+        "snippet": "bool CirclesGridFinder::doesIntersectionExist(const std::vector<Segment> &corner, const std::vector<std::vector<Segment> > &segments)\n{\n  for (size_t i = 0; i < corner.size(); i++)\n  {\n    for (size_t j = 0; j < segments.size(); j++)\n    {\n      for (size_t k = 0; k < segments[j].size(); k++)\n      {\n        if (areSegmentsIntersecting(corner[i], segments[j][k]))\n          return true;\n      }\n    }\n  }\n\n  return false;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinder",
+        "signature": "CirclesGridFinder::getFirstCorner(int & largeCornerIndices, int & smallCornerIndices, int & firstSteps, int & secondSteps)",
+        "start_line": 1617,
+        "end_line": 1657,
+        "snippet": "size_t CirclesGridFinder::getFirstCorner(std::vector<Point> &largeCornerIndices, std::vector<Point> &smallCornerIndices, std::vector<\n    Point> &firstSteps, std::vector<Point> &secondSteps) const\n{\n  std::vector<std::vector<Segment> > largeSegments;\n  std::vector<std::vector<Segment> > smallSegments;\n\n  getCornerSegments(*largeHoles, largeSegments, largeCornerIndices, firstSteps, secondSteps);\n  getCornerSegments(*smallHoles, smallSegments, smallCornerIndices, firstSteps, secondSteps);\n\n  const size_t cornersCount = 4;\n  CV_Assert(largeSegments.size() == cornersCount)\n    ;\n\n  bool isInsider[cornersCount];\n\n  for (size_t i = 0; i < cornersCount; i++)\n  {\n    isInsider[i] = doesIntersectionExist(largeSegments[i], smallSegments);\n  }\n\n  int cornerIdx = 0;\n  bool waitOutsider = true;\n\n  for (size_t i = 0; i < cornersCount * 2; ++i)\n  {\n    if (waitOutsider)\n    {\n      if (!isInsider[(cornerIdx + 1) % cornersCount])\n        waitOutsider = false;\n    }\n    else\n    {\n      if (isInsider[(cornerIdx + 1) % cornersCount])\n        return cornerIdx;\n    }\n\n    cornerIdx = (cornerIdx + 1) % cornersCount;\n  }\n\n  CV_Error(Error::StsNoConv, \"isInsider array has the same values\");\n}",
+        "comment": ""
+    }
+]

@@ -1,0 +1,512 @@
+[
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "RANSACUpdateNumIters(double p, double ep, int modelPoints, int maxIters)",
+        "start_line": 55,
+        "end_line": 75,
+        "snippet": "int RANSACUpdateNumIters( double p, double ep, int modelPoints, int maxIters )\n{\n    if( modelPoints <= 0 )\n        CV_Error( Error::StsOutOfRange, \"the number of model points should be positive\" );\n\n    p = MAX(p, 0.);\n    p = MIN(p, 1.);\n    ep = MAX(ep, 0.);\n    ep = MIN(ep, 1.);\n\n    // avoid inf's & nan's\n    double num = MAX(1. - p, DBL_MIN);\n    double denom = 1. - std::pow(1. - ep, modelPoints);\n    if( denom < DBL_MIN )\n        return 0;\n\n    num = std::log(num);\n    denom = std::log(denom);\n\n    return denom >= 0 || -num >= maxIters*(-denom) ? maxIters : cvRound(num/denom);\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "RANSACPointSetRegistrator",
+        "signature": "RANSACPointSetRegistrator::RANSACPointSetRegistrator(const Ptr<class PointSetRegistrator::Callback> & _cb, int _modelPoints, double _threshold, double _confidence, int _maxIters)",
+        "start_line": 81,
+        "end_line": 83,
+        "snippet": "    RANSACPointSetRegistrator(const Ptr<PointSetRegistrator::Callback>& _cb=Ptr<PointSetRegistrator::Callback>(),\n                              int _modelPoints=0, double _threshold=0, double _confidence=0.99, int _maxIters=1000)\n      : cb(_cb), modelPoints(_modelPoints), threshold(_threshold), confidence(_confidence), maxIters(_maxIters) {}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "RANSACPointSetRegistrator",
+        "signature": "RANSACPointSetRegistrator::findInliers(const class cv::Mat & m1, const class cv::Mat & m2, const class cv::Mat & model, class cv::Mat & err, class cv::Mat & mask, double thresh)",
+        "start_line": 85,
+        "end_line": 102,
+        "snippet": "    int findInliers( const Mat& m1, const Mat& m2, const Mat& model, Mat& err, Mat& mask, double thresh ) const\n    {\n        cb->computeError( m1, m2, model, err );\n        mask.create(err.size(), CV_8U);\n\n        CV_Assert( err.isContinuous() && err.type() == CV_32F && mask.isContinuous() && mask.type() == CV_8U);\n        const float* errptr = err.ptr<float>();\n        uchar* maskptr = mask.ptr<uchar>();\n        float t = (float)(thresh*thresh);\n        int i, n = (int)err.total(), nz = 0;\n        for( i = 0; i < n; i++ )\n        {\n            int f = errptr[i] <= t;\n            maskptr[i] = (uchar)f;\n            nz += f;\n        }\n        return nz;\n    }",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "RANSACPointSetRegistrator",
+        "signature": "RANSACPointSetRegistrator::getSubset(const class cv::Mat & m1, const class cv::Mat & m2, class cv::Mat & ms1, class cv::Mat & ms2, class cv::RNG & rng, int maxAttempts)",
+        "start_line": 104,
+        "end_line": 158,
+        "snippet": "    bool getSubset( const Mat& m1, const Mat& m2, Mat& ms1, Mat& ms2, RNG& rng, int maxAttempts=1000 ) const\n    {\n        cv::AutoBuffer<int> _idx(modelPoints);\n        int* idx = _idx.data();\n\n        const int d1 = m1.channels() > 1 ? m1.channels() : m1.cols;\n        const int d2 = m2.channels() > 1 ? m2.channels() : m2.cols;\n\n        int esz1 = (int)m1.elemSize1() * d1;\n        int esz2 = (int)m2.elemSize1() * d2;\n        CV_Assert((esz1 % sizeof(int)) == 0 && (esz2 % sizeof(int)) == 0);\n        esz1 /= sizeof(int);\n        esz2 /= sizeof(int);\n\n        const int count = m1.checkVector(d1);\n        const int count2 = m2.checkVector(d2);\n        CV_Assert(count >= modelPoints && count == count2);\n\n        const int *m1ptr = m1.ptr<int>();\n        const int *m2ptr = m2.ptr<int>();\n\n        ms1.create(modelPoints, 1, CV_MAKETYPE(m1.depth(), d1));\n        ms2.create(modelPoints, 1, CV_MAKETYPE(m2.depth(), d2));\n\n        int *ms1ptr = ms1.ptr<int>();\n        int *ms2ptr = ms2.ptr<int>();\n\n        for( int iters = 0; iters < maxAttempts; ++iters )\n        {\n            int i;\n\n            for( i = 0; i < modelPoints; ++i )\n            {\n                int idx_i;\n\n                for ( idx_i = rng.uniform(0, count);\n                    std::find(idx, idx + i, idx_i) != idx + i;\n                    idx_i = rng.uniform(0, count) )\n                {}\n\n                idx[i] = idx_i;\n\n                for( int k = 0; k < esz1; ++k )\n                    ms1ptr[i*esz1 + k] = m1ptr[idx_i*esz1 + k];\n\n                for( int k = 0; k < esz2; ++k )\n                    ms2ptr[i*esz2 + k] = m2ptr[idx_i*esz2 + k];\n            }\n\n            if( cb->checkSubset(ms1, ms2, i) )\n                return true;\n        }\n\n        return false;\n    }",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "RANSACPointSetRegistrator",
+        "signature": "RANSACPointSetRegistrator::run(cv::InputArray _m1, cv::InputArray _m2, cv::OutputArray _model, cv::OutputArray _mask)",
+        "start_line": 160,
+        "end_line": 254,
+        "snippet": "    bool run(InputArray _m1, InputArray _m2, OutputArray _model, OutputArray _mask) const CV_OVERRIDE\n    {\n        bool result = false;\n        Mat m1 = _m1.getMat(), m2 = _m2.getMat();\n        Mat err, mask, model, bestModel, ms1, ms2;\n\n        int iter, niters = MAX(maxIters, 1);\n        int d1 = m1.channels() > 1 ? m1.channels() : m1.cols;\n        int d2 = m2.channels() > 1 ? m2.channels() : m2.cols;\n        int count = m1.checkVector(d1), count2 = m2.checkVector(d2), maxGoodCount = 0;\n\n        RNG rng((uint64)-1);\n\n        CV_Assert( cb );\n        CV_Assert( confidence > 0 && confidence < 1 );\n\n        CV_Assert( count >= 0 && count2 == count );\n        if( count < modelPoints )\n            return false;\n\n        Mat bestMask0, bestMask;\n\n        if( _mask.needed() )\n        {\n            _mask.create(count, 1, CV_8U, -1, true);\n            bestMask0 = bestMask = _mask.getMat();\n            CV_Assert( (bestMask.cols == 1 || bestMask.rows == 1) && (int)bestMask.total() == count );\n        }\n        else\n        {\n            bestMask.create(count, 1, CV_8U);\n            bestMask0 = bestMask;\n        }\n\n        if( count == modelPoints )\n        {\n            if( cb->runKernel(m1, m2, bestModel) <= 0 )\n                return false;\n            bestModel.copyTo(_model);\n            bestMask.setTo(Scalar::all(1));\n            return true;\n        }\n\n        for( iter = 0; iter < niters; iter++ )\n        {\n            int i, nmodels;\n            if( count > modelPoints )\n            {\n                bool found = getSubset( m1, m2, ms1, ms2, rng, 10000 );\n                if( !found )\n                {\n                    if( iter == 0 )\n                        return false;\n                    break;\n                }\n            }\n\n            nmodels = cb->runKernel( ms1, ms2, model );\n            if( nmodels <= 0 )\n                continue;\n            CV_Assert( model.rows % nmodels == 0 );\n            Size modelSize(model.cols, model.rows/nmodels);\n\n            for( i = 0; i < nmodels; i++ )\n            {\n                Mat model_i = model.rowRange( i*modelSize.height, (i+1)*modelSize.height );\n                int goodCount = findInliers( m1, m2, model_i, err, mask, threshold );\n\n                if( goodCount > MAX(maxGoodCount, modelPoints-1) )\n                {\n                    std::swap(mask, bestMask);\n                    model_i.copyTo(bestModel);\n                    maxGoodCount = goodCount;\n                    niters = RANSACUpdateNumIters( confidence, (double)(count - goodCount)/count, modelPoints, niters );\n                }\n            }\n        }\n\n        if( maxGoodCount > 0 )\n        {\n            if( bestMask.data != bestMask0.data )\n            {\n                if( bestMask.size() == bestMask0.size() )\n                    bestMask.copyTo(bestMask0);\n                else\n                    transpose(bestMask, bestMask0);\n            }\n            bestModel.copyTo(_model);\n            result = true;\n        }\n        else\n            _model.release();\n\n        return result;\n    }",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/ptsetreg.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "createRANSACPointSetRegistrator(const Ptr<class PointSetRegistrator::Callback> & _cb, int _modelPoints, double _threshold, double _confidence, int _maxIters)",
+        "start_line": 377,
+        "end_line": 383,
+        "snippet": "Ptr<PointSetRegistrator> createRANSACPointSetRegistrator(const Ptr<PointSetRegistrator::Callback>& _cb,\n                                                         int _modelPoints, double _threshold,\n                                                         double _confidence, int _maxIters)\n{\n    return Ptr<PointSetRegistrator>(\n        new RANSACPointSetRegistrator(_cb, _modelPoints, _threshold, _confidence, _maxIters));\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST",
+        "signature": "RHO_HEST::fastRandom()",
+        "start_line": 148,
+        "end_line": 159,
+        "snippet": "    virtual inline double fastRandom(void){\n        uint64_t x = prng.s[0];\n        uint64_t y = prng.s[1];\n        x ^= x << 23; // a\n        x ^= x >> 17; // b\n        x ^= y ^ (y >> 26); // c\n        prng.s[0] = y;\n        prng.s[1] = x;\n        uint64_t s = x + y;\n\n        return s * 5.421010862427522e-20;/* 2^-64 */\n    }",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST",
+        "signature": "RHO_HEST::fastSeed(uint64_t seed)",
+        "start_line": 168,
+        "end_line": 182,
+        "snippet": "    virtual inline void   fastSeed(uint64_t seed){\n        int i;\n\n        prng.s[0] =  seed;\n        prng.s[1] = ~seed;/* Guarantees one of the elements will be non-zero. */\n\n        /**\n         * Escape from zero-land (see xorshift128+ paper). Approximately 20\n         * iterations required according to the graph.\n         */\n\n        for(i=0;i<20;i++){\n            fastRandom();\n        }\n    }",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "rhoInit()",
+        "start_line": 446,
+        "end_line": 468,
+        "snippet": "Ptr<RHO_HEST> rhoInit(void){\n    /* Select an optimized implementation of RHO here. */\n\n#if 1\n    /**\n     * For now, only the generic C implementation is available. In the future,\n     * SSE2/AVX/AVX2/FMA/NEON versions may be added, and they will be selected\n     * depending on cv::checkHardwareSupport()'s return values.\n     */\n\n    Ptr<RHO_HEST> p = Ptr<RHO_HEST>(new RHO_HEST_REFC);\n#endif\n\n    /* Initialize it. */\n    if(p){\n        if(!p->initialize()){\n            p.release();\n        }\n    }\n\n    /* Return it. */\n    return p;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "rhoEnsureCapacity(Ptr<cv::RHO_HEST> p, unsigned int N, double beta)",
+        "start_line": 475,
+        "end_line": 477,
+        "snippet": "int  rhoEnsureCapacity(Ptr<RHO_HEST> p, unsigned N, double beta){\n    return p->ensureCapacity(N, beta);\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "rhoHest(Ptr<cv::RHO_HEST> p, const float * src, const float * dst, char * inl, unsigned int N, float maxD, unsigned int maxI, unsigned int rConvg, double cfd, unsigned int minInl, double beta, unsigned int flags, const float * guessH, float * finalH)",
+        "start_line": 518,
+        "end_line": 534,
+        "snippet": "unsigned rhoHest(Ptr<RHO_HEST> p,       /* Homography estimation context. */\n                 const float*  src,     /* Source points */\n                 const float*  dst,     /* Destination points */\n                 char*         inl,     /* Inlier mask */\n                 unsigned      N,       /*  = src.length = dst.length = inl.length */\n                 float         maxD,    /* Works:     3.0 */\n                 unsigned      maxI,    /* Works:    2000 */\n                 unsigned      rConvg,  /* Works:    2000 */\n                 double        cfd,     /* Works:   0.995 */\n                 unsigned      minInl,  /* Minimum:     4 */\n                 double        beta,    /* Works:    0.35 */\n                 unsigned      flags,   /* Works:       0 */\n                 const float*  guessH,  /* Extrinsic guess, NULL if none provided */\n                 float*        finalH){ /* Final result. */\n    return p->rhoHest(src, dst, inl, N, maxD, maxI, rConvg, cfd, minInl, beta,\n                      flags, guessH, finalH);\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::RHO_HEST_REFC()",
+        "start_line": 555,
+        "end_line": 605,
+        "snippet": "RHO_HEST_REFC::RHO_HEST_REFC() : initialized(0){\n    arg.src = 0;\n    arg.dst = 0;\n    arg.inl = 0;\n    arg.N = 0;\n    arg.maxD = 0;\n    arg.maxI = 0;\n    arg.rConvg = 0;\n    arg.cfd = 0;\n    arg.minInl = 0;\n    arg.beta = 0;\n    arg.flags = 0;\n    arg.guessH = 0;\n    arg.finalH = 0;\n\n    ctrl.i = 0;\n    ctrl.phNum = 0;\n    ctrl.phEndI = 0;\n    ctrl.phEndFpI = 0;\n    ctrl.phMax = 0;\n    ctrl.phNumInl = 0;\n    ctrl.numModels = 0;\n    ctrl.smpl = 0;\n\n    curr.pkdPts = 0;\n    curr.H = 0;\n    curr.inl = 0;\n    curr.numInl = 0;\n\n    best.H = 0;\n    best.inl = 0;\n    best.numInl = 0;\n\n    nr.size = 0;\n    nr.beta = 0;\n\n    eval.t_M = 0;\n    eval.m_S = 0;\n    eval.epsilon = 0;\n    eval.delta = 0;\n    eval.A = 0;\n    eval.Ntested = 0;\n    eval.Ntestedtotal = 0;\n    eval.good = 0;\n    eval.lambdaAccept = 0;\n    eval.lambdaReject = 0;\n\n    lm.JtJ = 0;\n    lm.tmp1 = 0;\n    lm.Jte = 0;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::~RHO_HEST_REFC()",
+        "start_line": 619,
+        "end_line": 623,
+        "snippet": "RHO_HEST_REFC::~RHO_HEST_REFC(){\n    if(initialized){\n        finalize();\n    }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::initialize()",
+        "start_line": 641,
+        "end_line": 662,
+        "snippet": "inline int    RHO_HEST_REFC::initialize(void){\n    initialized = 0;\n\n\n    allocatePerObj();\n\n    curr.inl    = NULL;\n    curr.numInl = 0;\n\n    best.inl    = NULL;\n    best.numInl = 0;\n\n    nr.size     = 0;\n    nr.beta     = 0.0;\n\n\n    fastSeed((uint64_t)~0);\n\n    initialized = 1;\n\n    return true;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::finalize()",
+        "start_line": 671,
+        "end_line": 677,
+        "snippet": "inline void   RHO_HEST_REFC::finalize(void){\n    if(initialized){\n        deallocatePerObj();\n\n        initialized = 0;\n    }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::ensureCapacity(unsigned int N, double beta)",
+        "start_line": 696,
+        "end_line": 717,
+        "snippet": "inline int    RHO_HEST_REFC::ensureCapacity(unsigned N, double beta){\n    if(N == 0){\n        /* Clear. */\n        nr.tbl.clear();\n        nr.size = 0;\n    }else if(nr.beta != beta){\n        /* Beta changed. Redo all the work. */\n        nr.tbl.resize(N);\n        nr.beta = beta;\n        sacInitNonRand(nr.beta, 0, N, &nr.tbl[0]);\n        nr.size = N;\n    }else if(N > nr.size){\n        /* Work is partially done. Do rest of it. */\n        nr.tbl.resize(N);\n        sacInitNonRand(nr.beta, nr.size, N, &nr.tbl[nr.size]);\n        nr.size = N;\n    }else{\n        /* Work is already done. Do nothing. */\n    }\n\n    return 1;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::rhoHest(const float * src, const float * dst, char * inl, unsigned int N, float maxD, unsigned int maxI, unsigned int rConvg, double cfd, unsigned int minInl, double beta, unsigned int flags, const float * guessH, float * finalH)",
+        "start_line": 339,
+        "end_line": 352,
+        "snippet": "    unsigned      rhoHest(const float*   src,     /* Source points */\n                          const float*   dst,     /* Destination points */\n                          char*          inl,     /* Inlier mask */\n                          unsigned       N,       /*  = src.length = dst.length = inl.length */\n                          float          maxD,    /* Works:     3.0 */\n                          unsigned       maxI,    /* Works:    2000 */\n                          unsigned       rConvg,  /* Works:    2000 */\n                          double         cfd,     /* Works:   0.995 */\n                          unsigned       minInl,  /* Minimum:     4 */\n                          double         beta,    /* Works:    0.35 */\n                          unsigned       flags,   /* Works:       0 */\n                          const float*   guessH,  /* Extrinsic guess, NULL if none provided */\n                          float*         finalH   /* Final result. */\n    ) CV_OVERRIDE;",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::allocatePerObj()",
+        "start_line": 827,
+        "end_line": 836,
+        "snippet": "inline void   RHO_HEST_REFC::allocatePerObj(void){\n    objArea.allocate(ctrl.smpl, SMPL_SIZE);\n    objArea.allocate(curr.pkdPts, SMPL_SIZE*2*2);\n    objArea.allocate(curr.H, HSIZE);\n    objArea.allocate(best.H, HSIZE);\n    objArea.allocate(lm.JtJ, 8*8);\n    objArea.allocate(lm.tmp1, 8*8);\n    objArea.allocate(lm.Jte, 1*8);\n    objArea.commit();\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::allocatePerRun()",
+        "start_line": 846,
+        "end_line": 850,
+        "snippet": "inline void   RHO_HEST_REFC::allocatePerRun(void){\n    runArea.allocate(best.inl, arg.N);\n    runArea.allocate(curr.inl, arg.N);\n    runArea.commit();\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::deallocatePerRun()",
+        "start_line": 859,
+        "end_line": 861,
+        "snippet": "inline void   RHO_HEST_REFC::deallocatePerRun(void){\n    runArea.release();\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::deallocatePerObj()",
+        "start_line": 870,
+        "end_line": 872,
+        "snippet": "inline void   RHO_HEST_REFC::deallocatePerObj(void){\n    objArea.release();\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": true,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::initRun()",
+        "start_line": 887,
+        "end_line": 984,
+        "snippet": "inline int    RHO_HEST_REFC::initRun(void){\n    /**\n     * Sanitize arguments.\n     *\n     * Runs zeroth because these are easy-to-check errors and unambiguously\n     * mean something or other.\n     */\n\n    if(!arg.src || !arg.dst){\n        /* Arguments src or dst are insane, must be != NULL */\n        return 0;\n    }\n    if(arg.N < (unsigned)SMPL_SIZE){\n        /* Argument N is insane, must be >= 4. */\n        return 0;\n    }\n    if(arg.maxD < 0){\n        /* Argument maxD is insane, must be >= 0. */\n        return 0;\n    }\n    if(arg.cfd < 0 || arg.cfd > 1){\n        /* Argument cfd is insane, must be in [0, 1]. */\n        return 0;\n    }\n    /* Clamp minInl to 4 or higher. */\n    arg.minInl = arg.minInl < (unsigned)SMPL_SIZE ? SMPL_SIZE : arg.minInl;\n    if(isNREnabled() && (arg.beta <= 0 || arg.beta >= 1)){\n        /* Argument beta is insane, must be in (0, 1). */\n        return 0;\n    }\n    if(!arg.finalH){\n        /* Argument finalH is insane, must be != NULL */\n        return 0;\n    }\n\n    /**\n     * Optional NR setup.\n     *\n     * Runs first because it is decoupled from most other things (*) and if it\n     * fails, it is easy to recover from.\n     *\n     * (*) The only things this code depends on is the flags argument, the nr.*\n     *     substruct and the sanity-checked N and beta arguments from above.\n     */\n\n    if(isNREnabled() && !ensureCapacity(arg.N, arg.beta)){\n        return 0;\n    }\n\n    /**\n     * Inlier mask alloc.\n     *\n     * Runs second because we want to quit as fast as possible if we can't even\n     * allocate the two masks.\n     */\n\n    allocatePerRun();\n\n    memset(best.inl, 0, arg.N);\n    memset(curr.inl, 0, arg.N);\n\n    /**\n     * Reset scalar per-run state.\n     *\n     * Runs third because there's no point in resetting/calculating a large\n     * number of fields if something in the above junk failed.\n     */\n\n    ctrl.i            = 0;\n    ctrl.phNum        = SMPL_SIZE;\n    ctrl.phEndI       = 1;\n    ctrl.phEndFpI     = sacInitPEndFpI(arg.rConvg, arg.N, SMPL_SIZE);\n    ctrl.phMax        = arg.N;\n    ctrl.phNumInl     = 0;\n    ctrl.numModels    = 0;\n\n    if(haveExtrinsicGuess()){\n        memcpy(curr.H, arg.guessH, HSIZE);\n    }else{\n        memset(curr.H, 0, HSIZE);\n    }\n    curr.numInl       = 0;\n\n    memset(best.H, 0, HSIZE);\n    best.numInl       = 0;\n\n    eval.Ntested      = 0;\n    eval.Ntestedtotal = 0;\n    eval.good         = 1;\n    eval.t_M          = SPRT_T_M;\n    eval.m_S          = SPRT_M_S;\n    eval.epsilon      = SPRT_EPSILON;\n    eval.delta        = SPRT_DELTA;\n    designSPRTTest();\n\n    return 1;\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::hypothesize()",
+        "start_line": 1011,
+        "end_line": 1027,
+        "snippet": "    if(PROSACPhaseEndReached()){\n        PROSACGoToNextPhase();\n    }\n\n    getPROSACSample();\n    if(isSampleDegenerate()){\n        return 0;\n    }\n\n    generateModel();\n    if(isModelDegenerate()){\n        return 0;\n    }\n\n    return 1;\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::verify()",
+        "start_line": 1038,
+        "end_line": 1057,
+        "snippet": "    evaluateModelSPRT();\n    updateSPRT();\n\n    if(isBestModel()){\n        saveBestModel();\n\n        if(isRefineEnabled() && canRefine()){\n            refine();\n        }\n\n        updateBounds();\n\n        if(isNREnabled()){\n            nStarOptimize();\n        }\n    }\n\n    return 1;\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::haveExtrinsicGuess()",
+        "start_line": 1065,
+        "end_line": 1067,
+        "snippet": "    return !!arg.guessH;\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::isNREnabled()",
+        "start_line": 1075,
+        "end_line": 1077,
+        "snippet": "    return arg.flags & RHO_FLAG_ENABLE_NR;\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::isRefineEnabled()",
+        "start_line": 1085,
+        "end_line": 1087,
+        "snippet": "    return arg.flags & RHO_FLAG_ENABLE_REFINEMENT;\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::isFinalRefineEnabled()",
+        "start_line": 1095,
+        "end_line": 1097,
+        "snippet": "    return arg.flags & RHO_FLAG_ENABLE_FINAL_REFINEMENT;\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::PROSACPhaseEndReached()",
+        "start_line": 1109,
+        "end_line": 1111,
+        "snippet": "    return ctrl.i >= ctrl.phEndI && ctrl.phNum < ctrl.phMax;\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::PROSACGoToNextPhase()",
+        "start_line": 1125,
+        "end_line": 1132,
+        "snippet": "    double next;\n\n    ctrl.phNum++;\n    next = (ctrl.phEndFpI * ctrl.phNum)/(ctrl.phNum - SMPL_SIZE);\n    ctrl.phEndI  += (unsigned)ceil(next - ctrl.phEndFpI);\n    ctrl.phEndFpI = next;\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::getPROSACSample()",
+        "start_line": 1147,
+        "end_line": 1155,
+        "snippet": "    if(ctrl.i > ctrl.phEndI){\n        /* FIXME: Dubious. Review. */\n        rndSmpl(4, ctrl.smpl, ctrl.phNum);/* Used to be phMax */\n    }else{\n        rndSmpl(3, ctrl.smpl, ctrl.phNum-1);\n        ctrl.smpl[3] = ctrl.phNum-1;\n    }\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::rndSmpl(unsigned int sampleSize, unsigned int * currentSample, unsigned int dataSetSize)",
+        "start_line": 372,
+        "end_line": 374,
+        "snippet": "    inline void   rndSmpl(unsigned  sampleSize,\n                          unsigned* currentSample,\n                          unsigned  dataSetSize);",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::isSampleDegenerate()",
+        "start_line": 1236,
+        "end_line": 1322,
+        "snippet": "    unsigned i0 = ctrl.smpl[0], i1 = ctrl.smpl[1], i2 = ctrl.smpl[2], i3 = ctrl.smpl[3];\n    typedef struct{float x,y;} MyPt2f;\n    MyPt2f* pkdPts = (MyPt2f*)curr.pkdPts, *src = (MyPt2f*)arg.src, *dst = (MyPt2f*)arg.dst;\n\n    /**\n     * Pack the matches selected by the SAC algorithm.\n     * Must be packed  points[0:7]  = {srcx0, srcy0, srcx1, srcy1, srcx2, srcy2, srcx3, srcy3}\n     *                 points[8:15] = {dstx0, dsty0, dstx1, dsty1, dstx2, dsty2, dstx3, dsty3}\n     * Gather 4 points into the vector\n     */\n\n    pkdPts[0] = src[i0];\n    pkdPts[1] = src[i1];\n    pkdPts[2] = src[i2];\n    pkdPts[3] = src[i3];\n    pkdPts[4] = dst[i0];\n    pkdPts[5] = dst[i1];\n    pkdPts[6] = dst[i2];\n    pkdPts[7] = dst[i3];\n\n    /**\n     * If the matches' source points have common x and y coordinates, abort.\n     */\n\n    if(pkdPts[0].x == pkdPts[1].x || pkdPts[1].x == pkdPts[2].x ||\n       pkdPts[2].x == pkdPts[3].x || pkdPts[0].x == pkdPts[2].x ||\n       pkdPts[1].x == pkdPts[3].x || pkdPts[0].x == pkdPts[3].x ||\n       pkdPts[0].y == pkdPts[1].y || pkdPts[1].y == pkdPts[2].y ||\n       pkdPts[2].y == pkdPts[3].y || pkdPts[0].y == pkdPts[2].y ||\n       pkdPts[1].y == pkdPts[3].y || pkdPts[0].y == pkdPts[3].y){\n        return 1;\n    }\n\n    /* If the matches do not satisfy the strong geometric constraint, abort. */\n    /* (0 x 1) * 2 */\n    float cross0s0 = pkdPts[0].y-pkdPts[1].y;\n    float cross0s1 = pkdPts[1].x-pkdPts[0].x;\n    float cross0s2 = pkdPts[0].x*pkdPts[1].y-pkdPts[0].y*pkdPts[1].x;\n    float dots0    = cross0s0*pkdPts[2].x + cross0s1*pkdPts[2].y + cross0s2;\n    float cross0d0 = pkdPts[4].y-pkdPts[5].y;\n    float cross0d1 = pkdPts[5].x-pkdPts[4].x;\n    float cross0d2 = pkdPts[4].x*pkdPts[5].y-pkdPts[4].y*pkdPts[5].x;\n    float dotd0    = cross0d0*pkdPts[6].x + cross0d1*pkdPts[6].y + cross0d2;\n    if(((int)dots0^(int)dotd0) < 0){\n        return 1;\n    }\n    /* (0 x 1) * 3 */\n    float cross1s0 = cross0s0;\n    float cross1s1 = cross0s1;\n    float cross1s2 = cross0s2;\n    float dots1    = cross1s0*pkdPts[3].x + cross1s1*pkdPts[3].y + cross1s2;\n    float cross1d0 = cross0d0;\n    float cross1d1 = cross0d1;\n    float cross1d2 = cross0d2;\n    float dotd1    = cross1d0*pkdPts[7].x + cross1d1*pkdPts[7].y + cross1d2;\n    if(((int)dots1^(int)dotd1) < 0){\n        return 1;\n    }\n    /* (2 x 3) * 0 */\n    float cross2s0 = pkdPts[2].y-pkdPts[3].y;\n    float cross2s1 = pkdPts[3].x-pkdPts[2].x;\n    float cross2s2 = pkdPts[2].x*pkdPts[3].y-pkdPts[2].y*pkdPts[3].x;\n    float dots2    = cross2s0*pkdPts[0].x + cross2s1*pkdPts[0].y + cross2s2;\n    float cross2d0 = pkdPts[6].y-pkdPts[7].y;\n    float cross2d1 = pkdPts[7].x-pkdPts[6].x;\n    float cross2d2 = pkdPts[6].x*pkdPts[7].y-pkdPts[6].y*pkdPts[7].x;\n    float dotd2    = cross2d0*pkdPts[4].x + cross2d1*pkdPts[4].y + cross2d2;\n    if(((int)dots2^(int)dotd2) < 0){\n        return 1;\n    }\n    /* (2 x 3) * 1 */\n    float cross3s0 = cross2s0;\n    float cross3s1 = cross2s1;\n    float cross3s2 = cross2s2;\n    float dots3    = cross3s0*pkdPts[1].x + cross3s1*pkdPts[1].y + cross3s2;\n    float cross3d0 = cross2d0;\n    float cross3d1 = cross2d1;\n    float cross3d2 = cross2d2;\n    float dotd3    = cross3d0*pkdPts[5].x + cross3d1*pkdPts[5].y + cross3d2;\n    if(((int)dots3^(int)dotd3) < 0){\n        return 1;\n    }\n\n    /* Otherwise, accept */\n    return 0;\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::generateModel()",
+        "start_line": 1334,
+        "end_line": 1336,
+        "snippet": "    hFuncRefC(curr.pkdPts, curr.H);\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::isModelDegenerate()",
+        "start_line": 1349,
+        "end_line": 1361,
+        "snippet": "    int degenerate;\n    float* H = curr.H;\n    float f=H[0]+H[1]+H[2]+H[3]+H[4]+H[5]+H[6]+H[7];\n\n    /* degenerate = isnan(f); */\n    /* degenerate = f!=f;// Only NaN is not equal to itself. */\n    degenerate = cvIsNaN(f);\n    /* degenerate = 0; */\n\n\n    return degenerate;\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::evaluateModelSPRT()",
+        "start_line": 1375,
+        "end_line": 1429,
+        "snippet": "    unsigned i;\n    unsigned isInlier;\n    double   lambda  = 1.0;\n    float    distSq  = arg.maxD*arg.maxD;\n    const float* src = arg.src;\n    const float* dst = arg.dst;\n    char*    inl     = curr.inl;\n    const float*   H = curr.H;\n\n\n    ctrl.numModels++;\n\n    curr.numInl   = 0;\n    eval.Ntested  = 0;\n    eval.good     = 1;\n\n\n    /* SCALAR */\n    for(i=0;i<arg.N && eval.good;i++){\n        /* Backproject */\n        float x=src[i*2],y=src[i*2+1];\n        float X=dst[i*2],Y=dst[i*2+1];\n\n        float reprojX=H[0]*x+H[1]*y+H[2]; /*  ( X_1 )     ( H_11 H_12    H_13  ) (x_1)       */\n        float reprojY=H[3]*x+H[4]*y+H[5]; /*  ( X_2 )  =  ( H_21 H_22    H_23  ) (x_2)       */\n        float reprojZ=H[6]*x+H[7]*y+1.0f; /*  ( X_3 )     ( H_31 H_32 H_33=1.0 ) (x_3 = 1.0) */\n\n        /* reproj is in homogeneous coordinates. To bring back to \"regular\" coordinates, divide by Z. */\n        reprojX/=reprojZ;\n        reprojY/=reprojZ;\n\n        /* Compute distance */\n        reprojX-=X;\n        reprojY-=Y;\n        reprojX*=reprojX;\n        reprojY*=reprojY;\n        float reprojDist = reprojX+reprojY;\n\n        /* ... */\n        isInlier   = reprojDist <= distSq;\n        curr.numInl += isInlier;\n        *inl++     = (char)isInlier;\n\n\n        /* SPRT */\n        lambda *= isInlier ? eval.lambdaAccept : eval.lambdaReject;\n        eval.good = lambda <= eval.A;\n        /* If !good, the threshold A was exceeded, so we're rejecting */\n    }\n\n\n    eval.Ntested       = i;\n    eval.Ntestedtotal += i;\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::updateSPRT()",
+        "start_line": 1441,
+        "end_line": 1458,
+        "snippet": "    if(eval.good){\n        if(isBestModel()){\n            eval.epsilon = (double)curr.numInl/arg.N;\n            designSPRTTest();\n        }\n    }else{\n        double newDelta = (double)curr.numInl/eval.Ntested;\n\n        if(newDelta > 0){\n            double relChange = fabs(eval.delta - newDelta)/ eval.delta;\n            if(relChange > MIN_DELTA_CHNG){\n                eval.delta = newDelta;\n                designSPRTTest();\n            }\n        }\n    }\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "sacDesignSPRTTest(double delta, double epsilon, double t_M, double m_S)",
+        "start_line": 1474,
+        "end_line": 1517,
+        "snippet": "    double An, C, K, prevAn;\n    unsigned i;\n\n    /**\n     * Randomized RANSAC with Sequential Probability Ratio Test, ICCV 2005\n     * Eq (2)\n     */\n\n    C = (1-delta)  *  log((1-delta)/(1-epsilon)) +\n        delta      *  log(  delta  /  epsilon  );\n\n    /**\n     * Randomized RANSAC with Sequential Probability Ratio Test, ICCV 2005\n     * Eq (6)\n     * K = K_1/K_2 + 1 = (t_M*C)/m_S + 1\n     */\n\n    K = t_M*C/m_S + 1;\n\n    /**\n     * Randomized RANSAC with Sequential Probability Ratio Test, ICCV 2005\n     * Paragraph below Eq (6)\n     *\n     * A* = lim_{n -> infty} A_n, where\n     *     A_0     = K1/K2 + 1             and\n     *     A_{n+1} = K1/K2 + 1 + log(A_n)\n     * The series converges fast, typically within four iterations.\n     */\n\n    An = K;\n    i  = 0;\n\n    do{\n        prevAn = An;\n        An = K + log(An);\n    }while((An-prevAn > 1.5e-8)  &&  (++i < 10));\n\n    /**\n     * Return A = An_stopping, with n_stopping < 10\n     */\n\n    return An;\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::designSPRTTest()",
+        "start_line": 1531,
+        "end_line": 1535,
+        "snippet": "    eval.A = sacDesignSPRTTest(eval.delta, eval.epsilon, eval.t_M, eval.m_S);\n    eval.lambdaReject = ((1.0 - eval.delta) / (1.0 - eval.epsilon));\n    eval.lambdaAccept = ((   eval.delta   ) / (    eval.epsilon  ));\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::isBestModel()",
+        "start_line": 1549,
+        "end_line": 1551,
+        "snippet": "    return curr.numInl > best.numInl;\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::isBestModelGoodEnough()",
+        "start_line": 1567,
+        "end_line": 1569,
+        "snippet": "    return best.numInl >= arg.minInl;\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::saveBestModel()",
+        "start_line": 1583,
+        "end_line": 1595,
+        "snippet": "    float*   H      = curr.H;\n    char*    inl    = curr.inl;\n    unsigned numInl = curr.numInl;\n\n    curr.H       = best.H;\n    curr.inl     = best.inl;\n    curr.numInl  = best.numInl;\n\n    best.H       = H;\n    best.inl     = inl;\n    best.numInl  = numInl;\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "sacInitNonRand(double beta, unsigned int start, unsigned int N, unsigned int * nonRandMinInl)",
+        "start_line": 399,
+        "end_line": 402,
+        "snippet": "static inline void   sacInitNonRand       (double    beta,\n                                           unsigned  start,\n                                           unsigned  N,\n                                           unsigned* nonRandMinInl);",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::nStarOptimize()",
+        "start_line": 1628,
+        "end_line": 1654,
+        "snippet": "    unsigned min_sample_length = 10*2; /*(N * INLIERS_RATIO) */\n    unsigned best_n       = arg.N;\n    unsigned test_n       = best_n;\n    unsigned bestNumInl   = best.numInl;\n    unsigned testNumInl   = bestNumInl;\n\n    for(;test_n > min_sample_length && testNumInl;test_n--){\n        if(testNumInl*best_n > bestNumInl*test_n){\n            if(testNumInl < nr.tbl[test_n]){\n                break;\n            }\n            best_n      = test_n;\n            bestNumInl  = testNumInl;\n        }\n        testNumInl -= !!best.inl[test_n-1];\n    }\n\n    if(bestNumInl*ctrl.phMax > ctrl.phNumInl*best_n){\n        ctrl.phMax    = best_n;\n        ctrl.phNumInl = bestNumInl;\n        arg.maxI      = sacCalcIterBound(arg.cfd,\n                                         (double)ctrl.phNumInl/ctrl.phMax,\n                                         SMPL_SIZE,\n                                         arg.maxI);\n    }\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::updateBounds()",
+        "start_line": 1665,
+        "end_line": 1670,
+        "snippet": "    arg.maxI = sacCalcIterBound(arg.cfd,\n                                (double)best.numInl/arg.N,\n                                SMPL_SIZE,\n                                arg.maxI);\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::outputModel()",
+        "start_line": 1681,
+        "end_line": 1690,
+        "snippet": "    if(isBestModelGoodEnough()){\n        memcpy(arg.finalH, best.H, HSIZE);\n        if(arg.inl){\n            memcpy(arg.inl, best.inl, arg.N);\n        }\n    }else{\n        outputZeroH();\n    }\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::outputZeroH()",
+        "start_line": 1701,
+        "end_line": 1708,
+        "snippet": "    if(arg.finalH){\n        memset(arg.finalH, 0, HSIZE);\n    }\n    if(arg.inl){\n        memset(arg.inl,    0, arg.N);\n    }\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "sacInitPEndFpI(const unsigned int ransacConvg, const unsigned int n, const unsigned int s)",
+        "start_line": 403,
+        "end_line": 405,
+        "snippet": "static inline double sacInitPEndFpI       (const unsigned ransacConvg,\n                                           const unsigned n,\n                                           const unsigned s);",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "sacCalcIterBound(double confidence, double inlierRate, unsigned int sampleSize, unsigned int maxIterBound)",
+        "start_line": 406,
+        "end_line": 409,
+        "snippet": "static inline unsigned sacCalcIterBound   (double   confidence,\n                                           double   inlierRate,\n                                           unsigned sampleSize,\n                                           unsigned maxIterBound);",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "hFuncRefC(float * packedPoints, float * H)",
+        "start_line": 1798,
+        "end_line": 2027,
+        "snippet": "                                             destination (four x,y float coordinates) points, aligned by 32 bytes */\n                      float* H){          /* Homography (three 16-byte aligned rows of 3 floats) */\n    float x0=*packedPoints++;\n    float y0=*packedPoints++;\n    float x1=*packedPoints++;\n    float y1=*packedPoints++;\n    float x2=*packedPoints++;\n    float y2=*packedPoints++;\n    float x3=*packedPoints++;\n    float y3=*packedPoints++;\n    float X0=*packedPoints++;\n    float Y0=*packedPoints++;\n    float X1=*packedPoints++;\n    float Y1=*packedPoints++;\n    float X2=*packedPoints++;\n    float Y2=*packedPoints++;\n    float X3=*packedPoints++;\n    float Y3=*packedPoints++;\n\n    float x0X0=x0*X0, x1X1=x1*X1, x2X2=x2*X2, x3X3=x3*X3;\n    float x0Y0=x0*Y0, x1Y1=x1*Y1, x2Y2=x2*Y2, x3Y3=x3*Y3;\n    float y0X0=y0*X0, y1X1=y1*X1, y2X2=y2*X2, y3X3=y3*X3;\n    float y0Y0=y0*Y0, y1Y1=y1*Y1, y2Y2=y2*Y2, y3Y3=y3*Y3;\n\n\n    /**\n     *  [0]   [1] Hidden   Prec\n     *  x0    y0    1       x1\n     *  x1    y1    1       x1\n     *  x2    y2    1       x1\n     *  x3    y3    1       x1\n     *\n     * Eliminate ones in column 2 and 5.\n     * R(0)-=R(2)\n     * R(1)-=R(2)\n     * R(3)-=R(2)\n     *\n     *  [0]   [1] Hidden   Prec\n     * x0-x2 y0-y2  0       x1+1\n     * x1-x2 y1-y2  0       x1+1\n     *  x2    y2    1       x1\n     * x3-x2 y3-y2  0       x1+1\n     *\n     * Eliminate column 0 of rows 1 and 3\n     * R(1)=(x0-x2)*R(1)-(x1-x2)*R(0),     y1'=(y1-y2)(x0-x2)-(x1-x2)(y0-y2)\n     * R(3)=(x0-x2)*R(3)-(x3-x2)*R(0),     y3'=(y3-y2)(x0-x2)-(x3-x2)(y0-y2)\n     *\n     *  [0]   [1] Hidden   Prec\n     * x0-x2 y0-y2  0      x1+1\n     *   0    y1'   0      x2+3\n     *  x2    y2    1       x1\n     *   0    y3'   0      x2+3\n     *\n     * Eliminate column 1 of rows 0 and 3\n     * R(3)=y1'*R(3)-y3'*R(1)\n     * R(0)=y1'*R(0)-(y0-y2)*R(1)\n     *\n     *  [0]   [1] Hidden   Prec\n     *  x0'    0    0      x3+5\n     *   0    y1'   0      x2+3\n     *  x2    y2    1       x1\n     *   0     0    0      x4+7\n     *\n     * Eliminate columns 0 and 1 of row 2\n     * R(0)/=x0'\n     * R(1)/=y1'\n     * R(2)-= (x2*R(0) + y2*R(1))\n     *\n     *  [0]   [1] Hidden   Prec\n     *   1     0    0      x6+10\n     *   0     1    0      x4+6\n     *   0     0    1      x4+7\n     *   0     0    0      x4+7\n     */\n\n    /**\n     * Eliminate ones in column 2 and 5.\n     * R(0)-=R(2)\n     * R(1)-=R(2)\n     * R(3)-=R(2)\n     */\n\n    /*float minor[4][2] = {{x0-x2,y0-y2},\n                         {x1-x2,y1-y2},\n                         {x2   ,y2   },\n                         {x3-x2,y3-y2}};*/\n    /*float major[8][3] = {{x2X2-x0X0,y2X2-y0X0,(X0-X2)},\n                         {x2X2-x1X1,y2X2-y1X1,(X1-X2)},\n                         {-x2X2    ,-y2X2    ,(X2   )},\n                         {x2X2-x3X3,y2X2-y3X3,(X3-X2)},\n                         {x2Y2-x0Y0,y2Y2-y0Y0,(Y0-Y2)},\n                         {x2Y2-x1Y1,y2Y2-y1Y1,(Y1-Y2)},\n                         {-x2Y2    ,-y2Y2    ,(Y2   )},\n                         {x2Y2-x3Y3,y2Y2-y3Y3,(Y3-Y2)}};*/\n    float minor[2][4] = {{x0-x2,x1-x2,x2   ,x3-x2},\n                         {y0-y2,y1-y2,y2   ,y3-y2}};\n    float major[3][8] = {{x2X2-x0X0,x2X2-x1X1,-x2X2    ,x2X2-x3X3,x2Y2-x0Y0,x2Y2-x1Y1,-x2Y2    ,x2Y2-x3Y3},\n                         {y2X2-y0X0,y2X2-y1X1,-y2X2    ,y2X2-y3X3,y2Y2-y0Y0,y2Y2-y1Y1,-y2Y2    ,y2Y2-y3Y3},\n                         { (X0-X2) , (X1-X2) , (X2   ) , (X3-X2) , (Y0-Y2) , (Y1-Y2) , (Y2   ) , (Y3-Y2) }};\n\n    /**\n     * int i;\n     * for(i=0;i<8;i++) major[2][i]=-major[2][i];\n     * Eliminate column 0 of rows 1 and 3\n     * R(1)=(x0-x2)*R(1)-(x1-x2)*R(0),     y1'=(y1-y2)(x0-x2)-(x1-x2)(y0-y2)\n     * R(3)=(x0-x2)*R(3)-(x3-x2)*R(0),     y3'=(y3-y2)(x0-x2)-(x3-x2)(y0-y2)\n     */\n\n    float scalar1=minor[0][0], scalar2=minor[0][1];\n    minor[1][1]=minor[1][1]*scalar1-minor[1][0]*scalar2;\n\n    major[0][1]=major[0][1]*scalar1-major[0][0]*scalar2;\n    major[1][1]=major[1][1]*scalar1-major[1][0]*scalar2;\n    major[2][1]=major[2][1]*scalar1-major[2][0]*scalar2;\n\n    major[0][5]=major[0][5]*scalar1-major[0][4]*scalar2;\n    major[1][5]=major[1][5]*scalar1-major[1][4]*scalar2;\n    major[2][5]=major[2][5]*scalar1-major[2][4]*scalar2;\n\n    scalar2=minor[0][3];\n    minor[1][3]=minor[1][3]*scalar1-minor[1][0]*scalar2;\n\n    major[0][3]=major[0][3]*scalar1-major[0][0]*scalar2;\n    major[1][3]=major[1][3]*scalar1-major[1][0]*scalar2;\n    major[2][3]=major[2][3]*scalar1-major[2][0]*scalar2;\n\n    major[0][7]=major[0][7]*scalar1-major[0][4]*scalar2;\n    major[1][7]=major[1][7]*scalar1-major[1][4]*scalar2;\n    major[2][7]=major[2][7]*scalar1-major[2][4]*scalar2;\n\n    /**\n     * Eliminate column 1 of rows 0 and 3\n     * R(3)=y1'*R(3)-y3'*R(1)\n     * R(0)=y1'*R(0)-(y0-y2)*R(1)\n     */\n\n    scalar1=minor[1][1];scalar2=minor[1][3];\n    major[0][3]=major[0][3]*scalar1-major[0][1]*scalar2;\n    major[1][3]=major[1][3]*scalar1-major[1][1]*scalar2;\n    major[2][3]=major[2][3]*scalar1-major[2][1]*scalar2;\n\n    major[0][7]=major[0][7]*scalar1-major[0][5]*scalar2;\n    major[1][7]=major[1][7]*scalar1-major[1][5]*scalar2;\n    major[2][7]=major[2][7]*scalar1-major[2][5]*scalar2;\n\n    scalar2=minor[1][0];\n    minor[0][0]=minor[0][0]*scalar1-minor[0][1]*scalar2;\n\n    major[0][0]=major[0][0]*scalar1-major[0][1]*scalar2;\n    major[1][0]=major[1][0]*scalar1-major[1][1]*scalar2;\n    major[2][0]=major[2][0]*scalar1-major[2][1]*scalar2;\n\n    major[0][4]=major[0][4]*scalar1-major[0][5]*scalar2;\n    major[1][4]=major[1][4]*scalar1-major[1][5]*scalar2;\n    major[2][4]=major[2][4]*scalar1-major[2][5]*scalar2;\n\n    /**\n     * Eliminate columns 0 and 1 of row 2\n     * R(0)/=x0'\n     * R(1)/=y1'\n     * R(2)-= (x2*R(0) + y2*R(1))\n     */\n\n    scalar1=1.0f/minor[0][0];\n    major[0][0]*=scalar1;\n    major[1][0]*=scalar1;\n    major[2][0]*=scalar1;\n    major[0][4]*=scalar1;\n    major[1][4]*=scalar1;\n    major[2][4]*=scalar1;\n\n    scalar1=1.0f/minor[1][1];\n    major[0][1]*=scalar1;\n    major[1][1]*=scalar1;\n    major[2][1]*=scalar1;\n    major[0][5]*=scalar1;\n    major[1][5]*=scalar1;\n    major[2][5]*=scalar1;\n\n\n    scalar1=minor[0][2];scalar2=minor[1][2];\n    major[0][2]-=major[0][0]*scalar1+major[0][1]*scalar2;\n    major[1][2]-=major[1][0]*scalar1+major[1][1]*scalar2;\n    major[2][2]-=major[2][0]*scalar1+major[2][1]*scalar2;\n\n    major[0][6]-=major[0][4]*scalar1+major[0][5]*scalar2;\n    major[1][6]-=major[1][4]*scalar1+major[1][5]*scalar2;\n    major[2][6]-=major[2][4]*scalar1+major[2][5]*scalar2;\n\n    /* Only major matters now. R(3) and R(7) correspond to the hollowed-out rows. */\n    scalar1=major[0][7];\n    major[1][7]/=scalar1;\n    major[2][7]/=scalar1;\n\n    scalar1=major[0][0];major[1][0]-=scalar1*major[1][7];major[2][0]-=scalar1*major[2][7];\n    scalar1=major[0][1];major[1][1]-=scalar1*major[1][7];major[2][1]-=scalar1*major[2][7];\n    scalar1=major[0][2];major[1][2]-=scalar1*major[1][7];major[2][2]-=scalar1*major[2][7];\n    scalar1=major[0][3];major[1][3]-=scalar1*major[1][7];major[2][3]-=scalar1*major[2][7];\n    scalar1=major[0][4];major[1][4]-=scalar1*major[1][7];major[2][4]-=scalar1*major[2][7];\n    scalar1=major[0][5];major[1][5]-=scalar1*major[1][7];major[2][5]-=scalar1*major[2][7];\n    scalar1=major[0][6];major[1][6]-=scalar1*major[1][7];major[2][6]-=scalar1*major[2][7];\n\n\n    /* One column left (Two in fact, but the last one is the homography) */\n    scalar1=major[1][3];\n\n    major[2][3]/=scalar1;\n    scalar1=major[1][0];major[2][0]-=scalar1*major[2][3];\n    scalar1=major[1][1];major[2][1]-=scalar1*major[2][3];\n    scalar1=major[1][2];major[2][2]-=scalar1*major[2][3];\n    scalar1=major[1][4];major[2][4]-=scalar1*major[2][3];\n    scalar1=major[1][5];major[2][5]-=scalar1*major[2][3];\n    scalar1=major[1][6];major[2][6]-=scalar1*major[2][3];\n    scalar1=major[1][7];major[2][7]-=scalar1*major[2][3];\n\n\n    /* Homography is done. */\n    H[0]=major[2][0];\n    H[1]=major[2][1];\n    H[2]=major[2][2];\n\n    H[3]=major[2][4];\n    H[4]=major[2][5];\n    H[5]=major[2][6];\n\n    H[6]=major[2][7];\n    H[7]=major[2][3];\n    H[8]=1.0;\n}\n",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/rho.cpp",
+        "class_name": "RHO_HEST_REFC",
+        "signature": "RHO_HEST_REFC::canRefine()",
+        "start_line": 2043,
+        "end_line": 2050,
+        "snippet": "    /**\n     * If we only have 4 matches, GE's result is already optimal and cannot\n     * be refined any further.\n     */\n\n    return best.numInl > (unsigned)SMPL_SIZE;\n}\n",
+        "comment": ""
+    }
+]

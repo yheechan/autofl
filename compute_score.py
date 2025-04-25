@@ -95,6 +95,8 @@ def compute_autofl_scores(result_dirs, project=None, verbose=False):
             # 2. Get mactching methods
             predicted_methods = {}
             for pred_expr in pred_exprs:
+                if pred_expr == '`' or pred_expr in ["cpp", "c", "java", "python"]:
+                    continue
                 for method in ri.get_matching_method_signatures(pred_expr):
                     predicted_methods[method] = predicted_methods.get(method, [])
                     predicted_methods[method].append(pred_expr)
@@ -182,11 +184,25 @@ def get_seen_methods_from_msgs(ri, messages, language):
                 continue
             method_call_nodes = [e for e in ast.walk(parsed_method) if isinstance(e, ast.Call)]
             all_seen_method_names += [ast.unparse(e.func) for e in method_call_nodes]
-        elif language == "cpp" or language == "c":
-            pass
-            # parsed_method = pycparser.CParser().parse(norm_content)
-            # method_call_nodes = [e for e in parsed_method.ext if isinstance(e, pycparser.c_ast.FuncCall)]
-            # all_seen_method_names += [e.name.name for e in method_call_nodes]
+        elif language == "cpp":
+            def only_function_name(method_name):
+                if "::" in method_name.split("(")[0]:
+                    method_name = method_name.split("(")[0].split("::")[-1]
+                else:
+                    method_name = method_name.split("(")[0]
+                return method_name + "("
+            
+            candidate_lines = []
+            for line in norm_content.splitlines():
+                candidate_lines.append(line.strip().rstrip())
+            
+            seen_method_sigs = []
+            for signature in ri.method_signatures:
+                for line in candidate_lines:
+                    func_name = only_function_name(signature)
+                    if func_name in line:
+                        num_of_appearances = line.count(func_name) + 1
+                        seen_method_sigs += [signature] * num_of_appearances
         else:
             raise Exception()
 

@@ -42,6 +42,9 @@ class AutoDebugger(llm_utils.OpenAIEngine):
             system_message += "\n\nAfter providing this diagnosis, you will be prompted to suggest which methods would be the best locations to be fixed. The answers should be in the form of `ClassName.MethodName(ArgType1, ArgType2, ...)` without commentary (one per line), as your answer will be automatically processed before finally being presented to the user."
         else:
             system_message += "\n\nAfter providing this diagnosis, you will be prompted to suggest which method would be the best location to be fixed. You will provide a single answer, in the form of `ClassName.MethodName(ArgType1, ArgType2, ...)`, as your answer will be automatically processed before finally being presented to the user."
+        
+        if self._ri.language in ['c', 'cpp']:
+            system_message = system_message.replace('ClassName.MethodName(ArgType1, ArgType2, ...)', 'ClassName::MethodName(arg1, arg2, ...)')
         return system_message
 
     def _init_interaction_records(self):
@@ -170,6 +173,8 @@ class AutoDebugger(llm_utils.OpenAIEngine):
 
     def finish(self):
         finishing_string = "Based on the available information, provide the signatures of the most likely culprit methods for the bug. Your answer will be processed automatically, so make sure to only answer with the accurate signatures of all likely culprits (in `ClassName.MethodName(ArgType1, ArgType2, ...)` format), without commentary (one per line). "
+        if self._ri.language in ['c', 'cpp']:
+            finishing_string = finishing_string.replace('ClassName.MethodName(ArgType1, ArgType2, ...)', 'ClassName::MethodName(arg1, arg2, ...)')
         if not self._allow_multi_predictions:
             finishing_string = finishing_string.replace('signatures', 'signature')
             finishing_string = finishing_string.replace('methods', 'method')
@@ -253,16 +258,20 @@ if __name__ == '__main__':
         debug=args.debug
     )
 
+    start_time = time.time()
     try:
         grade = ad.run(args.max_budget)
     except Exception as e:
         grade = traceback.format_exc()
         if args.debug:
             raise e
-
+    num_tokens = name_utils.count_chat_tokens(ad.messages, model=args.model)
+    time_duration = time.time() - start_time
     with open(args.out, "w") as f:
         json.dump({
             'time': time.time(),
+            'duration': time_duration,
+            'num_tokens': num_tokens,
             'messages': ad.messages,
             'interaction_records': {
                 "step_histories": ad._interaction_records,

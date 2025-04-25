@@ -1,0 +1,172 @@
+[
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "homogeneousInverse(const class cv::Mat & T)",
+        "start_line": 10,
+        "end_line": 23,
+        "snippet": "static Mat homogeneousInverse(const Mat& T)\n{\n    CV_Assert(T.rows == 4 && T.cols == 4);\n\n    Mat R = T(Rect(0, 0, 3, 3));\n    Mat t = T(Rect(3, 0, 1, 3));\n    Mat Rt = R.t();\n    Mat tinv = -Rt * t;\n    Mat Tinv = Mat::eye(4, 4, T.type());\n    Rt.copyTo(Tinv(Rect(0, 0, 3, 3)));\n    tinv.copyTo(Tinv(Rect(3, 0, 1, 3)));\n\n    return Tinv;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "rot2quatMinimal(const class cv::Mat & R)",
+        "start_line": 33,
+        "end_line": 66,
+        "snippet": "static Mat rot2quatMinimal(const Mat& R)\n{\n    CV_Assert(R.type() == CV_64FC1 && R.rows >= 3 && R.cols >= 3);\n\n    double m00 = R.at<double>(0,0), m01 = R.at<double>(0,1), m02 = R.at<double>(0,2);\n    double m10 = R.at<double>(1,0), m11 = R.at<double>(1,1), m12 = R.at<double>(1,2);\n    double m20 = R.at<double>(2,0), m21 = R.at<double>(2,1), m22 = R.at<double>(2,2);\n    double trace = m00 + m11 + m22;\n\n    double qx, qy, qz;\n    if (trace > 0) {\n        double S = sqrt(trace + 1.0) * 2; // S=4*qw\n        qx = (m21 - m12) / S;\n        qy = (m02 - m20) / S;\n        qz = (m10 - m01) / S;\n    } else if (m00 > m11 && m00 > m22) {\n        double S = sqrt(1.0 + m00 - m11 - m22) * 2; // S=4*qx\n        qx = 0.25 * S;\n        qy = (m01 + m10) / S;\n        qz = (m02 + m20) / S;\n    } else if (m11 > m22) {\n        double S = sqrt(1.0 + m11 - m00 - m22) * 2; // S=4*qy\n        qx = (m01 + m10) / S;\n        qy = 0.25 * S;\n        qz = (m12 + m21) / S;\n    } else {\n        double S = sqrt(1.0 + m22 - m00 - m11) * 2; // S=4*qz\n        qx = (m02 + m20) / S;\n        qy = (m12 + m21) / S;\n        qz = 0.25 * S;\n    }\n\n    return (Mat_<double>(3,1) << qx, qy, qz);\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "skew(const class cv::Mat & v)",
+        "start_line": 68,
+        "end_line": 78,
+        "snippet": "static Mat skew(const Mat& v)\n{\n    CV_Assert(v.type() == CV_64FC1 && v.rows == 3 && v.cols == 1);\n\n    double vx = v.at<double>(0,0);\n    double vy = v.at<double>(1,0);\n    double vz = v.at<double>(2,0);\n    return (Mat_<double>(3,3) << 0, -vz, vy,\n                                vz, 0, -vx,\n                                -vy, vx, 0);\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "quatMinimal2rot(const class cv::Mat & q)",
+        "start_line": 87,
+        "end_line": 96,
+        "snippet": "static Mat quatMinimal2rot(const Mat& q)\n{\n    CV_Assert(q.type() == CV_64FC1 && q.rows == 3 && q.cols == 1);\n\n    Mat p = q.t()*q;\n    double w = sqrt(1 - p.at<double>(0,0));\n\n    Mat diag_p = Mat::eye(3,3,CV_64FC1)*p.at<double>(0,0);\n    return 2*q*q.t() + 2*w*skew(q) + Mat::eye(3,3,CV_64FC1) - 2*diag_p;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "rot2quat(const class cv::Mat & R)",
+        "start_line": 103,
+        "end_line": 140,
+        "snippet": "static Mat rot2quat(const Mat& R)\n{\n    CV_Assert(R.type() == CV_64FC1 && R.rows >= 3 && R.cols >= 3);\n\n    double m00 = R.at<double>(0,0), m01 = R.at<double>(0,1), m02 = R.at<double>(0,2);\n    double m10 = R.at<double>(1,0), m11 = R.at<double>(1,1), m12 = R.at<double>(1,2);\n    double m20 = R.at<double>(2,0), m21 = R.at<double>(2,1), m22 = R.at<double>(2,2);\n    double trace = m00 + m11 + m22;\n\n    double qw, qx, qy, qz;\n    if (trace > 0) {\n        double S = sqrt(trace + 1.0) * 2; // S=4*qw\n        qw = 0.25 * S;\n        qx = (m21 - m12) / S;\n        qy = (m02 - m20) / S;\n        qz = (m10 - m01) / S;\n    } else if (m00 > m11 && m00 > m22) {\n        double S = sqrt(1.0 + m00 - m11 - m22) * 2; // S=4*qx\n        qw = (m21 - m12) / S;\n        qx = 0.25 * S;\n        qy = (m01 + m10) / S;\n        qz = (m02 + m20) / S;\n    } else if (m11 > m22) {\n        double S = sqrt(1.0 + m11 - m00 - m22) * 2; // S=4*qy\n        qw = (m02 - m20) / S;\n        qx = (m01 + m10) / S;\n        qy = 0.25 * S;\n        qz = (m12 + m21) / S;\n    } else {\n        double S = sqrt(1.0 + m22 - m00 - m11) * 2; // S=4*qz\n        qw = (m10 - m01) / S;\n        qx = (m02 + m20) / S;\n        qy = (m12 + m21) / S;\n        qz = 0.25 * S;\n    }\n\n    return (Mat_<double>(4,1) << qw, qx, qy, qz);\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "quat2rot(const class cv::Mat & q)",
+        "start_line": 146,
+        "end_line": 169,
+        "snippet": "static Mat quat2rot(const Mat& q)\n{\n    CV_Assert(q.type() == CV_64FC1 && q.rows == 4 && q.cols == 1);\n\n    double qw = q.at<double>(0,0);\n    double qx = q.at<double>(1,0);\n    double qy = q.at<double>(2,0);\n    double qz = q.at<double>(3,0);\n\n    Mat R(3, 3, CV_64FC1);\n    R.at<double>(0, 0) = 1 - 2*qy*qy - 2*qz*qz;\n    R.at<double>(0, 1) = 2*qx*qy - 2*qz*qw;\n    R.at<double>(0, 2) = 2*qx*qz + 2*qy*qw;\n\n    R.at<double>(1, 0) = 2*qx*qy + 2*qz*qw;\n    R.at<double>(1, 1) = 1 - 2*qx*qx - 2*qz*qz;\n    R.at<double>(1, 2) = 2*qy*qz - 2*qx*qw;\n\n    R.at<double>(2, 0) = 2*qx*qz - 2*qy*qw;\n    R.at<double>(2, 1) = 2*qy*qz + 2*qx*qw;\n    R.at<double>(2, 2) = 1 - 2*qx*qx - 2*qy*qy;\n\n    return R;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "kron(const class cv::Mat & A, const class cv::Mat & B)",
+        "start_line": 173,
+        "end_line": 193,
+        "snippet": "static Mat kron(const Mat& A, const Mat& B)\n{\n    CV_Assert(A.channels() == 1 && B.channels() == 1);\n\n    Mat1d Ad, Bd;\n    A.convertTo(Ad, CV_64F);\n    B.convertTo(Bd, CV_64F);\n\n    Mat1d Kd(Ad.rows * Bd.rows, Ad.cols * Bd.cols, 0.0);\n    for (int ra = 0; ra < Ad.rows; ra++)\n    {\n        for (int ca = 0; ca < Ad.cols; ca++)\n        {\n            Kd(Range(ra*Bd.rows, (ra + 1)*Bd.rows), Range(ca*Bd.cols, (ca + 1)*Bd.cols)) = Bd.mul(Ad(ra, ca));\n        }\n    }\n\n    Mat K;\n    Kd.convertTo(K, A.type());\n    return K;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "calibrateHandEyeTsai(const int & Hg, const int & Hc, class cv::Mat & R_cam2gripper, class cv::Mat & t_cam2gripper)",
+        "start_line": 275,
+        "end_line": 380,
+        "snippet": "static void calibrateHandEyeTsai(const std::vector<Mat>& Hg, const std::vector<Mat>& Hc,\n                                 Mat& R_cam2gripper, Mat& t_cam2gripper)\n{\n    //Number of unique camera position pairs\n    int K = static_cast<int>((Hg.size()*Hg.size() - Hg.size()) / 2.0);\n    //Will store: skew(Pgij+Pcij)\n    Mat A(3*K, 3, CV_64FC1);\n    //Will store: Pcij - Pgij\n    Mat B(3*K, 1, CV_64FC1);\n\n    std::vector<Mat> vec_Hgij, vec_Hcij;\n    vec_Hgij.reserve(static_cast<size_t>(K));\n    vec_Hcij.reserve(static_cast<size_t>(K));\n\n    int idx = 0;\n    for (size_t i = 0; i < Hg.size(); i++)\n    {\n        for (size_t j = i+1; j < Hg.size(); j++)\n        {\n            //Defines coordinate transformation from Gi to Gj\n            //Hgi is from Gi (gripper) to RW (robot base)\n            //Hgj is from Gj (gripper) to RW (robot base)\n            Mat Hgij = homogeneousInverse(Hg[j]) * Hg[i]; //eq 6\n            //Rotation axis for Rgij which is the 3D rotation from gripper coordinate frame Gi to Gj\n            Mat Pgij = 2*rot2quatMinimal(Hgij);\n\n            //Defines coordinate transformation from Ci to Cj\n            //Hci is from CW (calibration target) to Ci (camera)\n            //Hcj is from CW (calibration target) to Cj (camera)\n            Mat Hcij = Hc[j] * homogeneousInverse(Hc[i]); //eq 7\n            //Rotation axis for Rcij\n            Mat Pcij = 2*rot2quatMinimal(Hcij);\n\n            // Discard motions with rotation too small or too close to pi radians\n            //   The limits 1.7 and 0.3 correspond to angles less than 17 degrees or greater than 120 degrees. They are\n            //   based on verifying equation 12 from the source paper using data generated with a known hand-eye\n            //   calibration. The data contained 25 poses, so 300 motions were considered. Of these, 188 satisfied\n            //   equation 12, and the remaining 112 all had Pcij or Pgij with norms greater than 1.7. Although errors\n            //   from small rotations were not observed, it is known that these motions are less informative (see\n            //   section II.B.3, and figure 6).\n            double Pgij_norm = cv::norm(Pgij);\n            double Pcij_norm = cv::norm(Pcij);\n            if (Pgij_norm < 0.3 || Pcij_norm < 0.3 || Pgij_norm > 1.7 || Pcij_norm > 1.7) {\n                continue;\n            }\n\n            vec_Hgij.push_back(Hgij);\n            vec_Hcij.push_back(Hcij);\n\n            //Left-hand side: skew(Pgij+Pcij)\n            skew(Pgij+Pcij).copyTo(A(Rect(0, idx*3, 3, 3)));\n            //Right-hand side: Pcij - Pgij\n            Mat diff = Pcij - Pgij;\n            diff.copyTo(B(Rect(0, idx*3, 1, 3)));\n            idx++;\n        }\n    }\n\n    // insufficient data\n    if (idx < 2) {\n        CV_LOG_ERROR(NULL, \"Hand-eye calibration failed! Not enough informative motions--include larger rotations.\");\n        return;\n    }\n    A.resize(3*idx);\n    B.resize(3*idx);\n\n    Mat Pcg_;\n    //Rotation from camera to gripper is obtained from the set of equations:\n    //    skew(Pgij+Pcij) * Pcg_ = Pcij - Pgij    (eq 12)\n    solve(A, B, Pcg_, DECOMP_SVD);\n\n    Mat Pcg_norm = Pcg_.t() * Pcg_;\n    //Obtained non-unit quaternion is scaled back to unit value that\n    //designates camera-gripper rotation\n    Mat Pcg = 2 * Pcg_ / sqrt(1 + Pcg_norm.at<double>(0,0)); //eq 14\n\n    Mat Rcg = quatMinimal2rot(Pcg/2.0);\n\n    for (size_t i = 0; i < vec_Hgij.size(); i++)\n    {\n        //Defines coordinate transformation from Gi to Gj\n        //Hgi is from Gi (gripper) to RW (robot base)\n        //Hgj is from Gj (gripper) to RW (robot base)\n        Mat Hgij = vec_Hgij[i];\n        //Defines coordinate transformation from Ci to Cj\n        //Hci is from CW (calibration target) to Ci (camera)\n        //Hcj is from CW (calibration target) to Cj (camera)\n        Mat Hcij = vec_Hcij[i];\n\n        //Left-hand side: (Rgij - I)\n        Mat diff = Hgij(Rect(0,0,3,3)) - Mat::eye(3,3,CV_64FC1);\n        diff.copyTo(A(Rect(0, static_cast<int>(i)*3, 3, 3)));\n\n        //Right-hand side: Rcg*Tcij - Tgij\n        diff = Rcg*Hcij(Rect(3, 0, 1, 3)) - Hgij(Rect(3, 0, 1, 3));\n        diff.copyTo(B(Rect(0, static_cast<int>(i)*3, 1, 3)));\n    }\n\n    Mat Tcg;\n    //Translation from camera to gripper is obtained from the set of equations:\n    //    (Rgij - I) * Tcg = Rcg*Tcij - Tgij    (eq 15)\n    solve(A, B, Tcg, DECOMP_SVD);\n\n    R_cam2gripper = Rcg;\n    t_cam2gripper = Tcg;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "calibrateHandEyePark(const int & Hg, const int & Hc, class cv::Mat & R_cam2gripper, class cv::Mat & t_cam2gripper)",
+        "start_line": 386,
+        "end_line": 449,
+        "snippet": "static void calibrateHandEyePark(const std::vector<Mat>& Hg, const std::vector<Mat>& Hc,\n                                 Mat& R_cam2gripper, Mat& t_cam2gripper)\n{\n    Mat M = Mat::zeros(3, 3, CV_64FC1);\n\n    for (size_t i = 0; i < Hg.size(); i++)\n    {\n        for (size_t j = i+1; j < Hg.size(); j++)\n        {\n            Mat Hgij = homogeneousInverse(Hg[j]) * Hg[i];\n            Mat Hcij = Hc[j] * homogeneousInverse(Hc[i]);\n\n            Mat Rgij = Hgij(Rect(0, 0, 3, 3));\n            Mat Rcij = Hcij(Rect(0, 0, 3, 3));\n\n            Mat a, b;\n            Rodrigues(Rgij, a);\n            Rodrigues(Rcij, b);\n\n            M += b * a.t();\n        }\n    }\n\n    Mat eigenvalues, eigenvectors;\n    eigen(M.t()*M, eigenvalues, eigenvectors);\n\n    Mat v = Mat::zeros(3, 3, CV_64FC1);\n    for (int i = 0; i < 3; i++) {\n        v.at<double>(i,i) = 1.0 / sqrt(eigenvalues.at<double>(i,0));\n    }\n\n    Mat R = eigenvectors.t() * v * eigenvectors * M.t();\n    R_cam2gripper = R;\n\n    int K = static_cast<int>((Hg.size()*Hg.size() - Hg.size()) / 2.0);\n    Mat C(3*K, 3, CV_64FC1);\n    Mat d(3*K, 1, CV_64FC1);\n    Mat I3 = Mat::eye(3, 3, CV_64FC1);\n\n    int idx = 0;\n    for (size_t i = 0; i < Hg.size(); i++)\n    {\n        for (size_t j = i+1; j < Hg.size(); j++, idx++)\n        {\n            Mat Hgij = homogeneousInverse(Hg[j]) * Hg[i];\n            Mat Hcij = Hc[j] * homogeneousInverse(Hc[i]);\n\n            Mat Rgij = Hgij(Rect(0, 0, 3, 3));\n\n            Mat tgij = Hgij(Rect(3, 0, 1, 3));\n            Mat tcij = Hcij(Rect(3, 0, 1, 3));\n\n            Mat I_tgij = I3 - Rgij;\n            I_tgij.copyTo(C(Rect(0, 3*idx, 3, 3)));\n\n            Mat A_RB = tgij - R*tcij;\n            A_RB.copyTo(d(Rect(0, 3*idx, 1, 3)));\n        }\n    }\n\n    Mat t;\n    solve(C, d, t, DECOMP_SVD);\n    t_cam2gripper = t;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "calibrateHandEyeHoraud(const int & Hg, const int & Hc, class cv::Mat & R_cam2gripper, class cv::Mat & t_cam2gripper)",
+        "start_line": 455,
+        "end_line": 540,
+        "snippet": "static void calibrateHandEyeHoraud(const std::vector<Mat>& Hg, const std::vector<Mat>& Hc,\n                                   Mat& R_cam2gripper, Mat& t_cam2gripper)\n{\n    Mat A = Mat::zeros(4, 4, CV_64FC1);\n\n    for (size_t i = 0; i < Hg.size(); i++)\n    {\n        for (size_t j = i+1; j < Hg.size(); j++)\n        {\n            Mat Hgij = homogeneousInverse(Hg[j]) * Hg[i];\n            Mat Hcij = Hc[j] * homogeneousInverse(Hc[i]);\n\n            Mat Rgij = Hgij(Rect(0, 0, 3, 3));\n            Mat Rcij = Hcij(Rect(0, 0, 3, 3));\n\n            Mat qgij = rot2quat(Rgij);\n            if (qgij.at<double>(0, 0) < 0) {\n                qgij *= -1;\n            }\n            double r0 = qgij.at<double>(0,0);\n            double rx = qgij.at<double>(1,0);\n            double ry = qgij.at<double>(2,0);\n            double rz = qgij.at<double>(3,0);\n\n            // Q(r) Appendix A\n            Matx44d Qvi(r0, -rx, -ry, -rz,\n                        rx,  r0, -rz,  ry,\n                        ry,  rz,  r0, -rx,\n                        rz, -ry,  rx,  r0);\n\n            Mat qcij = rot2quat(Rcij);\n            if (qcij.at<double>(0, 0) < 0) {\n                qcij *= -1;\n            }\n            r0 = qcij.at<double>(0,0);\n            rx = qcij.at<double>(1,0);\n            ry = qcij.at<double>(2,0);\n            rz = qcij.at<double>(3,0);\n\n            // W(r) Appendix A\n            Matx44d Wvi(r0, -rx, -ry, -rz,\n                        rx,  r0,  rz, -ry,\n                        ry, -rz,  r0,  rx,\n                        rz,  ry, -rx,  r0);\n\n            // Ai = (Q(vi') - W(vi))^T (Q(vi') - W(vi))\n            A += (Qvi - Wvi).t() * (Qvi - Wvi);\n        }\n    }\n\n    Mat eigenvalues, eigenvectors;\n    eigen(A, eigenvalues, eigenvectors);\n\n    Mat R = quat2rot(eigenvectors.row(3).t());\n    R_cam2gripper = R;\n\n    int K = static_cast<int>((Hg.size()*Hg.size() - Hg.size()) / 2.0);\n    Mat C(3*K, 3, CV_64FC1);\n    Mat d(3*K, 1, CV_64FC1);\n    Mat I3 = Mat::eye(3, 3, CV_64FC1);\n\n    int idx = 0;\n    for (size_t i = 0; i < Hg.size(); i++)\n    {\n        for (size_t j = i+1; j < Hg.size(); j++, idx++)\n        {\n            Mat Hgij = homogeneousInverse(Hg[j]) * Hg[i];\n            Mat Hcij = Hc[j] * homogeneousInverse(Hc[i]);\n\n            Mat Rgij = Hgij(Rect(0, 0, 3, 3));\n\n            Mat tgij = Hgij(Rect(3, 0, 1, 3));\n            Mat tcij = Hcij(Rect(3, 0, 1, 3));\n\n            Mat I_tgij = I3 - Rgij;\n            I_tgij.copyTo(C(Rect(0, 3*idx, 3, 3)));\n\n            Mat A_RB = tgij - R*tcij;\n            A_RB.copyTo(d(Rect(0, 3*idx, 1, 3)));\n        }\n    }\n\n    Mat t;\n    solve(C, d, t, DECOMP_SVD);\n    t_cam2gripper = t;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "normalizeRotation(const Mat_<double> & R_)",
+        "start_line": 542,
+        "end_line": 568,
+        "snippet": "static Mat_<double> normalizeRotation(const Mat_<double>& R_)\n{\n    // Make R unit determinant\n    Mat_<double> R = R_.clone();\n    double det = determinant(R);\n    if (std::fabs(det) < FLT_EPSILON)\n    {\n        CV_Error(Error::StsNoConv, \"Rotation normalization issue: determinant(R) is null\");\n    }\n    R = std::cbrt(std::copysign(1, det) / std::fabs(det)) * R;\n\n    // Make R orthogonal\n    Mat w, u, vt;\n    SVDecomp(R, w, u, vt);\n    R = u*vt;\n\n    // Handle reflection case\n    if (determinant(R) < 0)\n    {\n        Matx33d diag(1.0, 0.0, 0.0,\n                     0.0, 1.0, 0.0,\n                     0.0, 0.0, -1.0);\n        R = u*diag*vt;\n    }\n\n    return R;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": true,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "calibrateHandEyeAndreff(const int & Hg, const int & Hc, class cv::Mat & R_cam2gripper, class cv::Mat & t_cam2gripper)",
+        "start_line": 574,
+        "end_line": 625,
+        "snippet": "static void calibrateHandEyeAndreff(const std::vector<Mat>& Hg, const std::vector<Mat>& Hc,\n                                    Mat& R_cam2gripper, Mat& t_cam2gripper)\n{\n    int K = static_cast<int>((Hg.size()*Hg.size() - Hg.size()) / 2.0);\n    Mat A(12*K, 12, CV_64FC1);\n    Mat B(12*K, 1, CV_64FC1);\n\n    Mat I9 = Mat::eye(9, 9, CV_64FC1);\n    Mat I3 = Mat::eye(3, 3, CV_64FC1);\n    Mat O9x3 = Mat::zeros(9, 3, CV_64FC1);\n    Mat O9x1 = Mat::zeros(9, 1, CV_64FC1);\n\n    int idx = 0;\n    for (size_t i = 0; i < Hg.size(); i++)\n    {\n        for (size_t j = i+1; j < Hg.size(); j++, idx++)\n        {\n            Mat Hgij = homogeneousInverse(Hg[j]) * Hg[i];\n            Mat Hcij = Hc[j] * homogeneousInverse(Hc[i]);\n\n            Mat Rgij = Hgij(Rect(0, 0, 3, 3));\n            Mat Rcij = Hcij(Rect(0, 0, 3, 3));\n\n            Mat tgij = Hgij(Rect(3, 0, 1, 3));\n            Mat tcij = Hcij(Rect(3, 0, 1, 3));\n\n            //Eq 10\n            Mat a00 = I9 - kron(Rgij, Rcij);\n            Mat a01 = O9x3;\n            Mat a10 = kron(I3, tcij.t());\n            Mat a11 = I3 - Rgij;\n\n            a00.copyTo(A(Rect(0, idx*12, 9, 9)));\n            a01.copyTo(A(Rect(9, idx*12, 3, 9)));\n            a10.copyTo(A(Rect(0, idx*12 + 9, 9, 3)));\n            a11.copyTo(A(Rect(9, idx*12 + 9, 3, 3)));\n\n            O9x1.copyTo(B(Rect(0, idx*12, 1, 9)));\n            tgij.copyTo(B(Rect(0, idx*12 + 9, 1, 3)));\n        }\n    }\n\n    Mat X;\n    solve(A, B, X, DECOMP_SVD);\n\n    Mat R = X(Rect(0, 0, 1, 9));\n    int newSize[] = {3, 3};\n    R = R.reshape(1, 2, newSize);\n    //Eq 15\n    R_cam2gripper = normalizeRotation(R);\n    t_cam2gripper = X(Rect(0, 9, 1, 3));\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "calibrateHandEye(cv::InputArrayOfArrays R_gripper2base, cv::InputArrayOfArrays t_gripper2base, cv::InputArrayOfArrays R_target2cam, cv::InputArrayOfArrays t_target2cam, cv::OutputArray R_cam2gripper, cv::OutputArray t_cam2gripper, enum cv::HandEyeCalibrationMethod method)",
+        "start_line": 724,
+        "end_line": 821,
+        "snippet": "void calibrateHandEye(InputArrayOfArrays R_gripper2base, InputArrayOfArrays t_gripper2base,\n                      InputArrayOfArrays R_target2cam, InputArrayOfArrays t_target2cam,\n                      OutputArray R_cam2gripper, OutputArray t_cam2gripper,\n                      HandEyeCalibrationMethod method)\n{\n    CV_Assert(R_gripper2base.isMatVector() && t_gripper2base.isMatVector() &&\n              R_target2cam.isMatVector() && t_target2cam.isMatVector());\n\n    std::vector<Mat> R_gripper2base_, t_gripper2base_;\n    R_gripper2base.getMatVector(R_gripper2base_);\n    t_gripper2base.getMatVector(t_gripper2base_);\n\n    std::vector<Mat> R_target2cam_, t_target2cam_;\n    R_target2cam.getMatVector(R_target2cam_);\n    t_target2cam.getMatVector(t_target2cam_);\n\n    CV_Assert(R_gripper2base_.size() == t_gripper2base_.size() &&\n              R_target2cam_.size() == t_target2cam_.size() &&\n              R_gripper2base_.size() == R_target2cam_.size());\n    CV_Check(R_gripper2base_.size(), R_gripper2base_.size() >= 3, \"At least 3 measurements are needed\");\n\n    //Notation used in Tsai paper\n    //Defines coordinate transformation from G (gripper) to RW (robot base)\n    std::vector<Mat> Hg;\n    Hg.reserve(R_gripper2base_.size());\n    for (size_t i = 0; i < R_gripper2base_.size(); i++)\n    {\n        Mat m = Mat::eye(4, 4, CV_64FC1);\n        Mat R = m(Rect(0, 0, 3, 3));\n        if(R_gripper2base_[i].size() == Size(3, 3))\n            R_gripper2base_[i].convertTo(R, CV_64F);\n        else\n        {\n            cv::Mat R_temp;\n            Rodrigues(R_gripper2base_[i], R_temp);\n            R_temp.convertTo(R, CV_64F);\n        }\n\n        Mat t = m(Rect(3, 0, 1, 3));\n        t_gripper2base_[i].convertTo(t, CV_64F);\n\n        Hg.push_back(m);\n    }\n\n    //Defines coordinate transformation from CW (calibration target) to C (camera)\n    std::vector<Mat> Hc;\n    Hc.reserve(R_target2cam_.size());\n    for (size_t i = 0; i < R_target2cam_.size(); i++)\n    {\n        Mat m = Mat::eye(4, 4, CV_64FC1);\n        Mat R = m(Rect(0, 0, 3, 3));\n        if(R_target2cam_[i].size() == Size(3, 3))\n            R_target2cam_[i].convertTo(R, CV_64F);\n        else\n        {\n            cv::Mat R_temp;\n            Rodrigues(R_target2cam_[i], R_temp);\n            R_temp.convertTo(R, CV_64F);\n        }\n\n        Mat t = m(Rect(3, 0, 1, 3));\n        t_target2cam_[i].convertTo(t, CV_64F);\n\n        Hc.push_back(m);\n    }\n\n    Mat Rcg = Mat::eye(3, 3, CV_64FC1);\n    Mat Tcg = Mat::zeros(3, 1, CV_64FC1);\n\n    switch (method)\n    {\n    case CALIB_HAND_EYE_TSAI:\n        calibrateHandEyeTsai(Hg, Hc, Rcg, Tcg);\n        break;\n\n    case CALIB_HAND_EYE_PARK:\n        calibrateHandEyePark(Hg, Hc, Rcg, Tcg);\n        break;\n\n    case CALIB_HAND_EYE_HORAUD:\n        calibrateHandEyeHoraud(Hg, Hc, Rcg, Tcg);\n        break;\n\n    case CALIB_HAND_EYE_ANDREFF:\n        calibrateHandEyeAndreff(Hg, Hc, Rcg, Tcg);\n        break;\n\n    case CALIB_HAND_EYE_DANIILIDIS:\n        calibrateHandEyeDaniilidis(Hg, Hc, Rcg, Tcg);\n        break;\n\n    default:\n        break;\n    }\n\n    Rcg.copyTo(R_cam2gripper);\n    Tcg.copyTo(t_cam2gripper);\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "qmult(const class cv::Mat & s, const class cv::Mat & t)",
+        "start_line": 196,
+        "end_line": 219,
+        "snippet": "static Mat qmult(const Mat& s, const Mat& t)\n{\n    CV_Assert(s.type() == CV_64FC1 && t.type() == CV_64FC1);\n    CV_Assert(s.rows == 4 && s.cols == 1);\n    CV_Assert(t.rows == 4 && t.cols == 1);\n\n    double s0 = s.at<double>(0,0);\n    double s1 = s.at<double>(1,0);\n    double s2 = s.at<double>(2,0);\n    double s3 = s.at<double>(3,0);\n\n    double t0 = t.at<double>(0,0);\n    double t1 = t.at<double>(1,0);\n    double t2 = t.at<double>(2,0);\n    double t3 = t.at<double>(3,0);\n\n    Mat q(4, 1, CV_64FC1);\n    q.at<double>(0,0) = s0*t0 - s1*t1 - s2*t2 - s3*t3;\n    q.at<double>(1,0) = s0*t1 + s1*t0 + s2*t3 - s3*t2;\n    q.at<double>(2,0) = s0*t2 - s1*t3 + s2*t0 + s3*t1;\n    q.at<double>(3,0) = s0*t3 + s1*t2 - s2*t1 + s3*t0;\n\n    return q;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "homogeneous2dualQuaternion(const class cv::Mat & H)",
+        "start_line": 225,
+        "end_line": 242,
+        "snippet": "static Mat homogeneous2dualQuaternion(const Mat& H)\n{\n    CV_Assert(H.type() == CV_64FC1 && H.rows == 4 && H.cols == 4);\n\n    Mat dualq(8, 1, CV_64FC1);\n    Mat R = H(Rect(0, 0, 3, 3));\n    Mat t = H(Rect(3, 0, 1, 3));\n\n    Mat q = rot2quat(R);\n    Mat qt = Mat::zeros(4, 1, CV_64FC1);\n    t.copyTo(qt(Rect(0, 1, 1, 3)));\n    Mat qprime = 0.5 * qmult(qt, q);\n\n    q.copyTo(dualq(Rect(0, 0, 1, 4)));\n    qprime.copyTo(dualq(Rect(0, 4, 1, 4)));\n\n    return dualq;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "dualQuaternion2homogeneous(const class cv::Mat & dualq)",
+        "start_line": 248,
+        "end_line": 268,
+        "snippet": "static Mat dualQuaternion2homogeneous(const Mat& dualq)\n{\n    CV_Assert(dualq.type() == CV_64FC1 && dualq.rows == 8 && dualq.cols == 1);\n\n    Mat q = dualq(Rect(0, 0, 1, 4));\n    Mat qprime = dualq(Rect(0, 4, 1, 4));\n\n    Mat R = quat2rot(q);\n    q.at<double>(1,0) = -q.at<double>(1,0);\n    q.at<double>(2,0) = -q.at<double>(2,0);\n    q.at<double>(3,0) = -q.at<double>(3,0);\n\n    Mat qt = 2*qmult(qprime, q);\n    Mat t = qt(Rect(0, 1, 1, 3));\n\n    Mat H = Mat::eye(4, 4, CV_64FC1);\n    R.copyTo(H(Rect(0, 0, 3, 3)));\n    t.copyTo(H(Rect(3, 0, 1, 3)));\n\n    return H;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "calibrateHandEyeDaniilidis(const int & Hg, const int & Hc, class cv::Mat & R_cam2gripper, class cv::Mat & t_cam2gripper)",
+        "start_line": 631,
+        "end_line": 722,
+        "snippet": "static void calibrateHandEyeDaniilidis(const std::vector<Mat>& Hg, const std::vector<Mat>& Hc,\n                                       Mat& R_cam2gripper, Mat& t_cam2gripper)\n{\n    int K = static_cast<int>((Hg.size()*Hg.size() - Hg.size()) / 2.0);\n    Mat T = Mat::zeros(6*K, 8, CV_64FC1);\n\n    int idx = 0;\n    for (size_t i = 0; i < Hg.size(); i++)\n    {\n        for (size_t j = i+1; j < Hg.size(); j++, idx++)\n        {\n            Mat Hgij = homogeneousInverse(Hg[j]) * Hg[i];\n            Mat Hcij = Hc[j] * homogeneousInverse(Hc[i]);\n\n            Mat dualqa = homogeneous2dualQuaternion(Hgij);\n            if (dualqa.at<double>(0, 0) < 0) {\n                dualqa *= -1;\n            }\n            Mat dualqb = homogeneous2dualQuaternion(Hcij);\n            if (dualqb.at<double>(0, 0) < 0) {\n                dualqb *= -1;\n            }\n\n            Mat a = dualqa(Rect(0, 1, 1, 3));\n            Mat b = dualqb(Rect(0, 1, 1, 3));\n\n            Mat aprime = dualqa(Rect(0, 5, 1, 3));\n            Mat bprime = dualqb(Rect(0, 5, 1, 3));\n\n            //Eq 31\n            Mat s00 = a - b;\n            Mat s01 = skew(a + b);\n            Mat s10 = aprime - bprime;\n            Mat s11 = skew(aprime + bprime);\n            Mat s12 = a - b;\n            Mat s13 = skew(a + b);\n\n            s00.copyTo(T(Rect(0, idx*6, 1, 3)));\n            s01.copyTo(T(Rect(1, idx*6, 3, 3)));\n            s10.copyTo(T(Rect(0, idx*6 + 3, 1, 3)));\n            s11.copyTo(T(Rect(1, idx*6 + 3, 3, 3)));\n            s12.copyTo(T(Rect(4, idx*6 + 3, 1, 3)));\n            s13.copyTo(T(Rect(5, idx*6 + 3, 3, 3)));\n        }\n    }\n\n    Mat w, u, vt;\n    SVDecomp(T, w, u, vt);\n    Mat v = vt.t();\n\n    Mat u1 = v(Rect(6, 0, 1, 4));\n    Mat v1 = v(Rect(6, 4, 1, 4));\n    Mat u2 = v(Rect(7, 0, 1, 4));\n    Mat v2 = v(Rect(7, 4, 1, 4));\n\n    //Solves Eq 34, Eq 35\n    Mat ma = u1.t()*v1;\n    Mat mb = u1.t()*v2 + u2.t()*v1;\n    Mat mc = u2.t()*v2;\n\n    double a = ma.at<double>(0,0);\n    double b = mb.at<double>(0,0);\n    double c = mc.at<double>(0,0);\n\n    double s1 = (-b + sqrt(b*b - 4*a*c)) / (2*a);\n    double s2 = (-b - sqrt(b*b - 4*a*c)) / (2*a);\n\n    Mat sol1 = s1*s1*u1.t()*u1 + 2*s1*u1.t()*u2 + u2.t()*u2;\n    Mat sol2 = s2*s2*u1.t()*u1 + 2*s2*u1.t()*u2 + u2.t()*u2;\n    double s, val;\n    if (sol1.at<double>(0,0) > sol2.at<double>(0,0))\n    {\n        s = s1;\n        val = sol1.at<double>(0,0);\n    }\n    else\n    {\n        s = s2;\n        val = sol2.at<double>(0,0);\n    }\n\n    double lambda2 = sqrt(1.0 / val);\n    double lambda1 = s * lambda2;\n\n    Mat dualq = lambda1 * v(Rect(6, 0, 1, 8)) + lambda2*v(Rect(7, 0, 1, 8));\n    Mat X = dualQuaternion2homogeneous(dualq);\n\n    Mat R = X(Rect(0, 0, 3, 3));\n    Mat t = X(Rect(3, 0, 1, 3));\n    R_cam2gripper = R;\n    t_cam2gripper = t;\n}",
+        "comment": ""
+    }
+]

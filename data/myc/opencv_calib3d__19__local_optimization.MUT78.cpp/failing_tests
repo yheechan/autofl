@@ -1,0 +1,149 @@
+
+--- usac_Affine2D.accuracy
+EEE error msg
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from usac_Affine2D
+[ RUN      ] usac_Affine2D.accuracy
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/imgproc/include/opencv2/imgproc/detail/gcgraph.hpp:386: error: (-215:Assertion failed) i>=0 && i<(int)vtcs.size() in function 'inSourceSegment'
+" thrown in the test body.
+[  FAILED  ] usac_Affine2D.accuracy (7 ms)
+[----------] 1 test from usac_Affine2D (7 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (7 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] usac_Affine2D.accuracy
+
+ 1 FAILED TEST
+BBB backtrace
+#0  testing::UnitTest::AddTestPartResult(testing::TestPartResult::Type, char const*, int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (this=0x5555557b42a0 <testing::UnitTest::GetInstance()::instance>, result_type=testing::TestPartResult::kFatalFailure, file_name=0x0, line_number=-1, message="C++ exception with description \"OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/imgproc/include/opencv2/imgproc/detail/gcgraph.hpp:386"..., os_stack_trace="") at opencv_calib3d/modules/ts/src/ts_gtest.cpp:6122
+#1  0x000055555573bca4 in testing::internal::ReportFailureInUnknownLocation(testing::TestPartResult::Type, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (result_type=testing::TestPartResult::kFatalFailure, message="C++ exception with description \"OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/imgproc/include/opencv2/imgproc/detail/gcgraph.hpp:386"...) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3771
+#2  0x000055555573bdf3 in testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (object=object@entry=0x5555557f3aa0, method=<optimized out>, location=location@entry=0x5555557613a4 "the test body") at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3964
+#3  0x000055555573bfcd in testing::Test::Run() (this=0x5555557f3aa0) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3993
+#4  testing::Test::Run() (this=0x5555557f3aa0) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3984
+#5  0x000055555573c2f8 in testing::TestInfo::Run() (this=0x5555557ef3c0) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4169
+#6  testing::TestInfo::Run() (this=0x5555557ef3c0) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4143
+#7  0x000055555573c5f5 in testing::TestCase::Run() (this=0x5555557ef560) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4287
+#8  testing::TestCase::Run() (this=0x5555557ef560) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4272
+#9  0x000055555573cbac in testing::internal::UnitTestImpl::RunAllTests() (this=0x5555557d8980) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:6662
+#10 0x000055555573ccef in testing::internal::HandleSehExceptionsInMethodIfSupported<testing::internal::UnitTestImpl, bool>(testing::internal::UnitTestImpl*, bool (testing::internal::UnitTestImpl::*)(), char const*) (location=0x555555761590 "auxiliary test code (environments or event listeners)", method=<optimized out>, object=0x5555557d8980) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3900
+#11 testing::internal::HandleExceptionsInMethodIfSupported<testing::internal::UnitTestImpl, bool>(testing::internal::UnitTestImpl*, bool (testing::internal::UnitTestImpl::*)(), char const*) (location=0x555555761590 "auxiliary test code (environments or event listeners)", method=(bool (testing::internal::UnitTestImpl::*)(testing::internal::UnitTestImpl * const)) 0x55555573c680 <testing::internal::UnitTestImpl::RunAllTests()>, object=0x5555557d8980) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3955
+#12 testing::UnitTest::Run() (this=<optimized out>) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:6271
+#13 0x00005555555b5fd8 in RUN_ALL_TESTS() () at opencv_calib3d/modules/ts/include/opencv2/ts/ts_gtest.h:22240
+#14 main(int, char**) (argc=<optimized out>, argv=0x7fffffffdc38) at opencv_calib3d/modules/calib3d/test/test_main.cpp:10
+--- Calib3d/usac_Essential.accuracy/1
+EEE error msg
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/usac_Essential
+[ RUN      ] Calib3d/usac_Essential.accuracy/1, where GetParam() = USAC_ACCURATE
+opencv_calib3d/modules/calib3d/test/test_usac.cpp:320: Failure
+Failed
+Essential matrix estimation failed!
+
+[  FAILED  ] Calib3d/usac_Essential.accuracy/1, where GetParam() = USAC_ACCURATE (2 ms)
+[----------] 1 test from Calib3d/usac_Essential (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (2 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/usac_Essential.accuracy/1, where GetParam() = USAC_ACCURATE
+
+ 1 FAILED TEST
+BBB backtrace
+#0  testing::UnitTest::AddTestPartResult(testing::TestPartResult::Type, char const*, int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (this=0x5555557b42a0 <testing::UnitTest::GetInstance()::instance>, result_type=testing::TestPartResult::kFatalFailure, file_name=0x55555575cda0 "/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp", line_number=320, message="Failed\nEssential matrix estimation failed!\n", os_stack_trace="") at opencv_calib3d/modules/ts/src/ts_gtest.cpp:6122
+#1  0x000055555573a908 in testing::internal::AssertHelper::operator=(testing::Message const&) const (this=this@entry=0x7fffffffd1e0, message=...) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:1894
+#2  0x00005555555a739b in opencv_test::(anonymous namespace)::usac_Essential_accuracy_Test::Body() (this=<optimized out>) at opencv_calib3d/modules/calib3d/test/test_usac.cpp:320
+#3  0x00005555556ecd3d in opencv_test::(anonymous namespace)::usac_Essential_accuracy_Test::TestBody() (this=0x5555557f26e0) at opencv_calib3d/modules/calib3d/test/test_usac.cpp:302
+#4  0x000055555573bd31 in testing::internal::HandleSehExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (location=0x5555557613a4 "the test body", method=<optimized out>, object=0x5555557f26e0) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3919
+#5  testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (object=object@entry=0x5555557f26e0, method=<optimized out>, location=location@entry=0x5555557613a4 "the test body") at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3955
+#6  0x000055555573bfcd in testing::Test::Run() (this=0x5555557f26e0) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3993
+#7  testing::Test::Run() (this=0x5555557f26e0) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3984
+#8  0x000055555573c2f8 in testing::TestInfo::Run() (this=0x5555557f35a0) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4169
+#9  testing::TestInfo::Run() (this=0x5555557f35a0) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4143
+#10 0x000055555573c5f5 in testing::TestCase::Run() (this=0x5555557f3480) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4287
+#11 testing::TestCase::Run() (this=0x5555557f3480) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4272
+#12 0x000055555573cbac in testing::internal::UnitTestImpl::RunAllTests() (this=0x5555557d8980) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:6662
+#13 0x000055555573ccef in testing::internal::HandleSehExceptionsInMethodIfSupported<testing::internal::UnitTestImpl, bool>(testing::internal::UnitTestImpl*, bool (testing::internal::UnitTestImpl::*)(), char const*) (location=0x555555761590 "auxiliary test code (environments or event listeners)", method=<optimized out>, object=0x5555557d8980) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3900
+#14 testing::internal::HandleExceptionsInMethodIfSupported<testing::internal::UnitTestImpl, bool>(testing::internal::UnitTestImpl*, bool (testing::internal::UnitTestImpl::*)(), char const*) (location=0x555555761590 "auxiliary test code (environments or event listeners)", method=(bool (testing::internal::UnitTestImpl::*)(testing::internal::UnitTestImpl * const)) 0x55555573c680 <testing::internal::UnitTestImpl::RunAllTests()>, object=0x5555557d8980) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3955
+#15 testing::UnitTest::Run() (this=<optimized out>) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:6271
+#16 0x00005555555b5fd8 in RUN_ALL_TESTS() () at opencv_calib3d/modules/ts/include/opencv2/ts/ts_gtest.h:22240
+#17 main(int, char**) (argc=<optimized out>, argv=0x7fffffffdc28) at opencv_calib3d/modules/calib3d/test/test_main.cpp:10
+--- usac_Homography.accuracy
+EEE error msg
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from usac_Homography
+[ RUN      ] usac_Homography.accuracy
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/imgproc/include/opencv2/imgproc/detail/gcgraph.hpp:386: error: (-215:Assertion failed) i>=0 && i<(int)vtcs.size() in function 'inSourceSegment'
+" thrown in the test body.
+[  FAILED  ] usac_Homography.accuracy (7 ms)
+[----------] 1 test from usac_Homography (7 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (7 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] usac_Homography.accuracy
+
+ 1 FAILED TEST
+BBB backtrace
+#0  testing::UnitTest::AddTestPartResult(testing::TestPartResult::Type, char const*, int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (this=0x5555557b42a0 <testing::UnitTest::GetInstance()::instance>, result_type=testing::TestPartResult::kFatalFailure, file_name=0x0, line_number=-1, message="C++ exception with description \"OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/imgproc/include/opencv2/imgproc/detail/gcgraph.hpp:386"..., os_stack_trace="") at opencv_calib3d/modules/ts/src/ts_gtest.cpp:6122
+#1  0x000055555573bca4 in testing::internal::ReportFailureInUnknownLocation(testing::TestPartResult::Type, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (result_type=testing::TestPartResult::kFatalFailure, message="C++ exception with description \"OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/imgproc/include/opencv2/imgproc/detail/gcgraph.hpp:386"...) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3771
+#2  0x000055555573bdf3 in testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (object=object@entry=0x5555557f3aa0, method=<optimized out>, location=location@entry=0x5555557613a4 "the test body") at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3964
+#3  0x000055555573bfcd in testing::Test::Run() (this=0x5555557f3aa0) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3993
+#4  testing::Test::Run() (this=0x5555557f3aa0) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3984
+#5  0x000055555573c2f8 in testing::TestInfo::Run() (this=0x5555557ee690) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4169
+#6  testing::TestInfo::Run() (this=0x5555557ee690) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4143
+#7  0x000055555573c5f5 in testing::TestCase::Run() (this=0x5555557ee830) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4287
+#8  testing::TestCase::Run() (this=0x5555557ee830) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4272
+#9  0x000055555573cbac in testing::internal::UnitTestImpl::RunAllTests() (this=0x5555557d8980) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:6662
+#10 0x000055555573ccef in testing::internal::HandleSehExceptionsInMethodIfSupported<testing::internal::UnitTestImpl, bool>(testing::internal::UnitTestImpl*, bool (testing::internal::UnitTestImpl::*)(), char const*) (location=0x555555761590 "auxiliary test code (environments or event listeners)", method=<optimized out>, object=0x5555557d8980) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3900
+#11 testing::internal::HandleExceptionsInMethodIfSupported<testing::internal::UnitTestImpl, bool>(testing::internal::UnitTestImpl*, bool (testing::internal::UnitTestImpl::*)(), char const*) (location=0x555555761590 "auxiliary test code (environments or event listeners)", method=(bool (testing::internal::UnitTestImpl::*)(testing::internal::UnitTestImpl * const)) 0x55555573c680 <testing::internal::UnitTestImpl::RunAllTests()>, object=0x5555557d8980) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3955
+#12 testing::UnitTest::Run() (this=<optimized out>) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:6271
+#13 0x00005555555b5fd8 in RUN_ALL_TESTS() () at opencv_calib3d/modules/ts/include/opencv2/ts/ts_gtest.h:22240
+#14 main(int, char**) (argc=<optimized out>, argv=0x7fffffffdc28) at opencv_calib3d/modules/calib3d/test/test_main.cpp:10
+--- Calib3d/usac_Essential.maxiters/1
+EEE error msg
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d/usac_Essential
+[ RUN      ] Calib3d/usac_Essential.maxiters/1, where GetParam() = USAC_ACCURATE
+opencv_calib3d/modules/calib3d/test/test_usac.cpp:358: Failure
+Failed
+Essential matrix estimation failed!
+
+[  FAILED  ] Calib3d/usac_Essential.maxiters/1, where GetParam() = USAC_ACCURATE (1 ms)
+[----------] 1 test from Calib3d/usac_Essential (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d/usac_Essential.maxiters/1, where GetParam() = USAC_ACCURATE
+
+ 1 FAILED TEST
+BBB backtrace
+#0  testing::UnitTest::AddTestPartResult(testing::TestPartResult::Type, char const*, int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (this=0x5555557b42a0 <testing::UnitTest::GetInstance()::instance>, result_type=testing::TestPartResult::kFatalFailure, file_name=0x55555575cda0 "/ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/test/test_usac.cpp", line_number=358, message="Failed\nEssential matrix estimation failed!\n", os_stack_trace="") at opencv_calib3d/modules/ts/src/ts_gtest.cpp:6122
+#1  0x000055555573a908 in testing::internal::AssertHelper::operator=(testing::Message const&) const (this=this@entry=0x7fffffffd500, message=...) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:1894
+#2  0x00005555555a7d8f in opencv_test::(anonymous namespace)::usac_Essential_maxiters_Test::Body() (this=<optimized out>) at opencv_calib3d/modules/calib3d/test/test_usac.cpp:358
+#3  0x00005555556f0a5d in opencv_test::(anonymous namespace)::usac_Essential_maxiters_Test::TestBody() (this=0x5555557f26e0) at opencv_calib3d/modules/calib3d/test/test_usac.cpp:333
+#4  0x000055555573bd31 in testing::internal::HandleSehExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (location=0x5555557613a4 "the test body", method=<optimized out>, object=0x5555557f26e0) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3919
+#5  testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (object=object@entry=0x5555557f26e0, method=<optimized out>, location=location@entry=0x5555557613a4 "the test body") at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3955
+#6  0x000055555573bfcd in testing::Test::Run() (this=0x5555557f26e0) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3993
+#7  testing::Test::Run() (this=0x5555557f26e0) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3984
+#8  0x000055555573c2f8 in testing::TestInfo::Run() (this=0x5555557f3fa0) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4169
+#9  testing::TestInfo::Run() (this=0x5555557f3fa0) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4143
+#10 0x000055555573c5f5 in testing::TestCase::Run() (this=0x5555557f3480) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4287
+#11 testing::TestCase::Run() (this=0x5555557f3480) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4272
+#12 0x000055555573cbac in testing::internal::UnitTestImpl::RunAllTests() (this=0x5555557d8980) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:6662
+#13 0x000055555573ccef in testing::internal::HandleSehExceptionsInMethodIfSupported<testing::internal::UnitTestImpl, bool>(testing::internal::UnitTestImpl*, bool (testing::internal::UnitTestImpl::*)(), char const*) (location=0x555555761590 "auxiliary test code (environments or event listeners)", method=<optimized out>, object=0x5555557d8980) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3900
+#14 testing::internal::HandleExceptionsInMethodIfSupported<testing::internal::UnitTestImpl, bool>(testing::internal::UnitTestImpl*, bool (testing::internal::UnitTestImpl::*)(), char const*) (location=0x555555761590 "auxiliary test code (environments or event listeners)", method=(bool (testing::internal::UnitTestImpl::*)(testing::internal::UnitTestImpl * const)) 0x55555573c680 <testing::internal::UnitTestImpl::RunAllTests()>, object=0x5555557d8980) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3955
+#15 testing::UnitTest::Run() (this=<optimized out>) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:6271
+#16 0x00005555555b5fd8 in RUN_ALL_TESTS() () at opencv_calib3d/modules/ts/include/opencv2/ts/ts_gtest.h:22240
+#17 main(int, char**) (argc=<optimized out>, argv=0x7fffffffdc28) at opencv_calib3d/modules/calib3d/test/test_main.cpp:10

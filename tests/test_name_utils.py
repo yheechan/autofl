@@ -141,3 +141,39 @@ def test_lenient_matcher_with_different_pacakge():
         "ranslate.LookupTranslator.LookupTranslator(java.lang.CharSequence[]...)",
         "org.apache.commons.lang3.text.translate.LookupTranslator.LookupTranslator(java.lang.CharSequence[]...)"
     )
+
+def test_lenient_matcher_for_c_cpp_0():
+    assert name_utils.lenient_matcher_for_c_cpp(
+        "RANSACPointSetRegistrator::RANSACPointSetRegistrator(const Ptr<PointSetRegistrator::Callback>& _cb=Ptr<PointSetRegistrator::Callback>(), int _modelPoints=0, double _threshold=0, double _confidence=0.99, int _maxIters=1000)",
+        "RANSACPointSetRegistrator::RANSACPointSetRegistrator(const Ptr<class PointSetRegistrator::Callback> & _cb, int _modelPoints, double _threshold, double _confidence, int _maxIters)",
+    )
+
+def test_lenient_matcher_for_c_cpp_1():
+    assert name_utils.lenient_matcher_for_c_cpp(
+        "calib3d.calibrateHandEyeTsai(int, int, cv.Mat&, cv.Mat&)",
+        "calibrateHandEyeTsai(const int & Hg, const int & Hc, class cv::Mat & R_cam2gripper, class cv::Mat & t_cam2gripper)",
+    )
+
+def test_lenient_matcher_for_c_cpp_2():
+    assert name_utils.lenient_matcher_for_c_cpp(
+        "RANSACPointSetRegistrator.findInliers(const class cv::Mat & m1, const class cv::Mat & m2, const class cv::Mat & model, class cv::Mat & err, class cv::Mat & mask, double thresh)",
+        "RANSACPointSetRegistrator::findInliers(const class cv::Mat & m1, const class cv::Mat & m2, const class cv::Mat & model, class cv::Mat & err, class cv::Mat & mask, double thresh)",
+    )
+
+def test_lenient_matcher_for_c_cpp_2_fail_with_method_name():
+    assert not name_utils.lenient_matcher_for_c_cpp(
+        "RANSACPointSetRegistrator.something_else(const class cv::Mat & m1, const class cv::Mat & m2, const class cv::Mat & model, class cv::Mat & err, class cv::Mat & mask, double thresh)",
+        "RANSACPointSetRegistrator::findInliers(const class cv::Mat & m1, const class cv::Mat & m2, const class cv::Mat & model, class cv::Mat & err, class cv::Mat & mask, double thresh)",
+    )
+
+def test_lenient_matcher_for_c_cpp_2_fail_with_arg_count():
+    assert not name_utils.lenient_matcher_for_c_cpp(
+        "RANSACPointSetRegistrator.findInliers(const class cv::Mat & model, class cv::Mat & err, class cv::Mat & mask, double thresh)",
+        "RANSACPointSetRegistrator::findInliers(const class cv::Mat & m1, const class cv::Mat & m2, const class cv::Mat & model, class cv::Mat & err, class cv::Mat & mask, double thresh)",
+    )
+
+def test_lenient_matcher_for_c_cpp_3():
+    assert name_utils.lenient_matcher_for_c_cpp(
+        "Affine2DEstimatorCallback::computeError(cv::InputArray _m1, cv::InputArray _m2, cv::InputArray _model, cv::OutputArray _err)",
+        "estimateAffine2D(cv::InputArray _from, cv::InputArray _to, cv::OutputArray _inliers, const int method, const double ransacReprojThreshold, const size_t maxIters, const double confidence, const size_t refineIters)",
+    )

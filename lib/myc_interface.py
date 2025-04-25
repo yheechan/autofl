@@ -148,12 +148,11 @@ class MYCRepositoryInterface():
         return list(self._fail_info.keys())
     
     def get_matching_method_signatures(self, pred_expr, matcher=name_utils.lenient_matcher_for_c_cpp):
-        if "FUNCTIONWITHOUTCLASS" in pred_expr:
-            # remove FUNCTIONWITHOUTCLASS. e.g., FUNCTIONWITHOUTCLASS.functionname(var1, var2)
-            pred_expr = pred_expr.split(".")[-1]
-        elif "." in pred_expr.split("(")[0]:
-            # replace . with ::
-            pred_expr = pred_expr.split("(")[0].replace(".", "::") + "(" + pred_expr.split("(", 1)[1]
+        if "FUNCTIONWITHOUTCLASS." in pred_expr:
+            pred_expr = pred_expr.removeprefix("FUNCTIONWITHOUTCLASS.")
+        elif "FUNCTIONWITHOUTCLASS::" in pred_expr:
+            pred_expr = pred_expr.removeprefix("FUNCTIONWITHOUTCLASS::")
+        
         return [
             signature for signature in self.method_signatures
             if matcher(pred_expr, signature)

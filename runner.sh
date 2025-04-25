@@ -25,7 +25,7 @@ for rep in $(seq 1 "$REPETITION"); do
             continue
         fi
         if [ -f "${DATA_DIR}/${bugname}/snippet.json" ]; then
-            cmd="python3 autofl.py -m ${MODEL} -b ${bugname} -p ${PROMPT_FILE} -o ${save_file} --max_budget ${BUDGET} --max_num_tests ${NUM_TESTS} --allow_multi_predictions --test_offset $((rep - 1))"
+            cmd="python3 autofl.py -m ${MODEL} -b ${bugname} -p ${PROMPT_FILE} -o ${save_file} --max_budget ${BUDGET} --max_num_tests ${NUM_TESTS} --show_line_number --allow_multi_predictions --test_offset $((rep - 1))"
             echo ${cmd}
             timeout 10m ${cmd}
         fi

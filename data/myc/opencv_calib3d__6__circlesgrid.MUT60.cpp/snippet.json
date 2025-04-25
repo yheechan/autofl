@@ -1,0 +1,92 @@
+[
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridClusterFinder",
+        "signature": "CirclesGridClusterFinder::hierarchicalClustering(const int & points, const cv::Size & patternSz, int & patternPoints)",
+        "start_line": 72,
+        "end_line": 136,
+        "snippet": "void CirclesGridClusterFinder::hierarchicalClustering(const std::vector<Point2f> &points, const Size &patternSz, std::vector<Point2f> &patternPoints)\n{\n    int j, n = (int)points.size();\n    size_t pn = static_cast<size_t>(patternSz.area());\n\n    patternPoints.clear();\n    if (pn >= points.size())\n    {\n        if (pn == points.size())\n            patternPoints = points;\n        return;\n    }\n\n    Mat dists(n, n, CV_32FC1, Scalar(0));\n    Mat distsMask(dists.size(), CV_8UC1, Scalar(0));\n    for(int i = 0; i < n; i++)\n    {\n        for(j = i+1; j < n; j++)\n        {\n            dists.at<float>(i, j) = (float)norm(points[i] - points[j]);\n            distsMask.at<uchar>(i, j) = 255;\n            //TODO: use symmetry\n            distsMask.at<uchar>(j, i) = 255;//distsMask.at<uchar>(i, j);\n            dists.at<float>(j, i) = dists.at<float>(i, j);\n        }\n    }\n\n    std::vector<std::list<size_t> > clusters(points.size());\n    for(size_t i=0; i<points.size(); i++)\n    {\n        clusters[i].push_back(i);\n    }\n\n    int patternClusterIdx = 0;\n    while(clusters[patternClusterIdx].size() < pn)\n    {\n        Point minLoc;\n        minMaxLoc(dists, 0, 0, &minLoc, 0, distsMask);\n        int minIdx = std::min(minLoc.x, minLoc.y);\n        int maxIdx = std::max(minLoc.x, minLoc.y);\n\n        distsMask.row(maxIdx).setTo(0);\n        distsMask.col(maxIdx).setTo(0);\n        Mat tmpRow = dists.row(minIdx);\n        Mat tmpCol = dists.col(minIdx);\n        cv::min(dists.row(minLoc.x), dists.row(minLoc.y), tmpRow);\n        tmpRow = tmpRow.t();\n        tmpRow.copyTo(tmpCol);\n\n        clusters[minIdx].splice(clusters[minIdx].end(), clusters[maxIdx]);\n        patternClusterIdx = minIdx;\n    }\n\n    //the largest cluster can have more than pn points -- we need to filter out such situations\n    if(clusters[patternClusterIdx].size() != static_cast<size_t>(patternSz.area()))\n    {\n      return;\n    }\n\n    patternPoints.reserve(clusters[patternClusterIdx].size());\n    for(std::list<size_t>::iterator it = clusters[patternClusterIdx].begin(); it != clusters[patternClusterIdx].end();++it)\n    {\n        patternPoints.push_back(points[*it]);\n    }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridClusterFinder",
+        "signature": "CirclesGridClusterFinder::findGrid(const int & points, cv::Size _patternSize, int & centers)",
+        "start_line": 138,
+        "end_line": 189,
+        "snippet": "void CirclesGridClusterFinder::findGrid(const std::vector<cv::Point2f> &points, cv::Size _patternSize, std::vector<Point2f>& centers)\n{\n  patternSize = _patternSize;\n  centers.clear();\n  if(points.empty())\n  {\n    return;\n  }\n\n  std::vector<Point2f> patternPoints;\n  hierarchicalClustering(points, patternSize, patternPoints);\n  if(patternPoints.empty())\n  {\n    return;\n  }\n\n#ifdef DEBUG_CIRCLES\n  Mat patternPointsImage(1024, 1248, CV_8UC1, Scalar(0));\n  drawPoints(patternPoints, patternPointsImage);\n  imshow(\"pattern points\", patternPointsImage);\n#endif\n\n  std::vector<Point2f> hull2f;\n  convexHull(patternPoints, hull2f, false);\n  const size_t cornersCount = isAsymmetricGrid ? 6 : 4;\n  if(hull2f.size() < cornersCount)\n    return;\n\n  std::vector<Point2f> corners;\n  findCorners(hull2f, corners);\n  if(corners.size() != cornersCount)\n    return;\n\n  std::vector<Point2f> outsideCorners, sortedCorners;\n  if(isAsymmetricGrid)\n  {\n    findOutsideCorners(corners, outsideCorners);\n    const size_t outsideCornersCount = 2;\n    if(outsideCorners.size() != outsideCornersCount)\n      return;\n  }\n  getSortedCorners(hull2f, patternPoints, corners, outsideCorners, sortedCorners);\n  if(sortedCorners.size() != cornersCount)\n    return;\n\n  std::vector<Point2f> rectifiedPatternPoints;\n  rectifyPatternPoints(patternPoints, sortedCorners, rectifiedPatternPoints);\n  if(patternPoints.size() != rectifiedPatternPoints.size())\n    return;\n\n  parsePatternPoints(patternPoints, rectifiedPatternPoints, centers);\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": true,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridClusterFinder",
+        "signature": "CirclesGridClusterFinder::findCorners(const int & hull2f, int & corners)",
+        "start_line": 191,
+        "end_line": 218,
+        "snippet": "void CirclesGridClusterFinder::findCorners(const std::vector<cv::Point2f> &hull2f, std::vector<cv::Point2f> &corners)\n{\n  //find angles (cosines) of vertices in convex hull\n  std::vector<float> angles;\n  for(size_t i=0; i<hull2f.size(); i++)\n  {\n    Point2f vec1 = hull2f[(i+1) % hull2f.size()] - hull2f[i % hull2f.size()];\n    Point2f vec2 = hull2f[(i-1 + static_cast<int>(hull2f.size())) % hull2f.size()] - hull2f[i % hull2f.size()];\n    float angle = (float)(vec1.ddot(vec2) / (norm(vec1) * norm(vec2)));\n    angles.push_back(angle);\n  }\n\n  //sort angles by cosine\n  //corners are the most sharp angles (6)\n  Mat anglesMat = Mat(angles);\n  Mat sortedIndices;\n  sortIdx(anglesMat, sortedIndices, SORT_EVERY_COLUMN + SORT_DESCENDING);\n  CV_Assert(sortedIndices.type() == CV_32SC1);\n  CV_Assert(sortedIndices.cols == 1);\n  const int cornersCount = isAsymmetricGrid ? 6 : 4;\n  Mat cornersIndices;\n  cv::sort(sortedIndices.rowRange(0, cornersCount), cornersIndices, SORT_EVERY_COLUMN + SORT_ASCENDING);\n  corners.clear();\n  for(int i=0; i<cornersCount; i++)\n  {\n    corners.push_back(hull2f[cornersIndices.at<int>(i, 0)]);\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridClusterFinder",
+        "signature": "CirclesGridClusterFinder::findOutsideCorners(const int & corners, int & outsideCorners)",
+        "start_line": 220,
+        "end_line": 294,
+        "snippet": "void CirclesGridClusterFinder::findOutsideCorners(const std::vector<cv::Point2f> &corners, std::vector<cv::Point2f> &outsideCorners)\n{\n  CV_Assert(!corners.empty());\n  outsideCorners.clear();\n  //find two pairs of the most nearest corners\n  const size_t n = corners.size();\n\n#ifdef DEBUG_CIRCLES\n  Mat cornersImage(1024, 1248, CV_8UC1, Scalar(0));\n  drawPoints(corners, cornersImage);\n  imshow(\"corners\", cornersImage);\n#endif\n\n  std::vector<Point2f> tangentVectors(n);\n  for(size_t k=0; k < n; k++)\n  {\n    Point2f diff = corners[(k + 1) % n] - corners[k];\n    tangentVectors[k] = diff * (1.0f / norm(diff));\n  }\n\n  //compute angles between all sides\n  Mat cosAngles((int)n, (int)n, CV_32FC1, 0.0f);\n  for(size_t i = 0; i < n; i++)\n  {\n    for(size_t j = i + 1; j < n; j++)\n    {\n      float val = fabs(tangentVectors[i].dot(tangentVectors[j]));\n      cosAngles.at<float>((int)i, (int)j) = val;\n      cosAngles.at<float>((int)j, (int)i) = val;\n    }\n  }\n\n  //find two parallel sides to which outside corners belong\n  Point maxLoc;\n  minMaxLoc(cosAngles, 0, 0, 0, &maxLoc);\n  const int diffBetweenFalseLines = 3;\n  if(abs(maxLoc.x - maxLoc.y) == diffBetweenFalseLines)\n  {\n    cosAngles.row(maxLoc.x).setTo(0.0f);\n    cosAngles.col(maxLoc.x).setTo(0.0f);\n    cosAngles.row(maxLoc.y).setTo(0.0f);\n    cosAngles.col(maxLoc.y).setTo(0.0f);\n    minMaxLoc(cosAngles, 0, 0, 0, &maxLoc);\n  }\n\n#ifdef DEBUG_CIRCLES\n  Mat linesImage(1024, 1248, CV_8UC1, Scalar(0));\n  line(linesImage, corners[maxLoc.y], corners[(maxLoc.y + 1) % n], Scalar(255));\n  line(linesImage, corners[maxLoc.x], corners[(maxLoc.x + 1) % n], Scalar(255));\n  imshow(\"lines\", linesImage);\n#endif\n\n  int maxIdx = std::max(maxLoc.x, maxLoc.y);\n  int minIdx = std::min(maxLoc.x, maxLoc.y);\n  const int bigDiff = 4;\n  if(maxIdx - minIdx == bigDiff)\n  {\n    minIdx += (int)n;\n    std::swap(maxIdx, minIdx);\n  }\n  if(maxIdx - minIdx != (int)n - bigDiff)\n  {\n    return;\n  }\n\n  int outsidersSegmentIdx = (minIdx + maxIdx) / 2;\n\n  outsideCorners.push_back(corners[outsidersSegmentIdx % n]);\n  outsideCorners.push_back(corners[(outsidersSegmentIdx + 1) % n]);\n\n#ifdef DEBUG_CIRCLES\n  drawPoints(outsideCorners, cornersImage, 2, Scalar(128));\n  imshow(\"corners\", cornersImage);\n#endif\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridClusterFinder",
+        "signature": "CirclesGridClusterFinder::getSortedCorners(const int & hull2f, const int & patternPoints, const int & corners, const int & outsideCorners, int & sortedCorners)",
+        "start_line": 307,
+        "end_line": 381,
+        "snippet": "void CirclesGridClusterFinder::getSortedCorners(const std::vector<cv::Point2f> &hull2f, const std::vector<cv::Point2f> &patternPoints, const std::vector<cv::Point2f> &corners, const std::vector<cv::Point2f> &outsideCorners, std::vector<cv::Point2f> &sortedCorners)\n{\n  Point2f firstCorner;\n  if(isAsymmetricGrid)\n  {\n    Point2f center = std::accumulate(corners.begin(), corners.end(), Point2f(0.0f, 0.0f));\n    center *= 1.0 / corners.size();\n\n    std::vector<Point2f> centerToCorners;\n    for(size_t i=0; i<outsideCorners.size(); i++)\n    {\n      centerToCorners.push_back(outsideCorners[i] - center);\n    }\n\n    //TODO: use CirclesGridFinder::getDirection\n    float crossProduct = centerToCorners[0].x * centerToCorners[1].y - centerToCorners[0].y * centerToCorners[1].x;\n    //y axis is inverted in computer vision so we check > 0\n    bool isClockwise = crossProduct > 0;\n    firstCorner  = isClockwise ? outsideCorners[1] : outsideCorners[0];\n  }\n  else\n  {\n    firstCorner = corners[0];\n  }\n\n  std::vector<Point2f>::const_iterator firstCornerIterator = std::find(hull2f.begin(), hull2f.end(), firstCorner);\n  sortedCorners.clear();\n  for(std::vector<Point2f>::const_iterator it = firstCornerIterator; it != hull2f.end();++it)\n  {\n    std::vector<Point2f>::const_iterator itCorners = std::find(corners.begin(), corners.end(), *it);\n    if(itCorners != corners.end())\n    {\n      sortedCorners.push_back(*it);\n    }\n  }\n  for(std::vector<Point2f>::const_iterator it = hull2f.begin(); it != firstCornerIterator;++it)\n  {\n    std::vector<Point2f>::const_iterator itCorners = std::find(corners.begin(), corners.end(), *it);\n    if(itCorners != corners.end())\n    {\n      sortedCorners.push_back(*it);\n    }\n  }\n\n  if(!isAsymmetricGrid)\n  {\n    double dist01 = norm(sortedCorners[0] - sortedCorners[1]);\n    double dist12 = norm(sortedCorners[1] - sortedCorners[2]);\n    // Use half the average distance between circles on the shorter side as threshold for determining whether a point lies on an edge.\n    double thresh = min(dist01, dist12) / min(patternSize.width, patternSize.height) / 2;\n\n    size_t circleCount01 = 0;\n    size_t circleCount12 = 0;\n    Vec4f line01( sortedCorners[0].x, sortedCorners[0].y, sortedCorners[1].x, sortedCorners[1].y );\n    Vec4f line12( sortedCorners[1].x, sortedCorners[1].y, sortedCorners[2].x, sortedCorners[2].y );\n    // Count the circles along both edges.\n    for (size_t i = 0; i < patternPoints.size(); i++)\n    {\n      if (pointLineDistance(patternPoints[i], line01) < thresh)\n        circleCount01++;\n      if (pointLineDistance(patternPoints[i], line12) < thresh)\n        circleCount12++;\n    }\n\n    // Ensure that the edge from sortedCorners[0] to sortedCorners[1] is the one with more circles (i.e. it is interpreted as the pattern's width).\n    if ((circleCount01 > circleCount12 && patternSize.height > patternSize.width) || (circleCount01 < circleCount12 && patternSize.height < patternSize.width))\n    {\n      for(size_t i=0; i<sortedCorners.size()-1; i++)\n      {\n        sortedCorners[i] = sortedCorners[i+1];\n      }\n      sortedCorners[sortedCorners.size() - 1] = firstCorner;\n    }\n  }\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridClusterFinder",
+        "signature": "CirclesGridClusterFinder::rectifyPatternPoints(const int & patternPoints, const int & sortedCorners, int & rectifiedPatternPoints)",
+        "start_line": 383,
+        "end_line": 417,
+        "snippet": "void CirclesGridClusterFinder::rectifyPatternPoints(const std::vector<cv::Point2f> &patternPoints, const std::vector<cv::Point2f> &sortedCorners, std::vector<cv::Point2f> &rectifiedPatternPoints)\n{\n  //indices of corner points in pattern\n  std::vector<Point> trueIndices;\n  trueIndices.emplace_back(0, 0);\n  trueIndices.emplace_back(patternSize.width - 1, 0);\n  if(isAsymmetricGrid)\n  {\n    trueIndices.emplace_back(patternSize.width - 1, 1);\n    trueIndices.emplace_back(patternSize.width - 1, patternSize.height - 2);\n  }\n  trueIndices.emplace_back(patternSize.width - 1, patternSize.height - 1);\n  trueIndices.emplace_back(0, patternSize.height - 1);\n\n  std::vector<Point2f> idealPoints;\n  for(size_t idx=0; idx<trueIndices.size(); idx++)\n  {\n    int i = trueIndices[idx].y;\n    int j = trueIndices[idx].x;\n    if(isAsymmetricGrid)\n    {\n      idealPoints.emplace_back((2*j + i % 2)*squareSize, i*squareSize);\n    }\n    else\n    {\n      idealPoints.emplace_back(j*squareSize, i*squareSize);\n    }\n  }\n\n  Mat homography = findHomography(sortedCorners, idealPoints, 0);\n  Mat rectifiedPointsMat;\n  transform(patternPoints, rectifiedPointsMat, homography);\n  rectifiedPatternPoints.clear();\n  convertPointsFromHomogeneous(rectifiedPointsMat, rectifiedPatternPoints);\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridClusterFinder",
+        "signature": "CirclesGridClusterFinder::parsePatternPoints(const int & patternPoints, const int & rectifiedPatternPoints, int & centers)",
+        "start_line": 419,
+        "end_line": 461,
+        "snippet": "void CirclesGridClusterFinder::parsePatternPoints(const std::vector<cv::Point2f> &patternPoints, const std::vector<cv::Point2f> &rectifiedPatternPoints, std::vector<cv::Point2f> &centers)\n{\n#ifndef HAVE_OPENCV_FLANN\n  CV_UNUSED(patternPoints);\n  CV_UNUSED(rectifiedPatternPoints);\n  CV_UNUSED(centers);\n  CV_Error(Error::StsNotImplemented, \"The desired functionality requires flann module, which was disabled.\");\n#else\n  flann::LinearIndexParams flannIndexParams;\n  flann::Index flannIndex(Mat(rectifiedPatternPoints).reshape(1), flannIndexParams);\n\n  centers.clear();\n  for( int i = 0; i < patternSize.height; i++ )\n  {\n    for( int j = 0; j < patternSize.width; j++ )\n    {\n      Point2f idealPt;\n      if(isAsymmetricGrid)\n        idealPt = Point2f((2*j + i % 2)*squareSize, i*squareSize);\n      else\n        idealPt = Point2f(j*squareSize, i*squareSize);\n\n      Mat query(1, 2, CV_32F, &idealPt);\n      const int knn = 1;\n      int indicesbuf[knn] = {0};\n      float distsbuf[knn] = {0.f};\n      Mat indices(1, knn, CV_32S, &indicesbuf);\n      Mat dists(1, knn, CV_32F, &distsbuf);\n      flannIndex.knnSearch(query, indices, dists, knn, flann::SearchParams());\n      centers.push_back(patternPoints.at(indicesbuf[0]));\n\n      if(distsbuf[0] > maxRectifiedDistance)\n      {\n#ifdef DEBUG_CIRCLES\n        std::cout << \"Pattern not detected: too large rectified distance\" << std::endl;\n#endif\n        centers.clear();\n        return;\n      }\n    }\n  }\n#endif\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "CirclesGridFinderParameters",
+        "signature": "CirclesGridFinderParameters::CirclesGridFinderParameters()",
+        "start_line": 575,
+        "end_line": 596,
+        "snippet": "CirclesGridFinderParameters::CirclesGridFinderParameters()\n{\n  minDensity = 10;\n  densityNeighborhoodSize = Size2f(16, 16);\n  minDistanceToAddKeypoint = 20;\n  kmeansAttempts = 100;\n  convexHullFactor = 1.1f;\n  keypointScale = 1;\n\n  minGraphConfidence = 9;\n  vertexGain = 1;\n  vertexPenalty = -0.6f;\n  edgeGain = 1;\n  edgePenalty = -0.6f;\n  existingVertexGain = 10000;\n\n  minRNGEdgeSwitchDist = 5.f;\n  gridType = SYMMETRIC_GRID;\n\n  squareSize = 1.0f;\n  maxRectifiedDistance = squareSize/2.0f;\n}",
+        "comment": ""
+    },
+    {
+        "is_bug": false,
+        "src_path": "opencv_calib3d_TF_top30/modules/calib3d/src/circlesgrid.cpp",
+        "class_name": "FUNCTIONWITHOUTCLASS",
+        "signature": "pointLineDistance(const cv::Point2f & p, const cv::Vec4f & line)",
+        "start_line": 297,
+        "end_line": 304,
+        "snippet": "double pointLineDistance(const cv::Point2f &p, const cv::Vec4f &line)\n{\n  Vec3f pa( line[0], line[1], 1 );\n  Vec3f pb( line[2], line[3], 1 );\n  Vec3f l = pa.cross(pb);\n  return std::abs((p.x * l[0] + p.y * l[1] + l[2])) * 1.0 /\n         std::sqrt(double(l[0] * l[0] + l[1] * l[1]));\n}",
+        "comment": ""
+    }
+]

@@ -1,5 +1,5 @@
 import re
-
+import tiktoken
 
 def drop_base_name(name):
     if "." in name:
@@ -76,6 +76,22 @@ def name_matcher(short_name, full_name): # modified
     truncated_full_name = full_name[-type_depth-1:]
     return short_name == truncated_full_name
 
+def get_method_name_and_args_for_c_cpp(expr: str) -> tuple:
+    method_sign = expr
+    if "." in expr.split("(")[0]:
+        expr = expr.split("(")[0].replace(".", "::") + "(" + expr.split("(")[1]
+    if "::" in expr.split("(")[0]:
+        method_sign = expr.split("(")[0].split("::")[-1] + "(" + expr.split("(", 1)[1]
+    
+    m = re.match(r"(\S+)\((.*)\)", method_sign)
+
+    if m: # is a form of method(args)
+        method_name = m.group(1)
+        arguments = parse_arguments(m.group(2).strip())
+    
+    return method_name, arguments
+
+
 def lenient_matcher(pred_expr, gt_answer):
     if pred_expr == gt_answer: # Exact Matching
         return True
@@ -91,5 +107,46 @@ def lenient_matcher(pred_expr, gt_answer):
         and name_matcher(pred_method_name, gt_method_name) \
         and gt_arg_types == pred_arg_types
 
+def lenient_matcher_for_c_cpp(pred_expr, gt_answer, threshold=0):
+    if pred_expr == gt_answer: # Exact Matching
+        return True
+    
+    try:
+        pred_method_name, pred_args = get_method_name_and_args_for_c_cpp(pred_expr)
+        gt_method_name, gt_args = get_method_name_and_args_for_c_cpp(gt_answer)
+
+        arg_diff = abs(len(pred_args) - len(gt_args))
+        if arg_diff <= threshold and pred_method_name == gt_method_name:
+            return True
+        else:
+            return False
+    except:
+        return False # not a valid signature
+        
+
 def python_lenient_matcher(pred, buggy_method):
     return pred.split('(')[0] == buggy_method.split('(')[0]
+
+def count_chat_tokens(messages, model="gpt-4-turbo"):
+    """Accurately count tokens used by OpenAI chat models like gpt-3.5-turbo or gpt-4-turbo."""
+    encoding = tiktoken.encoding_for_model(model)
+
+    # Rules based on OpenAI's documentation
+    tokens_per_message = 3  # every message: <|start|>{role/name}\n{content}<|end|>
+    tokens_per_name = 1     # if name is present
+
+    total_tokens = 0
+    for message in messages:
+        total_tokens += tokens_per_message
+        for key, value in message.items():
+            if key == "function_call" and isinstance(value, dict):
+                for k, v in value.items():
+                    total_tokens += len(encoding.encode(k))
+                    total_tokens += len(encoding.encode(str(v)))
+            else:
+                total_tokens += len(encoding.encode(str(value)))
+                if key == "name":
+                    total_tokens += tokens_per_name
+
+    total_tokens += 3  # priming for reply: assistant role tag
+    return total_tokens

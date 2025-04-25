@@ -1,0 +1,71 @@
+
+--- Calib3d_CalibrateHandEye.regression_24871
+EEE error msg
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_CalibrateHandEye
+[ RUN      ] Calib3d_CalibrateHandEye.regression_24871
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp:12: error: (-215:Assertion failed) T.rows == 4 && T.cols == 4 in function 'homogeneousInverse'
+" thrown in the test body.
+[  FAILED  ] Calib3d_CalibrateHandEye.regression_24871 (0 ms)
+[----------] 1 test from Calib3d_CalibrateHandEye (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_CalibrateHandEye.regression_24871
+
+ 1 FAILED TEST
+BBB backtrace
+#0  testing::UnitTest::AddTestPartResult(testing::TestPartResult::Type, char const*, int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (this=0x5555557b42a0 <testing::UnitTest::GetInstance()::instance>, result_type=testing::TestPartResult::kFatalFailure, file_name=0x0, line_number=-1, message="C++ exception with description \"OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp:12: error: (-215:A"..., os_stack_trace="") at opencv_calib3d/modules/ts/src/ts_gtest.cpp:6122
+#1  0x000055555573bca4 in testing::internal::ReportFailureInUnknownLocation(testing::TestPartResult::Type, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (result_type=testing::TestPartResult::kFatalFailure, message="C++ exception with description \"OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp:12: error: (-215:A"...) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3771
+#2  0x000055555573bdf3 in testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (object=object@entry=0x5555557f3a50, method=<optimized out>, location=location@entry=0x5555557613a4 "the test body") at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3964
+#3  0x000055555573bfcd in testing::Test::Run() (this=0x5555557f3a50) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3993
+#4  testing::Test::Run() (this=0x5555557f3a50) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3984
+#5  0x000055555573c2f8 in testing::TestInfo::Run() (this=0x5555557db2c0) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4169
+#6  testing::TestInfo::Run() (this=0x5555557db2c0) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4143
+#7  0x000055555573c5f5 in testing::TestCase::Run() (this=0x5555557da970) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4287
+#8  testing::TestCase::Run() (this=0x5555557da970) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4272
+#9  0x000055555573cbac in testing::internal::UnitTestImpl::RunAllTests() (this=0x5555557d8980) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:6662
+#10 0x000055555573ccef in testing::internal::HandleSehExceptionsInMethodIfSupported<testing::internal::UnitTestImpl, bool>(testing::internal::UnitTestImpl*, bool (testing::internal::UnitTestImpl::*)(), char const*) (location=0x555555761590 "auxiliary test code (environments or event listeners)", method=<optimized out>, object=0x5555557d8980) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3900
+#11 testing::internal::HandleExceptionsInMethodIfSupported<testing::internal::UnitTestImpl, bool>(testing::internal::UnitTestImpl*, bool (testing::internal::UnitTestImpl::*)(), char const*) (location=0x555555761590 "auxiliary test code (environments or event listeners)", method=(bool (testing::internal::UnitTestImpl::*)(testing::internal::UnitTestImpl * const)) 0x55555573c680 <testing::internal::UnitTestImpl::RunAllTests()>, object=0x5555557d8980) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3955
+#12 testing::UnitTest::Run() (this=<optimized out>) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:6271
+#13 0x00005555555b5fd8 in RUN_ALL_TESTS() () at opencv_calib3d/modules/ts/include/opencv2/ts/ts_gtest.h:22240
+#14 main(int, char**) (argc=<optimized out>, argv=0x7fffffffdc18) at opencv_calib3d/modules/calib3d/test/test_main.cpp:10
+--- Calib3d_CalibrateHandEye.regression_17986
+EEE error msg
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from Calib3d_CalibrateHandEye
+[ RUN      ] Calib3d_CalibrateHandEye.regression_17986
+unknown file: Failure
+C++ exception with description "OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/calib3d/src/calibration_handeye.cpp:12: error: (-215:Assertion failed) T.rows == 4 && T.cols == 4 in function 'homogeneousInverse'
+" thrown in the test body.
+[  FAILED  ] Calib3d_CalibrateHandEye.regression_17986 (39 ms)
+[----------] 1 test from Calib3d_CalibrateHandEye (39 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (39 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Calib3d_CalibrateHandEye.regression_17986
+
+ 1 FAILED TEST
+BBB backtrace
+#0  testing::UnitTest::AddTestPartResult(testing::TestPartResult::Type, char const*, int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (this=0x5555557b42a0 <testing::UnitTest::GetInstance()::instance>, result_type=testing::TestPartResult::kFatalFailure, file_name=0x0, line_number=-1, message="C++ exception with description \"OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/ts/src/ts.cpp:1071: error: (-2:Unspecified error) Open"..., os_stack_trace="") at opencv_calib3d/modules/ts/src/ts_gtest.cpp:6122
+#1  0x000055555573bca4 in testing::internal::ReportFailureInUnknownLocation(testing::TestPartResult::Type, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (result_type=testing::TestPartResult::kFatalFailure, message="C++ exception with description \"OpenCV(4.10.0) /ssd_home/yangheechan/subject_repositories/opencv_calib3d_TF_top30/opencv_calib3d_TF_top30/modules/ts/src/ts.cpp:1071: error: (-2:Unspecified error) Open"...) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3771
+#2  0x000055555573bdf3 in testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (object=object@entry=0x5555557f3a50, method=<optimized out>, location=location@entry=0x5555557613a4 "the test body") at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3964
+#3  0x000055555573bfcd in testing::Test::Run() (this=0x5555557f3a50) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3993
+#4  testing::Test::Run() (this=0x5555557f3a50) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3984
+#5  0x000055555573c2f8 in testing::TestInfo::Run() (this=0x5555557dad50) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4169
+#6  testing::TestInfo::Run() (this=0x5555557dad50) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4143
+#7  0x000055555573c5f5 in testing::TestCase::Run() (this=0x5555557da970) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4287
+#8  testing::TestCase::Run() (this=0x5555557da970) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:4272
+#9  0x000055555573cbac in testing::internal::UnitTestImpl::RunAllTests() (this=0x5555557d8980) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:6662
+#10 0x000055555573ccef in testing::internal::HandleSehExceptionsInMethodIfSupported<testing::internal::UnitTestImpl, bool>(testing::internal::UnitTestImpl*, bool (testing::internal::UnitTestImpl::*)(), char const*) (location=0x555555761590 "auxiliary test code (environments or event listeners)", method=<optimized out>, object=0x5555557d8980) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3900
+#11 testing::internal::HandleExceptionsInMethodIfSupported<testing::internal::UnitTestImpl, bool>(testing::internal::UnitTestImpl*, bool (testing::internal::UnitTestImpl::*)(), char const*) (location=0x555555761590 "auxiliary test code (environments or event listeners)", method=(bool (testing::internal::UnitTestImpl::*)(testing::internal::UnitTestImpl * const)) 0x55555573c680 <testing::internal::UnitTestImpl::RunAllTests()>, object=0x5555557d8980) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:3955
+#12 testing::UnitTest::Run() (this=<optimized out>) at opencv_calib3d/modules/ts/src/ts_gtest.cpp:6271
+#13 0x00005555555b5fd8 in RUN_ALL_TESTS() () at opencv_calib3d/modules/ts/include/opencv2/ts/ts_gtest.h:22240
+#14 main(int, char**) (argc=<optimized out>, argv=0x7fffffffdc18) at opencv_calib3d/modules/calib3d/test/test_main.cpp:10
